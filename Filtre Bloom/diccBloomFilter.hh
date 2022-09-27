@@ -3,8 +3,6 @@
 
 #include <string>
 
-using namespace std;
-
 class BloomFilterDictionary {
     public:
         BloomFilterDictionary ();
@@ -15,6 +13,5 @@ class BloomFilterDictionary {
     private:
         
 };
-
 
 #endif
