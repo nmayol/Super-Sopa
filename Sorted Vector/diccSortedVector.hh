@@ -10,6 +10,8 @@ class SortedVectorDictionary {
         void afegir (string s);
 
         bool comprovar(string s);
+
+        
     private:
         
 };
