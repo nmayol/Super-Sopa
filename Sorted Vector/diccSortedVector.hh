@@ -1,16 +1,16 @@
-#ifndef SORTED_VECTOR
-#define SORTED_VECTOR
+#ifndef SORTEDVECTOR_HH
+#define SORTEDVECTOR_HH
 
 #include <string>
+using namespace std;
 
-class SortedVectorDictionary {
+class SortedVector {
     public:
-        SortedVectorDictionary ();
+        SortedVector ();
 
         void afegir (string s);
 
         bool comprovar(string s);
-
         
 
         

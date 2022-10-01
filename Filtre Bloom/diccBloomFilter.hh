@@ -2,6 +2,7 @@
 #define BLOOM_FILTER
 
 #include <string>
+using namespace std;
 
 class BloomFilterDictionary {
     public:
