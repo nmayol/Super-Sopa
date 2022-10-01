@@ -2,6 +2,8 @@
 #define HASH_TABLE
 
 #include <string>
+using namespace std;
+
 
 class HashTableDictionary {
     public:

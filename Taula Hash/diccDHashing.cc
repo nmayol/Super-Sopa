@@ -1,6 +1,5 @@
 #include "diccDHashing.hh"
 
-using namespace std;
 
 void HashTableDictionary::afegir (string s) {
     
