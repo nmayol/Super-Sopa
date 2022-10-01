@@ -2,7 +2,14 @@
 
 using namespace std;
 
-void superSopa::llegirDiccionari () {}
+// crea una super sopa on l'atribut sopa té mida nxn
+superSopa::superSopa(int n) {
+    so.resize(n,vector<char >(n));
+}
+
+void superSopa::llegirDiccionari () {
+    
+}
 
 void superSopa::resoldreVector () {}
 
