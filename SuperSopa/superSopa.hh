@@ -8,14 +8,22 @@
 
 #include <string>
 
-class BloomFilterDictionary {
-    public:
-        BloomFilterDictionary ();
+typedef vector<vector<char >> Sopa;
 
+class superSopa {
+    public:
+        superSopa ();
+        void llegirDiccionari();
+        void resoldreVector (); 
+        void resoldreTrie ();
+        void resoldreDHash ();
+        void resoldreBloom ();        
+        
+ 
+    private:
+        Sopa so;
         void afegir (string s);
 
-        bool comprovar(string s);
-    private:
         
 };
 
