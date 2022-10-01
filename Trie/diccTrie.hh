@@ -2,6 +2,7 @@
 #define TRIE
 
 #include <string>
+using namespace std;
 
 class TrieDictionary {
     public:

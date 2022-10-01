@@ -1,6 +1,6 @@
 #include "diccTrie.hh"
 
-using namespace std;
+
 
 void TrieDictionary::afegir (string s) {
     
