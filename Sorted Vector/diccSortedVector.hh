@@ -12,6 +12,8 @@ class SortedVectorDictionary {
         bool comprovar(string s);
 
         
+
+        
     private:
         
 };
