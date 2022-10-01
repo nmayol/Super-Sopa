@@ -1,11 +1,11 @@
 #include "diccSortedVector.hh"
 
-using namespace std;
 
-void SortedVectorDictionary::afegir (string s) {
+
+void SortedVector::afegir (string s) {
     
 }
 
-bool SortedVectorDictionary::comprovar (string s) {
+bool SortedVector::comprovar (string s) {
     return true;  
 }
