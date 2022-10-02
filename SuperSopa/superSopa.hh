@@ -3,6 +3,8 @@
 
 #include <vector>
 #include <string>
+#include<iostream>
+using namespace std;
 
 
 #include "../Filtre Bloom/diccBloomFilter.hh"
@@ -16,18 +18,20 @@ typedef vector<vector<char >> Sopa;
 class superSopa {
     public:
         superSopa ();
-        superSopa (int n);
-        void llegirDiccionari();
+        superSopa (int mida);
+        void llegirDiccionari(vector<string>& v);
         void resoldreVector (); 
         void resoldreTrie ();
         void resoldreDHash ();
         void resoldreBloom ();        
-        
+        void imprimirSopa ();  
  
     private:
         Sopa so;
+        int n;
         void afegir (string s);
-
+        bool afegirLletra(const int& i,const int& j, const int& c);
+        bool compleixLimits(const int& i,const int& j);
         
 };
 

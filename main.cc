@@ -12,5 +12,7 @@ int main () {
     superSopa s = superSopa(n);
     // poso aixo per provar
     vector <string> dic = {"a", "eee", "pol", "super", "sopa", "esternoclidomastoidal"};
+    s.llegirDiccionari(dic);
+    s.imprimirSopa();
     
 }

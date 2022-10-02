@@ -1,0 +1,10 @@
+.vscode/c_cpp_properties.json
+.vscode/settings.json
+.vscode/tasks.json
+Sorted Vector/diccSortedVector.o
+Filtre Bloom/diccBloomFilter.o
+SuperSopa/superSopa.o
+Taula Hash/diccDHashing.o
+Trie/diccTrie.o
+main.o
+main.exe
