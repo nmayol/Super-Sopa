@@ -55,29 +55,24 @@ void superSopa::costruirSopa(const vector<string>& dicc) {
     // pos es un vector que indica a quines posicions hi ha NOMES la paraula amb que es treballa, per tal que no es creui amb ella mateixa.
     vector<vector<bool>> pos(n, vector<bool>(n,false));
     while (iterador != dicc.size()) {
-        
+        //cout << dicc[iterador] << ": " << endl; 
         i0 = randomInferiorA(n); j0 = randomInferiorA(n);
         while (not caracterSituable(i0,j0,dicc[iterador][0])) {
             i0 = randomInferiorA(n); j0 = randomInferiorA(n);
         }     
-        
+                
+        bool afegida = false;
+        afegirParaula (dicc[iterador],i0,j0,pos,0, afegida);
+        if (afegida) ++iterador;
+        else pos[i0][j0] = false;
 
-        pos[i0][j0] = true;
-        afegirLletra(i0,j0,dicc[iterador][0]);
-        if (afegirParaula (dicc[iterador],i0,j0,pos,1)) {
-            ++iterador;
-           
-        }
-        else {
-            afegirLletra(i0,j0,' ');
-            pos[i0][j0] = false;
-        }
-        
         vector< vector < bool>> x(n, vector<bool>(n,false));
         pos = x;
-
+        //system("CLS");
+        //imprimirSopa();
     }
-    //omplebuits();
+    omplebuits();
+
 }
 
 void superSopa::omplebuits() {
@@ -87,9 +82,7 @@ void superSopa::omplebuits() {
         for (int j = 0; j < n; ++j) {
             if (so[i][j] == ' ') {
                 std::shuffle(std::begin(letters), std::end(letters), rng);
-                for (int k =0; k < n; ++k) cout << letters[k] << ' ';
-                cout << endl;
-                so[i][j] = 'a' + letters[(randomInferiorA(27))];
+                so[i][j] = letters[(randomInferiorA(27))];
             }
         }
     }
@@ -108,43 +101,36 @@ void superSopa::resoldreDHash () {}
 
 
 
-bool superSopa::afegirParaula (string s, int i0, int j0, vector<vector<bool>> pos, int k) {   
+void superSopa::afegirParaula (string s, int i0, int j0, vector<vector<bool>> pos, int k, bool& afegida) {   
     // Escull una posició random i hi posa la paraula.
-    if (k == s.size()) {
-        cout << s << endl;
-        imprimirParaulaenSopa(pos);
-        return true;
-    }
+    
+    if (k >= s.size()) return;
     bool posable = false;
     int ni, nj, direccions_provades = 0, index = randomInferiorA(8), sentit = SENTIT[randomInferiorA(2)];
     pair<int,int> ndir = DIR[index];
     
-    while (not posable and direccions_provades < 8 ) {
+    while (not posable and direccions_provades < 8) {
         ni = ndir.first + i0; nj = ndir.second + j0;
-        
+        index = abs((index + sentit) % 8);
+        ndir = DIR[index];
         posable = (caracterSituable(ni,nj,s[k]) and not pos[ni][nj]);
         if (posable) {
             pos[ni][nj] = true;   
-            afegirLletra (ni,nj,s[k]);         
-            return (afegirParaula (s,ni,nj,pos,k+1));
-            afegirLletra (ni,nj,' ');
-            pos[ni][nj] = false;
+            if (k == s.size() - 1) {
+                afegida = true;
+                afegirLletra(ni,nj,s[k]);
+            }
+            else {
+                afegirParaula (s,ni,nj,pos,k+1,afegida);
+                if (afegida) afegirLletra (ni,nj,s[k]);
+                else pos[ni][nj] = false;
+            }
+            
         }
-        ++direccions_provades;
-        index = abs((index + sentit) % 8);
-        ndir = DIR[index];
-        
+        ++direccions_provades;  
     }
+     
     
-    if (not posable) {
-        //cout << "no he pogut posar la " << s[k] << " de " << s << endl;
-        if ((caracterSituable(ni,nj,s[k]))) {
-            afegirLletra (ni,nj,' ');
-            pos[ni][nj] = false;
-        }
-    }
-
-
     
 }
 
@@ -152,8 +138,7 @@ bool superSopa::afegirParaula (string s, int i0, int j0, vector<vector<bool>> po
 void superSopa::afegirLletra (const int& i,const int& j, const char& c) {   
     // Escull una posició so[i][j] i hi posa la lletra.
     so[i][j] = c;
-    system("CLS");
-    imprimirSopa();
+
 }
 
 // Retorna true si la posició (i,j) és una posició de la Sopa.
