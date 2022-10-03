@@ -6,6 +6,10 @@
 #include <iostream>
 #include <time.h>
 #include <cstdlib>
+#include <random>
+#include <algorithm>
+#include <stdlib.h>
+
 
 using namespace std;
 
@@ -21,7 +25,7 @@ typedef vector<vector<char >> Sopa;
 class superSopa {
     public:
         superSopa ();
-        superSopa (int mida);
+        superSopa (const int& mida);
         void llegirDiccionari(vector<string>& v);
         void costruirSopa(const vector<string>& dicc);
 
@@ -36,11 +40,13 @@ class superSopa {
     private:
         Sopa so;
         int n;
-        bool afegirParaula (string s, int i0, int j0, vector<vector<bool>>& pos, int k);
+        bool afegirParaula (string s, int i0, int j0, vector<vector<bool>> pos, int k);
         void afegirLletra(const int& i,const int& j, const char& c);
+        void omplebuits();
         bool compleixLimits(const int& i,const int& j);
         int randomInferiorA(int x);
         bool caracterSituable(const int& i,const int& j, const char& c);
+        void imprimirParaulaenSopa (const vector< vector< bool>>& pos);
         
 };
 
