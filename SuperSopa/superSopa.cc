@@ -101,7 +101,7 @@ void superSopa::resoldreDHash () {}
 
 
 
-void superSopa::afegirParaula (string s, int i0, int j0, vector<vector<bool>> pos, int k, bool& afegida) {   
+void superSopa::afegirParaula (string s, int i0, int j0, vector<vector<bool>>& pos, int k, bool& afegida) {   
     // Escull una posició random i hi posa la paraula.
     
     if (k >= s.size()) return;
@@ -123,8 +123,9 @@ void superSopa::afegirParaula (string s, int i0, int j0, vector<vector<bool>> po
             else {
                 afegirParaula (s,ni,nj,pos,k+1,afegida);
                 if (afegida) afegirLletra (ni,nj,s[k]);
-                else pos[ni][nj] = false;
+                
             }
+            pos[ni][nj] = false;
             
         }
         ++direccions_provades;  

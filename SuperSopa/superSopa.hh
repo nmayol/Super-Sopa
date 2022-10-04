@@ -40,7 +40,7 @@ class superSopa {
     private:
         Sopa so;
         int n;
-        void afegirParaula (string s, int i0, int j0, vector<vector<bool>> pos, int k,bool& afegida);
+        void afegirParaula (string s, int i0, int j0, vector<vector<bool>>& pos, int k,bool& afegida);
         void afegirLletra(const int& i,const int& j, const char& c);
         void omplebuits();
         bool compleixLimits(const int& i,const int& j);
