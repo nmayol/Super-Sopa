@@ -14,12 +14,9 @@ int main () {
     // poso aixo per provar
     
     vector <string> dic = {"a", "eee", "pol", "super", "sopa", "esternoclidomastoidal"};
-    std::sort(dic.begin(), dic.end(), []
-    (const std::string& first, const std::string& second){
-        return first.size() > second.size();
-    });
 
 
+    
     s.costruirSopa(dic);
     //s.llegirDiccionari(dic);
     s.imprimirSopa();

@@ -22,6 +22,7 @@ superSopa::superSopa(const int& mida) {
     vector< vector< char> > ns (n,vector<char>(n, ' '));
     so = ns;
 }
+
 void superSopa::llegirDiccionari (vector<string>& v) {
     int m = v.size();
     for (int i = 0; i < m; ++i) {
@@ -88,7 +89,11 @@ void superSopa::omplebuits() {
     }
 }
 
-void superSopa::resoldreVector () {}
+// TODO: no és la definitiva
+void superSopa::resoldreVector (const vector <string>& x) {
+    SortedVector sv = SortedVector(x);
+    sv.resoldre();
+}
 
 void superSopa::resoldreTrie () {}
 
@@ -115,9 +120,11 @@ void superSopa::afegirParaula (string s, int i0, int j0, vector<vector<bool>>& p
         ndir = DIR[index];
         posable = (caracterSituable(ni,nj,s[k]) and not pos[ni][nj]);
         if (posable) {
+            
             pos[ni][nj] = true;   
             if (k == s.size() - 1) {
                 afegida = true;
+
                 afegirLletra(ni,nj,s[k]);
             }
             else {

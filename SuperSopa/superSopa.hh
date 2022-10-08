@@ -30,7 +30,7 @@ class superSopa {
         void costruirSopa(const vector<string>& dicc);
 
         // Metodes per resoldre-la de cadascuna de les maneres
-        void resoldreVector (); 
+        void resoldreVector (const vector <string>& x); 
         void resoldreTrie ();
         void resoldreDHash ();
         void resoldreBloom ();        
@@ -39,6 +39,7 @@ class superSopa {
  
     private:
         Sopa so;
+        
         int n;
         void afegirParaula (string s, int i0, int j0, vector<vector<bool>>& pos, int k,bool& afegida);
         void afegirLletra(const int& i,const int& j, const char& c);
