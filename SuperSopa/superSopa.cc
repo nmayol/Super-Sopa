@@ -25,13 +25,11 @@ superSopa::superSopa(const int& mida) {
 }
 
 void superSopa::imprimirSopa () {
-    cout << "  0 1 2 3 4 5 6 7 8 9" << endl;
-    int k = 0;
+    cout << "----------------------" << endl;
     for (int i = 0; i < n; ++i) {
-        cout << k << ' ' << so[i][0];
+        cout << '-' << so[i][0];
         for (int j = 1; j < n; ++j) cout << ' ' << so[i][j];
         cout << '-' << endl;
-        ++k;
     }
     cout << "----------------------" << endl;
 }
@@ -135,14 +133,12 @@ void superSopa::construirParaules(const vector<string>& dicc) {
 
     int paraules = dicc.size();     // paraules dintre diccionari
     int parSopa = 0;                // paraules dintre la SOPA
-    int maxVoltes = 100;
-    cout << paraules;
 
     srand(time(NULL));
     int index = abs(rand()) % paraules;
 
     // agafem una paraula al atzar.
-    while (parSopa < 5 /*and maxVoltes*/) {
+    while (parSopa < 4) {
 
         string p = dicc[index];
 
@@ -163,14 +159,10 @@ void superSopa::construirParaules(const vector<string>& dicc) {
         visitat = vector<vector<bool>> (n, vector<bool>(n, false));
         if (colocarParaulaRec(p, 1, i, j)) {
             ++parSopa;
-            cout << index << endl;
             ++index;
             if (index == paraules) index = 0;
             cout << "Posicions inicials de " << p << " : " << i << ' ' << j << endl;
         }
-        
-        --maxVoltes;
-
     }
     
     cout << "Total paraules: " << parSopa << endl;
