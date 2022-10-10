@@ -7,9 +7,9 @@ const vector<pair<int,int>> DIR = {make_pair( 1, 0), make_pair( 1, 1),
 
 const vector<int> SENTIT = {-1,1};
 
-vector<char> letters = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
-                         'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
-                         's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
+vector<char> letters = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I',
+                         'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
+                         'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
 
 
 
@@ -21,15 +21,17 @@ superSopa::superSopa(){};
 // crea una super sopa on l'atribut sopa té mida nxn
 superSopa::superSopa(const int& mida) {
     n = mida;
-    so = Sopa(n,vector<char>(n, ' '));
+    so = Sopa(n,vector<char>(n, '#'));
 }
 
 void superSopa::imprimirSopa () {
-    cout << "----------------------" << endl;
+    cout << "  0 1 2 3 4 5 6 7 8 9" << endl;
+    int k = 0;
     for (int i = 0; i < n; ++i) {
-        cout << '-' << so[i][0];
+        cout << k << ' ' << so[i][0];
         for (int j = 1; j < n; ++j) cout << ' ' << so[i][j];
         cout << '-' << endl;
+        ++k;
     }
     cout << "----------------------" << endl;
 }
@@ -49,13 +51,17 @@ void superSopa::imprimirParaulaenSopa (const vector< vector< bool>>& pos) {
     }
     cout << "----------------------" << endl;
 }
-
+/*
 void superSopa::costruirSopa(const vector<string>& dicc) {
-    int i0, j0, iterador = 0; bool fet = false;
+    int i0, j0, iterador = 0; 
+    bool fet = false;
+
     // pos es un vector que indica a quines posicions hi ha NOMES la paraula amb que es treballa, per tal que no es creui amb ella mateixa.
     vector<vector<bool>> pos(n, vector<bool>(n,false));
+
     while (iterador != dicc.size()) {
         //cout << dicc[iterador] << ": " << endl; 
+
         i0 = randomInferiorA(n); j0 = randomInferiorA(n);
         while (not caracterSituable(i0,j0,dicc[iterador][0])) {
             i0 = randomInferiorA(n); j0 = randomInferiorA(n);
@@ -74,13 +80,111 @@ void superSopa::costruirSopa(const vector<string>& dicc) {
     omplebuits();
 
 }
+*/
+
+bool superSopa::posok(int i, int j) {
+
+    return (i < n and i >= 0 and j < n and j >= 0 and visitat[i][j] == false);
+}
+
+/* p -> paraula a colocar dins la sopa, l -> lletres colocades.
+   El resultat es cert si hem pogut colocar correctament la paraula, fals altrament.
+   FALTA QUE NO ES SOBREPOSI :)
+*/
+bool superSopa::colocarParaulaRec(const string& p, int l, int i, int j) {
+
+    if (l == p.size()) return true;
+    else {
+        
+        // calculem una direccio aleatoria.
+        bool trobada = false;
+
+        while (not trobada) {
+            srand(time(NULL));
+            int dir = rand() % 8;
+
+            i += DIR[dir].first;
+            j += DIR[dir].second;
+
+            if (posok(i,j)) trobada = true;
+            else {
+                i -= DIR[dir].first;
+                j -= DIR[dir].second;
+            }
+            //cout << trobada << " ja que " << i << ' ' << j << endl;
+        }
+        //cout << "POSICIO TROBADA: " << i << ' ' << j << ' ' << l << endl;
+
+        if (so[i][j] == '#') {
+            so[i][j] = p[l];
+            ++l;
+            visitat[i][j] = true;
+            colocarParaulaRec(p, l, i, j);
+        }
+        else if (so[i][j] == p[l]) {
+            ++l;
+            visitat[i][j] = true;
+            colocarParaulaRec(p, l, i, j);
+        }
+        else return false;   
+    }
+    //return true;
+}
+
+void superSopa::construirParaules(const vector<string>& dicc) {
+
+    int paraules = dicc.size();     // paraules dintre diccionari
+    int parSopa = 0;                // paraules dintre la SOPA
+    int maxVoltes = 100;
+    cout << paraules;
+
+    srand(time(NULL));
+    int index = abs(rand()) % paraules;
+
+    // agafem una paraula al atzar.
+    while (parSopa < 5 /*and maxVoltes*/) {
+
+        string p = dicc[index];
+
+        // calculem la posicio on comencem.
+        bool start = false;
+        int i = 0, j = 0;
+
+        while (not start) {
+            srand(time(NULL));
+            i = rand() % n;
+            j = rand() % n;
+
+            if (so[i][j] == '#' or so[i][j] == p[0]) {
+                so[i][j] = p[0];
+                start = true;
+            }
+        }
+        visitat = vector<vector<bool>> (n, vector<bool>(n, false));
+        if (colocarParaulaRec(p, 1, i, j)) {
+            ++parSopa;
+            cout << index << endl;
+            ++index;
+            if (index == paraules) index = 0;
+            cout << "Posicions inicials de " << p << " : " << i << ' ' << j << endl;
+        }
+        
+        --maxVoltes;
+
+    }
+    
+    cout << "Total paraules: " << parSopa << endl;
+
+    // acabem de fer la sopa.
+    omplebuits();
+}
 
 void superSopa::omplebuits() {
     
     auto rng = std::default_random_engine {};
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < n; ++j) {
-            if (so[i][j] == ' ') {
+            if (so[i][j] == '#') {
                 std::shuffle(std::begin(letters), std::end(letters), rng);
                 so[i][j] = letters[(randomInferiorA(27))];
             }

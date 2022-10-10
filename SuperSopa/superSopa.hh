@@ -39,9 +39,13 @@ class superSopa {
         void resoldreBloom ();        
         
         void imprimirSopa ();  
+
+        void construirParaules(const vector<string>& dicc);
  
     private:
         Sopa so;
+        vector<vector<bool>> visitat;
+        
         int n;
         void afegirParaula (string s, int i0, int j0, vector<vector<bool>>& pos, int k,bool& afegida);
         void afegirLletra(const int& i,const int& j, const char& c);
@@ -50,6 +54,9 @@ class superSopa {
         int randomInferiorA(int x);
         bool caracterSituable(const int& i,const int& j, const char& c);
         void imprimirParaulaenSopa (const vector< vector< bool>>& pos);
+
+        bool colocarParaulaRec(const string& p, int l, int i, int j);
+        bool posok(int i, int j);
         
 };
 
