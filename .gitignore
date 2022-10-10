@@ -8,3 +8,5 @@ Taula Hash/diccDHashing.o
 Trie/diccTrie.o
 main.o
 main.exe
+mare-balena-vocabulary-3.txt:Zone.Identifier
+./Sorted Vector/out.txt

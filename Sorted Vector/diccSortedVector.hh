@@ -4,24 +4,27 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <iostream>
+#include <fstream>
+#include <set>
+
 using namespace std;
 
 class SortedVector {
     public:
         SortedVector ();
-        SortedVector (const vector<string>& vs);
-
-        void construirVector();
-
-        void afegir (string s);
-
         bool comprovar(string s);
-        
-        void resoldre();
+        int first_ocurrence(int l, int r, const char& c);
+        int last_ocurrence(int l, int r, const char& c);
+        const int getSize();
+        const int getIterador();
+        void setIterador(const int& i);
         
     private:
-        vector <string> v;
-        void OrdenarVector();
+        vector < string> v;
+        int iterador;
+        set <int> trobades;
+        void construirVector();
         
 };
 

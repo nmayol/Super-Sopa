@@ -16,18 +16,12 @@ vector<char> letters = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
 
 superSopa::superSopa(){};
 
+
+
 // crea una super sopa on l'atribut sopa té mida nxn
 superSopa::superSopa(const int& mida) {
     n = mida;
-    vector< vector< char> > ns (n,vector<char>(n, ' '));
-    so = ns;
-}
-
-void superSopa::llegirDiccionari (vector<string>& v) {
-    int m = v.size();
-    for (int i = 0; i < m; ++i) {
-
-    }
+    so = Sopa(n,vector<char>(n, ' '));
 }
 
 void superSopa::imprimirSopa () {
@@ -42,10 +36,15 @@ void superSopa::imprimirSopa () {
 
 // he fet aquesta funcio per comprovar que totes les paraules siguin a la sopa
 void superSopa::imprimirParaulaenSopa (const vector< vector< bool>>& pos) {
+    system ("CLS");
     cout << "----------------------" << endl;
     for (int i = 0; i < n; ++i) {
-        cout << '-' << pos[i][0];
-        for (int j = 1; j < n; ++j) cout << ' ' << pos[i][j];
+        if (pos[i][0]) cout << ' ' << so[i][0];
+        else cout << '-' << pos[i][0];
+        for (int j = 1; j < n; ++j) {
+            if (pos[i][j]) cout << ' ' << so[i][j];
+            else cout << ' ' << pos[i][j];
+        }
         cout << '-' << endl;
     }
     cout << "----------------------" << endl;
@@ -88,23 +87,61 @@ void superSopa::omplebuits() {
         }
     }
 }
-
+///////////////////////// FUNCIONS SORTED VECTOR ////////////////////////////////
 // TODO: no és la definitiva
-void superSopa::resoldreVector (const vector <string>& x) {
-    SortedVector sv = SortedVector(x);
-    sv.resoldre();
+void superSopa::resoldreVector () {
+    SortedVector sv = SortedVector();
+    int l = 0 , r = sv.getSize() - 1;
+    vector<vector<bool>> pos(n, vector<bool>(n,false));
+    sv.setIterador(0);
+    
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            int l = 0, r = sv.getSize();
+                    ofstream fp_out;
+            
+            buscarParaula(i,j,pos,l,r,sv);
+        }
+    }
 }
+
+// (i,j) es una posicio valida a la sopa
+void superSopa:: buscarParaula(int i , int j, vector<vector<bool>>& pos, int l, int r, SortedVector& sv) {
+    int direccions_provades = 0, ni, nj, nl, nr;
+    pos[i][j] = true;
+    
+    while (direccions_provades < 8) {
+        ni = DIR[direccions_provades].first + i; nj = DIR[direccions_provades].second + j; 
+        if (compleixLimits(ni,nj) and not pos[ni][nj]) {
+            nl = sv.first_ocurrence(l,r,so[i][j]);
+            nr = sv.last_ocurrence(l,r,so[i][j]);
+            if (l < r and (nl != -1 and nr != -1)){
+                sv.setIterador(sv.getIterador()+1);
+                //imprimirParaulaenSopa (pos);
+                buscarParaula(ni,nj,pos,nl,nr,sv);
+                sv.setIterador(sv.getIterador()-1);
+
+            }    
+        }
+        ++direccions_provades;
+    }
+    pos[i][j] = false;
+
+}
+
+
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////
 
 void superSopa::resoldreTrie () {}
 
 void superSopa::resoldreBloom () {}
 
 void superSopa::resoldreDHash () {}
-
-
-
-
-
 
 void superSopa::afegirParaula (string s, int i0, int j0, vector<vector<bool>>& pos, int k, bool& afegida) {   
     // Escull una posició random i hi posa la paraula.

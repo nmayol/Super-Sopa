@@ -9,6 +9,7 @@
 #include <random>
 #include <algorithm>
 #include <stdlib.h>
+#include<fstream>
 
 
 using namespace std;
@@ -26,11 +27,13 @@ class superSopa {
     public:
         superSopa ();
         superSopa (const int& mida);
-        void llegirDiccionari(vector<string>& v);
-        void costruirSopa(const vector<string>& dicc);
+        void costruirSopa (const vector<string>& dicc);
+        
 
         // Metodes per resoldre-la de cadascuna de les maneres
-        void resoldreVector (const vector <string>& x); 
+        void resoldreVector (); 
+        void buscarParaula(int i , int j, vector<vector<bool>>& pos, int l, int r, SortedVector& sv);
+
         void resoldreTrie ();
         void resoldreDHash ();
         void resoldreBloom ();        
@@ -39,7 +42,6 @@ class superSopa {
  
     private:
         Sopa so;
-        
         int n;
         void afegirParaula (string s, int i0, int j0, vector<vector<bool>>& pos, int k,bool& afegida);
         void afegirLletra(const int& i,const int& j, const char& c);
