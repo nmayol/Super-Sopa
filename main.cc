@@ -29,11 +29,11 @@ int main () {
 
     //s.costruirSopa(dic);
     s.construirParaules(dic);
-    s.imprimirSopa();
-    
+    s.imprimirSopaTerminal();
+    /*
     cout << "Sorted Vector:" << endl;
     s.resoldreVector();
-    
+    */
     
     
 }

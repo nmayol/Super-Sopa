@@ -26,9 +26,7 @@ typedef vector<vector<char >> Sopa;
 class superSopa {
     public:
         superSopa ();
-        superSopa (const int& mida);
-        void costruirSopa (const vector<string>& dicc);
-        
+        superSopa (const int& mida);        
 
         // Metodes per resoldre-la de cadascuna de les maneres
         void resoldreVector (); 
@@ -40,6 +38,13 @@ class superSopa {
         
         void imprimirSopa ();  
 
+        /*  Imprimeix la sopa a la Terminal.
+        */
+        void imprimirSopaTerminal();
+
+        /*  Coloca un nombre determinat de paraules a la sopa i despres
+            la ompla amb lletres de forma aleatoria.
+        */
         void construirParaules(const vector<string>& dicc);
  
     private:
@@ -55,7 +60,14 @@ class superSopa {
         bool caracterSituable(const int& i,const int& j, const char& c);
         void imprimirParaulaenSopa (const vector< vector< bool>>& pos);
 
+        /*  Coloca una paraula p a la superSopa. Retorna cert si s'ha 
+            pogut colocar, false altrament.
+        */
         bool colocarParaulaRec(const string& p, int l, int i, int j);
+
+        /*  Mira si la posicio {i,j} existeix a la sopa. Cert si existeix,
+            fals altrament.
+        */
         bool posok(int i, int j);
         
 };

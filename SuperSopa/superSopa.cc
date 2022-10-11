@@ -37,6 +37,17 @@ void superSopa::imprimirSopa () {
     fp_out.close();
 }
 
+void superSopa::imprimirSopaTerminal () {
+
+    cout << "----------------------" << endl;
+    for (int i = 0; i < n; ++i) {
+        cout << '-' << so[i][0];
+        for (int j = 1; j < n; ++j) cout << ' ' << so[i][j];
+        cout << '-' << endl;
+    }
+    cout << "----------------------" << endl;
+}
+
 // he fet aquesta funcio per comprovar que totes les paraules siguin a la sopa
 void superSopa::imprimirParaulaenSopa (const vector< vector< bool>>& pos) {
     ofstream fp_out;
@@ -52,36 +63,7 @@ void superSopa::imprimirParaulaenSopa (const vector< vector< bool>>& pos) {
     fp_out << "----------------------" << endl;
     fp_out.close();
 }
-/*
-void superSopa::costruirSopa(const vector<string>& dicc) {
-    int i0, j0, iterador = 0; 
-    bool fet = false;
 
-    // pos es un vector que indica a quines posicions hi ha NOMES la paraula amb que es treballa, per tal que no es creui amb ella mateixa.
-    vector<vector<bool>> pos(n, vector<bool>(n,false));
-
-    while (iterador != dicc.size()) {
-        //cout << dicc[iterador] << ": " << endl; 
-
-        i0 = randomInferiorA(n); j0 = randomInferiorA(n);
-        while (not caracterSituable(i0,j0,dicc[iterador][0])) {
-            i0 = randomInferiorA(n); j0 = randomInferiorA(n);
-        }     
-                
-        bool afegida = false;
-        afegirParaula (dicc[iterador],i0,j0,pos,0, afegida);
-        if (afegida) ++iterador;
-        else pos[i0][j0] = false;
-
-        vector< vector < bool>> x(n, vector<bool>(n,false));
-        pos = x;
-        //system("CLS");
-        //imprimirSopa();
-    }
-    omplebuits();
-
-}
-*/
 
 bool superSopa::posok(int i, int j) {
 
@@ -90,46 +72,50 @@ bool superSopa::posok(int i, int j) {
 
 /* p -> paraula a colocar dins la sopa, l -> lletres colocades.
    El resultat es cert si hem pogut colocar correctament la paraula, fals altrament.
-   FALTA QUE NO ES SOBREPOSI :)
 */
 bool superSopa::colocarParaulaRec(const string& p, int l, int i, int j) {
 
     if (l == p.size()) return true;
     else {
-        
         // calculem una direccio aleatoria.
         bool trobada = false;
 
-        while (not trobada) {
-            srand(time(NULL));
-            int dir = rand() % 8;
+        srand(time(NULL));
+        int dir = rand() % 8;
+        int newdir = dir;
 
-            i += DIR[dir].first;
-            j += DIR[dir].second;
+        do {
+
+            i += DIR[newdir].first;
+            j += DIR[newdir].second;
 
             if (posok(i,j)) trobada = true;
             else {
-                i -= DIR[dir].first;
-                j -= DIR[dir].second;
+                i -= DIR[newdir].first;
+                j -= DIR[newdir].second;
+                ++newdir;
+                if (newdir == 8) newdir = 0;
             }
-            //cout << trobada << " ja que " << i << ' ' << j << endl;
-        }
+        } 
+        while (not trobada and dir != newdir);
         //cout << "POSICIO TROBADA: " << i << ' ' << j << ' ' << l << endl;
 
-        if (so[i][j] == '#') {
-            so[i][j] = p[l];
-            ++l;
-            visitat[i][j] = true;
-            colocarParaulaRec(p, l, i, j);
-        }
-        else if (so[i][j] == p[l]) {
-            ++l;
-            visitat[i][j] = true;
-            colocarParaulaRec(p, l, i, j);
-        }
-        else return false;   
+        if (trobada) {
+            if (so[i][j] == '#') {
+                so[i][j] = p[l];
+                ++l;
+                visitat[i][j] = true;
+                colocarParaulaRec(p, l, i, j);
+            }
+            else if (so[i][j] == p[l] and not visitat[i][j]) {
+                ++l;
+                visitat[i][j] = true;
+                colocarParaulaRec(p, l, i, j);
+            }
+            else return false;
+        }   
+        else return false;
     }
-    //return true;
 }
 
 void superSopa::construirParaules(const vector<string>& dicc) {
@@ -147,16 +133,21 @@ void superSopa::construirParaules(const vector<string>& dicc) {
 
         // calculem la posicio on comencem.
         bool start = false;
-        int i = 0, j = 0;
+
+        srand(time(NULL));
+        int i = rand() % n;
+        int j = rand() % n;
 
         while (not start) {
-            srand(time(NULL));
-            i = rand() % n;
-            j = rand() % n;
-
+            
             if (so[i][j] == '#' or so[i][j] == p[0]) {
                 so[i][j] = p[0];
                 start = true;
+            }
+            else {
+                ++j;
+                if (j == n) {j = 0; ++i;}
+                if (i == n) {i = 0;}
             }
         }
         visitat = vector<vector<bool>> (n, vector<bool>(n, false));
