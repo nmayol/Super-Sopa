@@ -9,8 +9,8 @@ Trie/diccTrie.o
 main.o
 main.exe
 mare-balena-vocabulary-3.txt:Zone.Identifier
-./Sorted Vector/out.txt
-Sorted Vector/out.txt
+
 Sorted Vector/solucio.txt
 Sorted Vector/sopa.txt
 Sorted Vector/out.txt
+

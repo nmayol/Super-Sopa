@@ -6,8 +6,14 @@ using namespace std;
 
 int main () {
     // n es la mida de la sopa
-    int n; cin >> n;
+    int n;
+
+    cout << "Introdueix la mida de la sopa: ";
+    cin >> n;
+    cout << "Ara es creara la sopa de mida " << n << endl;
+
     superSopa s = superSopa(n);
+    cout << "CREADA!! Ara afegim les paraules..." << endl;
 
     // poso aixo per provar
     
@@ -21,8 +27,8 @@ int main () {
 
 
 
-    s.costruirSopa(dic);
-    
+    //s.costruirSopa(dic);
+    s.construirParaules(dic);
     s.imprimirSopa();
     
     cout << "Sorted Vector:" << endl;
