@@ -7,9 +7,9 @@ const vector<pair<int,int>> DIR = {make_pair( 1, 0), make_pair( 1, 1),
 
 const vector<int> SENTIT = {-1,1};
 
-vector<char> letters = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I',
-                         'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
-                         'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
+vector<char> letters = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
+                         'j', 'k', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
+                         'S', 'T', 'U', 'v', 'w', 'x', 'y', 'z' };
 
 
 
@@ -40,7 +40,7 @@ void superSopa::imprimirSopa () {
 // he fet aquesta funcio per comprovar que totes les paraules siguin a la sopa
 void superSopa::imprimirParaulaenSopa (const vector< vector< bool>>& pos) {
     ofstream fp_out;
-    fp_out.open("./Sorted Vector/solucio.txt",ofstream::app);
+    fp_out.open("./solucio.txt",ofstream::app);
     fp_out << "----------------------" << endl;
     for (int i = 0; i < n; ++i) {;
         fp_out << '-' << pos[i][0];
