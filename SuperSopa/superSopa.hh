@@ -46,6 +46,10 @@ class superSopa {
             la ompla amb lletres de forma aleatoria.
         */
         void construirParaules(const vector<string>& dicc);
+
+        /*  Llegeix una sopa de lletres.
+        */
+        void llegir();
  
     private:
         Sopa so;

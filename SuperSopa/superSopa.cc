@@ -226,6 +226,12 @@ void superSopa:: buscarParaula(int i , int j, vector<vector<bool>>& pos, int l, 
 
 }
 
+void superSopa::llegir() {
+
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) cin >> so[i][j];
+    }
+}
 
 
 
