@@ -25,29 +25,32 @@ superSopa::superSopa(const int& mida) {
 }
 
 void superSopa::imprimirSopa () {
-    cout << "----------------------" << endl;
+    ofstream fp_out;
+    fp_out.open("./Sorted Vector/sopa.txt");
+    fp_out << "----------------------" << endl;
     for (int i = 0; i < n; ++i) {
-        cout << '-' << so[i][0];
-        for (int j = 1; j < n; ++j) cout << ' ' << so[i][j];
-        cout << '-' << endl;
+        fp_out << '-' << so[i][0];
+        for (int j = 1; j < n; ++j) fp_out << ' ' << so[i][j];
+        fp_out << '-' << endl;
     }
-    cout << "----------------------" << endl;
+    fp_out << "----------------------" << endl;
+    fp_out.close();
 }
 
 // he fet aquesta funcio per comprovar que totes les paraules siguin a la sopa
 void superSopa::imprimirParaulaenSopa (const vector< vector< bool>>& pos) {
-    system ("CLS");
-    cout << "----------------------" << endl;
-    for (int i = 0; i < n; ++i) {
-        if (pos[i][0]) cout << ' ' << so[i][0];
-        else cout << '-' << pos[i][0];
+    ofstream fp_out;
+    fp_out.open("./Sorted Vector/solucio.txt",ofstream::app);
+    fp_out << "----------------------" << endl;
+    for (int i = 0; i < n; ++i) {;
+        fp_out << '-' << pos[i][0];
         for (int j = 1; j < n; ++j) {
-            if (pos[i][j]) cout << ' ' << so[i][j];
-            else cout << ' ' << pos[i][j];
+            fp_out << ' ' << pos[i][j];
         }
-        cout << '-' << endl;
+        fp_out << '-' << endl;
     }
-    cout << "----------------------" << endl;
+    fp_out << "----------------------" << endl;
+    fp_out.close();
 }
 
 void superSopa::costruirSopa(const vector<string>& dicc) {
@@ -98,9 +101,11 @@ void superSopa::resoldreVector () {
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < n; ++j) {
             int l = 0, r = sv.getSize();
-                    ofstream fp_out;
-            
+           
             buscarParaula(i,j,pos,l,r,sv);
+
+            imprimirSopa();
+            sv.imprimirTrobades();
         }
     }
 }
@@ -117,7 +122,6 @@ void superSopa:: buscarParaula(int i , int j, vector<vector<bool>>& pos, int l, 
             nr = sv.last_ocurrence(l,r,so[i][j]);
             if (l < r and (nl != -1 and nr != -1)){
                 sv.setIterador(sv.getIterador()+1);
-                //imprimirParaulaenSopa (pos);
                 buscarParaula(ni,nj,pos,nl,nr,sv);
                 sv.setIterador(sv.getIterador()-1);
 
@@ -161,8 +165,9 @@ void superSopa::afegirParaula (string s, int i0, int j0, vector<vector<bool>>& p
             pos[ni][nj] = true;   
             if (k == s.size() - 1) {
                 afegida = true;
-
+                imprimirParaulaenSopa (pos);
                 afegirLletra(ni,nj,s[k]);
+                
             }
             else {
                 afegirParaula (s,ni,nj,pos,k+1,afegida);

@@ -19,8 +19,9 @@ class SortedVector {
         const int getSize();
         const int getIterador();
         void setIterador(const int& i);
-        
+        void imprimirTrobades();
     private:
+       
         vector < string> v;
         int iterador;
         set <int> trobades;

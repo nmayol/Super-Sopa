@@ -11,7 +11,8 @@ int main () {
 
     // poso aixo per provar
     
-    vector <string> dic = {"abandonaren", "abandonat", "abans", "abatut", "abocada", "abocant",
+    vector <string> dic = {
+         "abandonaren", "abandonat", "abans", "abatut", "abocada", "abocant",
                            "abracada", "abracades", "abracaren", "abracava", "abrandat", "abriga"
                             "abrigava", "abrusa", "abrusaren", "abscondir", "absencies", "absolta",
                             "absolutament" };

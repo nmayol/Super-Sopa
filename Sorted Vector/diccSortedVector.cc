@@ -8,7 +8,12 @@ SortedVector::SortedVector () {
     construirVector();
 }
 
-
+void SortedVector::imprimirTrobades() {
+    ofstream fp_out;
+    fp_out.open("./Sorted Vector/out.txt");
+    for (std::set<int>::iterator it = trobades.begin(); it != trobades.end(); ++it) fp_out << v[*it] << endl;
+    fp_out.close();
+}
 
 
 void SortedVector::construirVector() {
@@ -28,15 +33,10 @@ int SortedVector::first_ocurrence(int l, int r, const char& c) {
     // les lletres anteriors ja han complert la condició 
     if (l > r) return -1;
     if (v[l].size() == iterador) {
-        trobades.insert(l);
-        ofstream fp_out;
-        fp_out.open("./Sorted Vector/out.txt", fstream::app);
-        fp_out << v[l] << endl;
-        fp_out.close();
-        
+        trobades.insert(l);        
         ++l;
     }
-
+    //cout << "first " << l << ' ' << r << endl;
     int m = (l + r) / 2;
 
     if (v[m].size() > iterador) {
@@ -60,14 +60,15 @@ int SortedVector::last_ocurrence(int l, int r, const char& c) {
     // les lletres anteriors ja han complert la condició 
     if (l > r) return -1;
     int m = (l + r) / 2;
-
+    //cout << "last " << l << ' ' << r << ' ' << iterador << endl;
     if (v[m].size() > iterador) {
         if (v[m][iterador] == c) {
-            if ((m != v.size() - 1 and v[m+1].size() > iterador) or r != m) {
+            if (r == m or (m == (v.size() - 1) ) ) return m;
+            else   {
                 if (c != v[m+1][iterador]) return m;
                 else return last_ocurrence(m+1,r,c);
             }
-            else return m;
+            
         }
         else if (v[m][iterador] < c) return last_ocurrence(m+1,r,c);
         else return last_ocurrence(l,m-1,c);
