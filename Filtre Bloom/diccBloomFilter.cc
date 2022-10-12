@@ -148,6 +148,8 @@ int main () {
         }
         fp_in.close(); 
 
+        cout << "Mida: " << totes.size() << endl;
+
         int errors = 0, encerts = 0, comprovacions = 0;
         for (int i = 0; i < totes.size(); ++i) {
             string w = totes[i];
