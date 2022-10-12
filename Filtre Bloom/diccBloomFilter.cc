@@ -144,7 +144,7 @@ int BloomFilterDictionary::h7 (const string& s) {
 
 
 
-
+/*
 int main () {
     BloomFilterDictionary b;
 
@@ -161,3 +161,4 @@ int main () {
     } 
     //cout << b.comprovar("hola") << ' ' << b.comprovar("adeu");
 }
+*/
