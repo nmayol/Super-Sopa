@@ -133,10 +133,10 @@ int BloomFilterDictionary::h7 (const string& s) {
 int main () {
     BloomFilterDictionary b;
 
-    vector<string> totes();   //paraules que queden per afegir al diccionari
+    vector<string> totes = {"1"};   //paraules que queden per afegir al diccionari
     vector<string> afegides();    //paraules afegides
 
-    ifstream balena;
+    /*ifstream balena;
 
     balena.open("./mare-balena-vocabulary-3.txt");
     
@@ -145,12 +145,21 @@ int main () {
         cout << mot << ' ';
         totes.push_back(mot);
     }
-    balena.close();    
+    balena.close();  */
+
+    ifstream fp_in;
+    string a;
+    fp_in.open("../mare-balena-vocabulary-3.txt");
+    while (fp_in >> a) {
+        cout << a << endl;
+        totes.push_back(a);
+    }
+    fp_in.close();  
 
     int errors;
     for (int i = 0; i < totes.size(); ++i) {
-        string w = totes[i];
-        cout << w << ' ';
+        //string w = totes[i];
+        cout << totes[i] << ' ';
     }
 
     cout << "fi" << endl;
