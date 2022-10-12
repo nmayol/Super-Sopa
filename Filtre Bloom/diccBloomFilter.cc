@@ -137,6 +137,8 @@ int BloomFilterDictionary::h7 (const string& s) {
 
 int main () {
     BloomFilterDictionary b;
+
+    vector<string> 
     b.afegir("hola");
     b.imprimir();
     b.afegir("bon");

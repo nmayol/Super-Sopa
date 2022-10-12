@@ -2,7 +2,9 @@
 #define BLOOM_FILTER
 
 #include <string>
+//esborrar
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
