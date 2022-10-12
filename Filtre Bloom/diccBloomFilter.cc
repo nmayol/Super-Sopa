@@ -129,7 +129,7 @@ int BloomFilterDictionary::h7 (const string& s) {
     return abs(hash % mida);
 }
 
-
+/*
 int main () {
     vector<string> paths = {"../diccionaris/mare-balena-vocabulary-3.txt",
                             "../diccionaris/dracula-vocabulary-4.txt",
@@ -174,3 +174,4 @@ int main () {
         cout << "Comprovacions: " << comprovacions << endl;
     }    
 }
+*/
