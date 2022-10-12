@@ -14,6 +14,8 @@ class TrieDictionary {
         void afegir_node(const string& c);
         bool cercar_paraula();
         void llegirTrie();
+        void escriure();
+        void simplificaArbre();
         
     private:
 
@@ -32,7 +34,7 @@ class TrieDictionary {
 
         /* Especificacio operacions privades.
         */
-        void afegirRec(node_trie* n, const string& info, int i);
+        void afegirRec(node_trie* &n, const string& info, int i);
 
         void crear_arrel(const string& info);
 
@@ -40,6 +42,9 @@ class TrieDictionary {
             Retorna cert si es buit, fals altrament.
         */
         bool esbuit() const;
+
+        void escriureRec(node_trie* n);
+        void simplificaRec(node_trie* &n);
 };
 
 #endif
