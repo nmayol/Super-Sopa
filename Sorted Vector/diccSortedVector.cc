@@ -10,7 +10,7 @@ SortedVector::SortedVector () {
 
 void SortedVector::imprimirTrobades() {
     ofstream fp_out;
-    fp_out.open("../Sorted Vector/out.txt");
+    fp_out.open("./Sorted Vector/out.txt");
     for (std::set<int>::iterator it = trobades.begin(); it != trobades.end(); ++it) fp_out << v[*it] << endl;
     fp_out.close();
 }
@@ -19,7 +19,7 @@ void SortedVector::imprimirTrobades() {
 void SortedVector::construirVector() {
     ifstream fp_in;
     string a;
-    fp_in.open("../mare-balena-vocabulary-3.txt");
+    fp_in.open("./mare-balena-vocabulary-3.txt");
     while (fp_in >> a) v.push_back(a);
     fp_in.close();
 }
