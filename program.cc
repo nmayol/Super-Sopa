@@ -2,15 +2,18 @@
 using namespace std;
 
 int main() {
-
+    
     cout << "Introdueix la mida de la Super Sopa: ";
+    
+    
     int n;
     cin >> n;
-
+    cout << n << endl;
+    
     superSopa ss = superSopa(n);
     cout << "Llegim la Super Sopa" << endl;
     ss.llegir();
-
+    
     // Un cop llegida la Super Sopa, inicialitzem els diccionaris.
 
     char metode;
@@ -35,7 +38,8 @@ int main() {
         /*  Lectura diccionari.
         */
         cout << "Diccionari guardat correctament!" << endl;
-
+        ss.resoldreVector ();
+        cout << " FET! Per veure la solucio sha d'anar al fitxer out.txt del directori Sorted Vector.";
         /*  Metode per bucar paraules a la Sopa.
             + output de paraules trobades i temps tardat.
         */
