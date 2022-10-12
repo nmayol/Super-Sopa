@@ -10,9 +10,10 @@ bool TrieDictionary::esbuit() const {
 
 void TrieDictionary::afegirRec(node_trie* n, const string& info, int i) {
 
+    // guardem el primer caracter a un string.
     string s(1, info[i]);
 
-    if (n == nullptr) {
+    if (n == nullptr) {             /* arbre buit */
         node_trie* aux;
         aux = new node_trie;
 
@@ -24,21 +25,26 @@ void TrieDictionary::afegirRec(node_trie* n, const string& info, int i) {
         n = aux;
 
         ++i;
+
+        /* si es la ultima lletra, guardem com a final de paraula i
+           acabem amb recursivitat.
+        */
         if (i < info.size()) afegirRec(n->cnt, info, i);
         else n->finalparaula = true;
     }
-    else if (n->info == s) {
+    else if (n->info == s) {            /* cas 1: mateix caracter */
         ++i;
         if (i < info.size()) afegirRec(n->cnt, info, i);
         else n->finalparaula = true;
     }
-    else if (n->info > s) afegirRec(n->dre, info, i);
-    else if (n->info < s) afegirRec(n->esq, info, i);
+    else if (n->info > s) afegirRec(n->dre, info, i);   /* cas 2: busquem dreta */
+    else if (n->info < s) afegirRec(n->esq, info, i);   /* cas 3: busquem esquerra*/
     
 }
 
 void TrieDictionary::afegir_node(const string& p) {
 
+    /* comencem crida recursiva */
     afegirRec(arrel, p, 0);
 }
 
