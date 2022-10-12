@@ -7,9 +7,9 @@ const vector<pair<int,int>> DIR = {make_pair( 1, 0), make_pair( 1, 1),
 
 const vector<int> SENTIT = {-1,1};
 
-vector<char> letters = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
-                         'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
-                         's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
+vector<char> letters = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I',
+                         'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
+                         'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
 
 
 
@@ -127,8 +127,7 @@ void superSopa::construirParaules(const vector<string>& dicc) {
     int index = abs(rand()) % paraules;
     int indexo = index;
 
-    // agafem una paraula al atzar.
-    while (parSopa < 4) {
+    do {
 
         string p = dicc[index];
 
