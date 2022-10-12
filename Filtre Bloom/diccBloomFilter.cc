@@ -145,8 +145,7 @@ int main () {
         cout << mot << ' ';
         totes.push_back(mot);
     }
-    balena.close();
-    
+    balena.close();    
 
     int errors;
     for (int i = 0; i < totes.size(); ++i) {
