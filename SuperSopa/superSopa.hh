@@ -63,7 +63,6 @@ class superSopa {
         int randomInferiorA(int x);
         bool caracterSituable(const int& i,const int& j, const char& c);
         void imprimirParaulaenSopa (const vector< vector< bool>>& pos);
-        //void costruirSopa(const vector<string>& dic);
 
         /*  Coloca una paraula p a la superSopa. Retorna cert si s'ha 
             pogut colocar, false altrament.
