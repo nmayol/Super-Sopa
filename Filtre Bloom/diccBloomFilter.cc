@@ -1,3 +1,4 @@
+
 #include "diccBloomFilter.hh"
 
 BloomFilterDictionary::BloomFilterDictionary () {
@@ -166,6 +167,10 @@ int main () {
                 if (b.comprovar(totes[j])) ++errors;
                 else ++encerts;
             }
-    } 
-    //cout << b.comprovar("hola") << ' ' << b.comprovar("adeu");
+        }
+
+        cout << "Errors totals: " << errors << endl;
+        cout << "Encerts totals: " << encerts << endl;
+        cout << "Comprovacions: " << comprovacions << endl;
+    }    
 }
