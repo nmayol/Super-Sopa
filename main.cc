@@ -24,8 +24,7 @@ int main () {
     s.construirParaules(balena);
     s.imprimirSopaTerminal();
     s.imprimirSopa ();
-    cout << "Sorted Vector:" << endl;
-    s.resoldreVector();
+   
     
     
     
