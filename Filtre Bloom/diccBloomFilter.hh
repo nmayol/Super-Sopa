@@ -2,6 +2,7 @@
 #define BLOOM_FILTER
 
 #include <string>
+#include <cmath>
 //esborrar
 #include <iostream>
 #include <vector>

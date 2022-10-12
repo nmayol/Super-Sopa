@@ -24,8 +24,8 @@ void BloomFilterDictionary::afegir (const string& s) {
     BloomFilter[f] = true;    
     BloomFilter[g] = true;
 
-    cout << s << endl;
-    cout << a << ' ' << b << ' ' << c << endl;
+    //cout << s << endl;
+    //cout << a << ' ' << b << ' ' << c << ' ' << d << ' ' << e << ' ' << f << ' ' << g << endl;
 }
 
 bool BloomFilterDictionary::comprovar (const string& s) {
@@ -36,6 +36,9 @@ bool BloomFilterDictionary::comprovar (const string& s) {
     int e = h5(s);
     int f = h6(s);
     int g = h7(s);    
+
+    //cout << s << endl;
+    //cout << a << ' ' << b << ' ' << c << ' ' << d << ' ' << e << ' ' << f << ' ' << g << endl;
 
     return BloomFilter[a] and BloomFilter[b] and BloomFilter[c] and 
         BloomFilter[d] and BloomFilter[e] and BloomFilter[f] and BloomFilter[g];
@@ -48,19 +51,16 @@ void BloomFilterDictionary::imprimir () {
     cout << endl;
 }
 
-//83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 
-//151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199
-
+//polinòmiques
 int BloomFilterDictionary::h1 (const string& s) {
     long long int hash = 0;
 
     for (int i = 0; i < s.size(); ++i) {
         int valor = (int)s[i];
-        hash = hash + valor;
-        hash = hash % mida;
+        hash = 11*hash + valor;
     }
 
-    return hash;
+    return hash % mida;
 }
 
 int BloomFilterDictionary::h2 (const string& s) {
@@ -68,8 +68,7 @@ int BloomFilterDictionary::h2 (const string& s) {
 
     for (int i = 0; i < s.size(); ++i) {
         int valor = (int)s[i];
-        hash = hash + valor%83;
-        hash = hash;// % mida;
+        hash = 31*hash + valor;
     }
 
     return hash % mida;
@@ -80,20 +79,19 @@ int BloomFilterDictionary::h3 (const string& s) {
 
     for (int i = 0; i < s.size(); ++i) {
         int valor = (int)s[i];
-        hash = hash + valor%89;
-        hash = hash;// % mida;
+        hash = 83*hash + valor;
     }
 
     return hash % mida;
 }
 
+//altres
 int BloomFilterDictionary::h4 (const string& s) {
     long long int hash = 0;
 
     for (int i = 0; i < s.size(); ++i) {
         int valor = (int)s[i];
-        hash = hash + valor%131;
-        hash = hash;// % mida;
+        hash = 137*hash + valor;
     }
 
     return hash % mida;
@@ -104,8 +102,11 @@ int BloomFilterDictionary::h5 (const string& s) {
 
     for (int i = 0; i < s.size(); ++i) {
         int valor = (int)s[i];
-        hash = hash + valor%193;
-        hash = hash;// % mida;
+        hash = 16*hash + valor;
+
+        unsigned long int g = hash & 0xF0000000L;
+		if (g != 0) hash = pow(hash, g >> 24);
+		hash = hash & (~g);
     }
 
     return hash % mida;
@@ -116,8 +117,11 @@ int BloomFilterDictionary::h6 (const string& s) {
 
     for (int i = 0; i < s.size(); ++i) {
         int valor = (int)s[i];
-        hash = hash + valor%197;
-        hash = hash;// % mida;
+        hash = 8*hash + valor;
+
+        unsigned long int g = hash & 0xF0000000L;
+		if (g != 0) hash = pow(hash, g >> 24);
+		hash = hash & (~g);
     }
 
     return hash % mida;
@@ -128,24 +132,32 @@ int BloomFilterDictionary::h7 (const string& s) {
 
     for (int i = 0; i < s.size(); ++i) {
         int valor = (int)s[i];
-        hash = hash + valor%199;
-        hash = hash;// % mida;
+        hash = 4*hash + valor;
+
+        unsigned long int g = hash & 0xF0000000L;
+		if (g != 0) hash = pow(hash, g >> 24);
+		hash = hash & (~g);
     }
 
     return hash % mida;
 }
 
+
+
+
 int main () {
     BloomFilterDictionary b;
 
-    vector<string> 
-    b.afegir("hola");
-    b.imprimir();
-    b.afegir("bon");
-    b.imprimir();
-    b.afegir("dia");
-    b.imprimir();
-    b.afegir("mec");
-    b.imprimir();
+    vector<string> paraules = {"hola", "adeu", "mec", "avui", "dema"};
+
+    for (int i  = 0; i < paraules.size(); ++i) {
+        b.afegir(paraules[i]);
+    } 
+    //b.imprimir();
+    cout << endl;
+    vector<string> comprovar = {"hol", "hola", "adu", "adeu", "adue", "esteve"};
+    for (int i  = 0; i < comprovar.size(); ++i) {
+        cout << comprovar[i] << ' ' << b.comprovar(comprovar[i]) << endl;
+    } 
     //cout << b.comprovar("hola") << ' ' << b.comprovar("adeu");
 }
