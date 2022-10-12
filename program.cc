@@ -49,6 +49,8 @@ int main() {
         cout << "Heu escollit el metode TRIE" << endl;
         /* Lectura diccionari -> guardar en arbre.
         */
+        TrieDictionary dicTrie = TrieDictionary();
+        dicTrie.llegirTrie();
         cout << "Diccionari guardat correctament!" << endl;
 
         /*  Metode per bucar paraules a la Sopa.

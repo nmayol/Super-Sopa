@@ -14,7 +14,7 @@ void BloomFilterDictionary::afegir (const string& s) {
     int d = h4(s);
     int e = h5(s);
     int f = h6(s);
-    int g = h7(s);
+    int g = h7(s);    
 
     BloomFilter[a] = true;
     BloomFilter[b] = true;
@@ -23,9 +23,6 @@ void BloomFilterDictionary::afegir (const string& s) {
     BloomFilter[e] = true;
     BloomFilter[f] = true;    
     BloomFilter[g] = true;
-
-    //cout << s << endl;
-    //cout << a << ' ' << b << ' ' << c << ' ' << d << ' ' << e << ' ' << f << ' ' << g << endl;
 }
 
 bool BloomFilterDictionary::comprovar (const string& s) {
@@ -37,21 +34,10 @@ bool BloomFilterDictionary::comprovar (const string& s) {
     int f = h6(s);
     int g = h7(s);    
 
-    //cout << s << endl;
-    //cout << a << ' ' << b << ' ' << c << ' ' << d << ' ' << e << ' ' << f << ' ' << g << endl;
-
-    return BloomFilter[a] and BloomFilter[b] and BloomFilter[c] and 
-        BloomFilter[d] and BloomFilter[e] and BloomFilter[f] and BloomFilter[g];
+    return BloomFilter[a] && BloomFilter[b] && BloomFilter[c] && 
+        BloomFilter[d] && BloomFilter[e] && BloomFilter[f] && BloomFilter[g];
 }
 
-void BloomFilterDictionary::imprimir () {
-    for (int i = 0; i < mida; ++i) {
-        cout << BloomFilter[i] << ' ';
-    }
-    cout << endl;
-}
-
-//polinòmiques
 int BloomFilterDictionary::h1 (const string& s) {
     long long int hash = 0;
 
@@ -60,7 +46,7 @@ int BloomFilterDictionary::h1 (const string& s) {
         hash = 11*hash + valor;
     }
 
-    return hash % mida;
+    return abs(hash % mida);
 }
 
 int BloomFilterDictionary::h2 (const string& s) {
@@ -71,7 +57,7 @@ int BloomFilterDictionary::h2 (const string& s) {
         hash = 31*hash + valor;
     }
 
-    return hash % mida;
+    return abs(hash % mida);
 }
 
 int BloomFilterDictionary::h3 (const string& s) {
@@ -82,7 +68,7 @@ int BloomFilterDictionary::h3 (const string& s) {
         hash = 83*hash + valor;
     }
 
-    return hash % mida;
+    return abs(hash % mida);
 }
 
 //altres
@@ -94,7 +80,7 @@ int BloomFilterDictionary::h4 (const string& s) {
         hash = 137*hash + valor;
     }
 
-    return hash % mida;
+    return abs(hash % mida);
 }
 
 int BloomFilterDictionary::h5 (const string& s) {
@@ -109,7 +95,7 @@ int BloomFilterDictionary::h5 (const string& s) {
 		hash = hash & (~g);
     }
 
-    return hash % mida;
+    return abs(hash % mida);
 }
 
 int BloomFilterDictionary::h6 (const string& s) {
@@ -124,7 +110,7 @@ int BloomFilterDictionary::h6 (const string& s) {
 		hash = hash & (~g);
     }
 
-    return hash % mida;
+    return abs(hash % mida);
 }
 
 int BloomFilterDictionary::h7 (const string& s) {
@@ -139,26 +125,47 @@ int BloomFilterDictionary::h7 (const string& s) {
 		hash = hash & (~g);
     }
 
-    return hash % mida;
+    return abs(hash % mida);
 }
 
 
-
-/*
 int main () {
-    BloomFilterDictionary b;
+    vector<string> paths = {"../diccionaris/mare-balena-vocabulary-3.txt",
+                            "../diccionaris/dracula-vocabulary-4.txt",
+                            "../diccionaris/quijote-vocabulary-3.txt"};
 
-    vector<string> paraules = {"hola", "adeu", "mec", "avui", "dema"};
+    for (string path : paths) {
+        cout << "Fitxer: " << path << endl;
 
-    for (int i  = 0; i < paraules.size(); ++i) {
-        b.afegir(paraules[i]);
-    } 
-    //b.imprimir();
-    cout << endl;
-    vector<string> comprovar = {"hol", "hola", "adu", "adeu", "adue", "esteve"};
-    for (int i  = 0; i < comprovar.size(); ++i) {
-        cout << comprovar[i] << ' ' << b.comprovar(comprovar[i]) << endl;
+        BloomFilterDictionary b;
+        vector<string> totes;  
+
+        ifstream fp_in;
+        string a;
+        fp_in.open(path);
+        while (fp_in >> a) {
+            totes.push_back(a);
+        }
+        fp_in.close(); 
+
+        cout << "Mida: " << totes.size() << endl;
+
+        int errors = 0, encerts = 0, comprovacions = 0;
+        for (int i = 0; i < totes.size(); ++i) {
+            string w = totes[i];
+            b.afegir(w);
+
+            for (int j = 0; j < i+1; ++j) {
+                ++comprovacions;
+                if (not b.comprovar(totes[j])) ++errors;
+                else ++encerts;
+            }
+
+            for (int j = i+1; j < totes.size(); ++j) {
+                ++comprovacions;
+                if (b.comprovar(totes[j])) ++errors;
+                else ++encerts;
+            }
     } 
     //cout << b.comprovar("hola") << ' ' << b.comprovar("adeu");
 }
-*/
