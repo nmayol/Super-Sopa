@@ -6,6 +6,7 @@
 //esborrar
 #include <iostream>
 #include <vector>
+#include <fstream>
 
 using namespace std;
 
@@ -20,8 +21,6 @@ class BloomFilterDictionary {
         //Comprovar si una paraula és al diccionari
         bool comprovar(const string& s);
 
-        //Mostra el filtre de Bloom
-        void imprimir ();
     private:
         //mida del vector bloom
         int mida = 47925;

@@ -23,9 +23,6 @@ void BloomFilterDictionary::afegir (const string& s) {
     BloomFilter[e] = true;
     BloomFilter[f] = true;    
     BloomFilter[g] = true;
-
-    //cout << s << endl;
-    //cout << a << ' ' << b << ' ' << c << ' ' << d << ' ' << e << ' ' << f << ' ' << g << endl;
 }
 
 bool BloomFilterDictionary::comprovar (const string& s) {
@@ -37,18 +34,8 @@ bool BloomFilterDictionary::comprovar (const string& s) {
     int f = h6(s);
     int g = h7(s);    
 
-    //cout << s << endl;
-    //cout << a << ' ' << b << ' ' << c << ' ' << d << ' ' << e << ' ' << f << ' ' << g << endl;
-
-    return BloomFilter[a] and BloomFilter[b] and BloomFilter[c] and 
-        BloomFilter[d] and BloomFilter[e] and BloomFilter[f] and BloomFilter[g];
-}
-
-void BloomFilterDictionary::imprimir () {
-    for (int i = 0; i < mida; ++i) {
-        cout << BloomFilter[i] << ' ';
-    }
-    cout << endl;
+    return BloomFilter[a] && BloomFilter[b] && BloomFilter[c] && 
+        BloomFilter[d] && BloomFilter[e] && BloomFilter[f] && BloomFilter[g];
 }
 
 //polinòmiques
@@ -143,21 +130,29 @@ int BloomFilterDictionary::h7 (const string& s) {
 }
 
 
-
-
 int main () {
     BloomFilterDictionary b;
 
-    vector<string> paraules = {"hola", "adeu", "mec", "avui", "dema"};
+    vector<string> totes();   //paraules que queden per afegir al diccionari
+    vector<string> afegides();    //paraules afegides
 
-    for (int i  = 0; i < paraules.size(); ++i) {
-        b.afegir(paraules[i]);
-    } 
-    //b.imprimir();
-    cout << endl;
-    vector<string> comprovar = {"hol", "hola", "adu", "adeu", "adue", "esteve"};
-    for (int i  = 0; i < comprovar.size(); ++i) {
-        cout << comprovar[i] << ' ' << b.comprovar(comprovar[i]) << endl;
-    } 
-    //cout << b.comprovar("hola") << ' ' << b.comprovar("adeu");
+    ifstream balena;
+
+    balena.open("./mare-balena-vocabulary-3.txt");
+    
+    string mot;        
+    while (balena >> mot) {
+        cout << mot << ' ';
+        totes.push_back(mot);
+    }
+    balena.close();
+    
+
+    int errors;
+    for (int i = 0; i < totes.size(); ++i) {
+        string w = totes[i];
+        cout << w << ' ';
+    }
+
+    cout << "fi" << endl;
 }

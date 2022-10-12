@@ -25,8 +25,5 @@ int main () {
     s.imprimirSopaTerminal();
     s.imprimirSopa ();
     cout << "Sorted Vector:" << endl;
-    s.resoldreVector();
-    
-    
-    
+    s.resoldreVector();    
 }
