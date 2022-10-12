@@ -19,10 +19,11 @@ void SortedVector::imprimirTrobades() {
 void SortedVector::construirVector() {
     ifstream fp_in;
     string a;
-    fp_in.open("./mare-balena-vocabulary-3.txt");
+    fp_in.open("./diccionaris/mare-balena-vocabulary-3.txt");
     while (fp_in >> a) v.push_back(a);
     fp_in.close();
 }
+
 
 int SortedVector::first_ocurrence(int l, int r, const char& c) {
     // les lletres anteriors ja han complert la condició 
@@ -52,7 +53,7 @@ int SortedVector::last_ocurrence(int l, int r, const char& c) {
     // les lletres anteriors ja han complert la condició 
     if (l > r) return -1;
     int m = (l + r) / 2;
-    
+   
     if (v[m].size() > iterador) {
         if (v[m][iterador] == c) {
             if (r == m or (m == (v.size() - 1) ) or (c != v[m+1][iterador]) ) return m;
