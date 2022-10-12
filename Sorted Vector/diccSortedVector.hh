@@ -13,7 +13,6 @@ using namespace std;
 class SortedVector {
     public:
         SortedVector ();
-        bool comprovar(string s);
         int first_ocurrence(int l, int r, const char& c);
         int last_ocurrence(int l, int r, const char& c);
         const int getSize();
