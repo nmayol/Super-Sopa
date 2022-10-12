@@ -30,10 +30,10 @@ int main () {
     //s.costruirSopa(dic);
     s.construirParaules(dic);
     s.imprimirSopaTerminal();
-    /*
+    s.imprimirSopa ();
     cout << "Sorted Vector:" << endl;
     s.resoldreVector();
-    */
+    
     
     
 }
