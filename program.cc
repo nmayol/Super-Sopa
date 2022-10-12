@@ -56,6 +56,12 @@ int main() {
         /*  Metode per bucar paraules a la Sopa.
             + output de paraules trobades i temps tardat.
         */
+        cout << "Imprimim el diccionari guardat:" << endl;
+        dicTrie.escriure();
+        cout << endl << "Ara simplifiquem" << endl;
+        dicTrie.simplificaArbre();
+        dicTrie.escriure();
+        cout << endl;
     }
     else if (metode == 'b') {
 

@@ -8,7 +8,7 @@ bool TrieDictionary::esbuit() const {
     return (arrel == nullptr);
 }
 
-void TrieDictionary::afegirRec(node_trie* n, const string& info, int i) {
+void TrieDictionary::afegirRec(node_trie* &n, const string& info, int i) {
 
     // guardem el primer caracter a un string.
     string s(1, info[i]);
@@ -54,15 +54,53 @@ void TrieDictionary::llegirTrie() {
     int mida;
     cin >> mida;
 
-    cout << "Introdueix les paraules" << endl;
     for (int i = 0; i < mida; ++i) {
 
         string p;
         cin >> p;
 
-        afegir_node(p);     
+        afegir_node(p);    
     }
     cout << "arbre llegit correctament!" << endl;
     // agrupar prefixes.
 }
 
+void TrieDictionary::simplificaRec(node_trie* &n) {
+
+    if (n != nullptr) {
+
+        node_trie* seg = n->cnt;
+
+        if (seg != nullptr and seg->dre == nullptr and seg->esq == nullptr and not n->finalparaula) {
+            n->info += seg->info;
+            n->finalparaula = seg->finalparaula;
+            n->cnt = seg->cnt;
+            simplificaRec(n);
+        }
+        simplificaRec(n->dre);
+        simplificaRec(n->cnt);
+        simplificaRec(n->esq);
+    }
+}
+
+void TrieDictionary::simplificaArbre() {
+
+    simplificaRec(arrel);
+}
+
+void TrieDictionary::escriureRec(node_trie* n) {
+
+    if (n != nullptr) {
+        cout << " " << n->info;
+        escriureRec(n->dre);
+        escriureRec(n->cnt);
+        escriureRec(n->esq);
+    }
+    else cout << " 0";
+}
+
+void TrieDictionary::escriure() {
+/* Pre: cert */ 
+/* Post: El canal estandar de sortida cont� el recorregut en inordre d'a */ 
+    escriureRec(arrel);
+}
