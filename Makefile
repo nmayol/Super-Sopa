@@ -1,3 +1,10 @@
+program.exe:  program.o superSopa.o diccDHashing.o diccBloomFilter.o diccTrie.o diccSortedVector.o
+	g++ -o program.exe program.o superSopa.o diccDHashing.o diccBloomFilter.o diccTrie.o diccSortedVector.o
+	rm *.o
+
+program.o: superSopa.o diccDHashing.o diccBloomFilter.o diccTrie.o diccSortedVector.o
+	g++ -c program.cc
+
 main.exe:  main.o superSopa.o diccDHashing.o diccBloomFilter.o diccTrie.o diccSortedVector.o
 	g++ -o main.exe main.o superSopa.o diccDHashing.o diccBloomFilter.o diccTrie.o diccSortedVector.o
 	rm *.o

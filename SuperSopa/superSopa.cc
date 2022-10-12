@@ -51,7 +51,7 @@ void superSopa::imprimirSopaTerminal () {
 // he fet aquesta funcio per comprovar que totes les paraules siguin a la sopa
 void superSopa::imprimirParaulaenSopa (const vector< vector< bool>>& pos) {
     ofstream fp_out;
-    fp_out.open("./solucio.txt",ofstream::app);
+    fp_out.open("./Sorted Vector/solucio.txt",ofstream::app);
     fp_out << "----------------------" << endl;
     for (int i = 0; i < n; ++i) {;
         fp_out << '-' << pos[i][0];
@@ -125,20 +125,23 @@ void superSopa::construirParaules(const vector<string>& dicc) {
 
     srand(time(NULL));
     int index = abs(rand()) % paraules;
+    int indexo = index;
 
     // agafem una paraula al atzar.
-    while (parSopa < 10) {
+    while (parSopa < 4) {
 
         string p = dicc[index];
 
         // calculem la posicio on comencem.
         bool start = false;
+        bool end = false;
 
         srand(time(NULL));
         int i = rand() % n;
         int j = rand() % n;
+        int io = i, jo = j;
 
-        while (not start) {
+        while (not start and not end) {
             
             if (so[i][j] == '#' or so[i][j] == p[0]) {
                 so[i][j] = p[0];
@@ -148,16 +151,20 @@ void superSopa::construirParaules(const vector<string>& dicc) {
                 ++j;
                 if (j == n) {j = 0; ++i;}
                 if (i == n) {i = 0;}
+                if (i == io and j == jo) end = true;
             }
         }
-        visitat = vector<vector<bool>> (n, vector<bool>(n, false));
-        if (colocarParaulaRec(p, 1, i, j)) {
-            ++parSopa;
-            ++index;
-            if (index == paraules) index = 0;
-            cout << "Posicions inicials de " << p << " : " << i << ' ' << j << endl;
+        if (start) {
+            visitat = vector<vector<bool>> (n, vector<bool>(n, false));
+            if (colocarParaulaRec(p, 1, i, j)) {
+                ++parSopa;
+                cout << p << " : " << i << ' ' << j << endl;
+            }
         }
+        ++index;
+        if (index == paraules) index = 0;
     }
+    while (parSopa < 30 and indexo != index);
     
     cout << "Total paraules: " << parSopa << endl;
 
@@ -220,6 +227,12 @@ void superSopa:: buscarParaula(int i , int j, vector<vector<bool>>& pos, int l, 
 
 }
 
+void superSopa::llegir() {
+
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) cin >> so[i][j];
+    }
+}
 
 
 
