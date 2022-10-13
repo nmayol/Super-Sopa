@@ -9,7 +9,7 @@ BloomFilterDictionary::BloomFilterDictionary () {
 }
 
 void BloomFilterDictionary::afegir (const string& s) {
-    int a = h1(s);
+    int a = h1(s); 
     int b = h2(s);
     int c = h3(s);
     int d = h4(s);
