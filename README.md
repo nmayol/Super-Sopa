@@ -4,3 +4,5 @@ Aquest és el projecte de l'assignatura d'algorismia impartida a la Facultat d'I
 * Paula Muñoz
 * Jordi Palomera
 * Neus Mayol
+
+Link al treball escrit: https://www.overleaf.com/project/633491ce7339b30d429a4fee
