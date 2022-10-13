@@ -4,23 +4,23 @@ using namespace std;
 
 void llegir_fitxer (vector<string>& v, const string& path) {
     ifstream fp_in;
-        string a;
-        fp_in.open(path);
-        while (fp_in >> a) {
-            totes.push_back(a);
-        }
-        fp_in.close(); 
+    string a;
+    fp_in.open(path);
+    while (fp_in >> a) {
+        v.push_back(a);
+    }
+    fp_in.close(); 
 }
 
 int main () {
     int n = 10;
     string path = "./diccionaris/mare-balena-vocabulary-3.txt";
 
-    vector<string> diccionari();
+    vector<string> diccionari;
 
     llegir_fitxer(diccionari, path);
 
-    cout << diccionari[0] << endl;
+    
 
     /*
     // n es la mida de la sopa
