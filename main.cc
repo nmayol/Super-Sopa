@@ -5,6 +5,7 @@
 using namespace std;
 
 int main () {
+    /*
     // n es la mida de la sopa
     int n;
 
@@ -23,9 +24,5 @@ int main () {
 
     s.construirParaules(balena);
     s.imprimirSopaTerminal();
-    s.imprimirSopa ();
-   
-    
-    
-    
+    s.imprimirSopa ();*/    
 }
