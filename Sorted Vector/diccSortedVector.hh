@@ -20,11 +20,17 @@ class SortedVector {
         void setIterador(const int& i);
         void imprimirTrobades();
     private:
-       
+
+        ////// Atributs //////
         vector < string> v;
         int iterador;
+        //////////////////////
+
         set <int> trobades;
         void construirVector();
+        void merge(int l, int r, int m);
+        void mergesort(int l, int r);
+        
         
 };
 

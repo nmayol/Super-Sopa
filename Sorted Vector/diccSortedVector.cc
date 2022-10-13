@@ -20,8 +20,58 @@ void SortedVector::construirVector() {
     ifstream fp_in;
     string a;
     fp_in.open("./diccionaris/mare-balena-vocabulary-3.txt");
-    while (fp_in >> a) v.push_back(a);
+    while (fp_in >> a) 
+        v.push_back(a);
+    
     fp_in.close();
+    mergesort(0,getSize()-1);
+    
+}
+
+
+void SortedVector::mergesort(int l, int r) {
+    if (l < r) {
+        int m = (l + r) / 2;
+        
+        mergesort(l,m);
+        mergesort(m+1,r);
+        merge(l,r,m);
+    }
+}
+
+void SortedVector::merge(int l, int r, int m) {
+    int n1 = m - l + 1, n2 = r - m;
+    vector< string> v1(n1), v2(n2);
+    for (int i = 0; i < n1; i++)
+        v1[i] = v[l + i];
+    for (int j = 0; j < n2; j++)
+        v2[j] = v[m + 1 + j];
+
+    int i = 0, j = 0, k = l;
+
+
+
+    while (i < n1 and j < n2) {
+        if (v1[i] <= v2[j]) {
+            v[k] = v1[i];
+            ++i;
+        } else {
+            v[k] = v2[j];
+            ++j;
+        }
+        ++k;
+    }
+
+    while (i < n1) {
+        v[k] = v1[i];
+        ++i; ++k;
+    }
+
+    while (j < n2) {
+        v[k] = v2[j];
+        ++j; ++k;
+    }
+
 }
 
 
