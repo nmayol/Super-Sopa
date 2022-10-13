@@ -1,5 +1,7 @@
 #include "./SuperSopa/superSopa.hh"
 
+#include <chrono>
+
 using namespace std;
 
 void llegir_fitxer (vector<string>& v, const string& path) {
@@ -20,7 +22,30 @@ int main () {
 
     llegir_fitxer(diccionari, path);
 
+    //temps vector ordenat    
+    SortedVector sorted_vector;
+    chrono::steady_clock::time_point begin = chrono::steady_clock::now();
+
+    chrono::steady_clock::time_point end = chrono::steady_clock::now();
+
+    cout << chrono::duration_cast<chrono::microseconds>(end - begin).count() << "[µs]" << std::endl;
+
+    //temps trie
+
+    //temps bloom filter
+
+    //temps hash table
+
+    BloomFilterDictionary bloom_filter;
+    HashTableDictionary hash_table;
+    TrieDictionary trie;
+
     
+    
+
+    
+    
+    //chrono::duration_cast<chrono::nanoseconds> (end - begin).count() << "[ns]" << std::endl;
 
     /*
     // n es la mida de la sopa
