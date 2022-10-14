@@ -13,6 +13,7 @@ using namespace std;
 class SortedVector {
     public:
         SortedVector ();
+        void afegir (const vector<string>& dicc);
         int first_ocurrence(int l, int r, const char& c, const int& iterador);
         int last_ocurrence(int l, int r, const char& c, const int& iterador);
         const int getSize();
@@ -26,7 +27,7 @@ class SortedVector {
         set <int> trobades;
         ///////////////////////
     
-        void construirVector();
+       
         void merge(int l, int r, int m);
         void mergesort(int l, int r);
         

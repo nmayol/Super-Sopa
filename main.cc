@@ -33,9 +33,8 @@ int main () {
     SortedVector sorted_vector;    
     auto begin = moment();
 
-    for (int i = 0; i < diccionari.size(); ++i) {
-        //sorted_vector.afegir(diccionari[i]);
-    }
+    sorted_vector.afegir(diccionari);
+    
 
     auto end = moment();
 

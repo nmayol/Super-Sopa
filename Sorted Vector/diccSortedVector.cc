@@ -1,10 +1,12 @@
 #include "diccSortedVector.hh"
 
 
-SortedVector::SortedVector () {
-    v = vector< string>(0);
+SortedVector::SortedVector(){}
+
+SortedVector::afegir(const vector<string>& dicc) {
+    v = dicc;
     trobades.clear();
-    construirVector();
+    mergesort(0,getSize()-1);
 }
 
 void SortedVector::imprimirTrobades() {
@@ -14,18 +16,6 @@ void SortedVector::imprimirTrobades() {
     fp_out.close();
 }
 
-
-void SortedVector::construirVector() {
-    ifstream fp_in;
-    string a;
-    fp_in.open("./diccionaris/mare-balena-vocabulary-3.txt");
-    while (fp_in >> a) 
-        v.push_back(a);
-    
-    fp_in.close();
-    mergesort(0,getSize()-1);
-    
-}
 
 
 void SortedVector::mergesort(int l, int r) {
