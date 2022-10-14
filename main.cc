@@ -29,6 +29,7 @@ int main () {
     llegir_fitxer(diccionari, path);
 
     //AFEGIR ELEMENTS ALS DICCIONARIS
+
     //vector ordenat   
     SortedVector sorted_vector;    
     auto begin = moment();
@@ -65,11 +66,11 @@ int main () {
     cout << chrono::duration_cast<chrono::microseconds>(end - begin).count() << "[µs]" << std::endl;
 
     //hash table
-    HashTableDictionary hash_table;
+    HashTableDictionary hash_table(diccionari.size());
     begin = moment();
 
     for (int i = 0; i < diccionari.size(); ++i) {
-        //hahs_table.afegir(diccionari[i]);
+        hash_table.afegir(diccionari[i]);
     }
 
     end = moment();
