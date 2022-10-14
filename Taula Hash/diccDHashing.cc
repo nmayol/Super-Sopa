@@ -1,7 +1,7 @@
 #include "diccDHashing.hh"
 
 
-void HashTableDictionary::HashTableDictionary(int mida) {
+HashTableDictionary::HashTableDictionary(int mida) {
     tableSize = mida
     hashTable = new int[tableSize];
     curr_size = 0;
@@ -41,7 +41,7 @@ void HashTableDictionary::afegir(string key) {
         while (!found) {
             // doble hash
             int newIndex = (index + i * index2) % tableSize;
-            if (hashTable[newIndex] == -1) {
+            if (hashTable[newIndex] == "nnnn") {
                 hashTable[newIndex] = key;
                 if(i > maxcolision) maxcolision = i;
                 found = true;

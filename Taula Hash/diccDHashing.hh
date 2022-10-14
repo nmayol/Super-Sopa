@@ -23,7 +23,7 @@ class HashTableDictionary {
         //void escriure();
         
     private:
-        static const int tableSize;
+        int tableSize;
         int *hashTable;
         int curr_size;
         int maxcolision;      
