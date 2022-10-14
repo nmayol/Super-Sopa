@@ -1,9 +1,13 @@
 #include "diccSortedVector.hh"
 
+const vector<pair<int,int>> DIR = {make_pair( 1, 0), make_pair( 1, 1),
+                                   make_pair( 0, 1), make_pair(-1, 1),
+                                   make_pair(-1, 0), make_pair(-1,-1),
+                                   make_pair( 0,-1), make_pair( 1,-1)};
 
 SortedVector::SortedVector(){}
 
-SortedVector::afegir(const vector<string>& dicc) {
+void SortedVector::afegir(const vector<string>& dicc) {
     v = dicc;
     trobades.clear();
     mergesort(0,getSize()-1);
@@ -111,10 +115,41 @@ int SortedVector::last_ocurrence(int l, int r, const char& c, const int& iterado
 
 
 
+
+// (i,j) es una posicio valida a la sopa
+void SortedVector:: buscarParaula(int i , int j, vector<vector<bool>>& pos, int l, int r, int iterador, Sopa& s) {
+    int direccions_provades = 0, ni, nj, nl, nr;
+    pos[i][j] = true;
+    
+    while (direccions_provades < 8) {
+        ni = DIR[direccions_provades].first + i; nj = DIR[direccions_provades].second + j; 
+        if (compleixLimits(s,ni,nj,s.size()) and not pos[ni][nj]) {
+            nl = first_ocurrence(l,r,s[i][j],iterador);
+            nr = last_ocurrence(max(l,nl),r,s[i][j],iterador);
+            if ((nl != -1 and nr != -1)){                
+                ++iterador;
+                buscarParaula(ni,nj,pos,nl,nr,iterador,s);
+                --iterador;
+
+            }    
+        }
+        ++direccions_provades;
+    }
+    pos[i][j] = false;
+
+}
+
+
+
+
 const int SortedVector::getSize() {
     return v.size();
 }
 
+// Retorna true si la posició (i,j) és una posició de la Sopa.
+bool SortedVector::compleixLimits(Sopa& s, const int& i,const int& j,const int& n) {
+    return(i >= 0 and j >= 0 and i < n and j < n);
+}
 
 
 
