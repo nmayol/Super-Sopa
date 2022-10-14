@@ -1,4 +1,5 @@
 #include "./SuperSopa/superSopa.hh"
+#include "./Trie/diccTrie.hh"
 using namespace std;
 
 int main() {
@@ -57,11 +58,12 @@ int main() {
             + output de paraules trobades i temps tardat.
         */
         cout << "Imprimim el diccionari guardat:" << endl;
-        dicTrie.escriure();
-        cout << endl << "Ara simplifiquem" << endl;
-        dicTrie.simplificaArbre();
-        dicTrie.escriure();
+        //dicTrie.escriure();
+        //cout << endl << "Ara simplifiquem" << endl;
+        //dicTrie.simplificaArbre();
+        //dicTrie.escriure();
         cout << endl;
+        dicTrie.buscarParaulesSopa(ss);
     }
     else if (metode == 'b') {
 

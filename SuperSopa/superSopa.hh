@@ -18,7 +18,6 @@ using namespace std;
 #include "../Filtre Bloom/diccBloomFilter.hh"
 #include "../Taula Hash/diccDHashing.hh"
 #include "../Sorted Vector/diccSortedVector.hh"
-#include "../Trie/diccTrie.hh"
 
 
 typedef vector<vector<char >> Sopa;
@@ -50,6 +49,9 @@ class superSopa {
         /*  Llegeix una sopa de lletres.
         */
         void llegir();
+        
+        int mida() const;
+        char getchar(int i, int j) const;
  
     private:
         Sopa so;
