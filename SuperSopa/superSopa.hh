@@ -28,13 +28,13 @@ class superSopa {
         superSopa ();
         superSopa (const int& mida);
 
-        void generarSopa(int n, vector<vector<char>>& sopa);
+        void generarSopa(int n, Sopa& sopa);
 
         // Metodes per resoldre-la de cadascuna de les maneres       
-        void resoldre (SortedVector d, vector<vector<char>>& sopa); 
-        void resoldre (TrieDictionary d, vector<vector<char>>& sopa);
-        void resoldre (HashTableDictionary d, vector<vector<char>>& sopa);
-        void resoldre (BloomFilterDictionary d, vector<vector<char>>& sopa);
+        void resoldre (SortedVector d, Sopa& sopa); 
+        void resoldre (TrieDictionary d, Sopa& sopa);
+        void resoldre (HashTableDictionary d, Sopa& sopa);
+        void resoldre (BloomFilterDictionary d, Sopa& sopa);
 
         //ALTRES MÈTODES
         void buscarParaula(int i , int j, vector<vector<bool>>& pos, int l, int r, SortedVector& sv);
