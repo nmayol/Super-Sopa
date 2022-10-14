@@ -12,8 +12,6 @@ void HashTableDictionary::HashTableDictionary() {
 
 
 bool HashTableDictionary::plena() {
- 
-        // if hash size reaches maximum size
         return (cur_size == TABLE_SIZE);
     }
 

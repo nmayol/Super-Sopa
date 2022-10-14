@@ -23,8 +23,8 @@ class HashTableDictionary {
         
     private:
         static const int tablesize;
-        list<string> table[tablesize];
-
+        int *hashTable;
+        int curr_size;
     
 
         
