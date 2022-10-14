@@ -66,7 +66,7 @@ int main () {
     cout << chrono::duration_cast<chrono::microseconds>(end - begin).count() << "[µs]" << std::endl;
 
     //hash table
-    HashTableDictionary hash_table(v.size());
+    HashTableDictionary hash_table(diccionari.size());
     begin = moment();
 
     for (int i = 0; i < diccionari.size(); ++i) {
