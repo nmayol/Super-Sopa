@@ -2,26 +2,74 @@
 
 
 void HashTableDictionary::HashTableDictionary() {
-    tablesize = 
+    {
+        hashTable = new int[TABLE_SIZE];
+        curr_size = 0;
+        for (int i=0; i<TABLE_SIZE; i++)
+            hashTable[i] = -1;
+    } 
 }
 
-void HashTableDictionary::afegir (string s) {
-    int hashValue = hashFunction(key);
-    auto& cell = table[hashValue];//preque no vaig directament a la table?
-    auto bItr = begin(cell);
-    bool keyExist = false;
-    for(;bItr != end(cell); bItr++) {
-        if(bItr == key){
-            keyExist = true;
-            //q faig si ja existeix? 
-            break;
+
+bool HashTableDictionary::isFull() {
+ 
+        // if hash size reaches maximum size
+        return (curr_size == TABLE_SIZE);
+    }
+
+int HashTableDictionary::hash1(string key) {
+    int length = key.length();
+    int sum = 0;
+    for(int i = 0; i < length; i++) {
+        sum += (int)key[i];
+    }
+
+        return (sum % TABLE_SIZE);
+    }
+
+int HashTableDictionary::hash2(string key) {
+    int length = key.length();
+    int sum = 0;
+    for(int i = 0; i < length; i++) {
+        sum += (int)key[i];
+    }
+        return (7 - (sum % 7));
+    }
+ 
+
+void HashTableDictionary::insertHash(string key)
+    {
+        // if hash table is full
+        if (isFull())
+            return;
+ 
+        // get index from first hash
+        int index = hash1(key);
+ 
+        // if collision occurs
+        if (hashTable[index] != -1) {
+            // get index2 from second hash
+            int index2 = hash2(key);
+            int i = 1;
+            bool found = false;
+            while (!found) {
+                // get newIndex
+                int newIndex = (index + i * index2) % TABLE_SIZE;
+                // if no collision occurs, store
+                // the key
+                if (hashTable[newIndex] == -1) {
+                    hashTable[newIndex] = key;
+                    found = true;
+                }
+                i++;
+            }
         }
+ 
+        // if no collision occurs
+        else
+            hashTable[index] = key;
+        curr_size++;
     }
-    if(!keyExist) {
-        cell.emplace_back(key);
-    }
-
-}
 
 bool HashTableDictionary::comprovar (string s) {
     return true;  
@@ -33,17 +81,6 @@ bool HashTableDictionary::isEmpty() {
     if(sum == 0) return true;
     return false;
     index = hash % tablesize
-}
-
-int HashTableDictionary::hashFunction(int key) {
-    int hash = 0;
-    int index;
-
-    for(int i = 0; i < key.lengh(); i++){
-        hash += int(key[i]); 
-    }
-
-
 }
 
 void HashTableDictionary::imprimir() {
@@ -58,6 +95,4 @@ void HashTableDictionary::imprimir() {
     fp_out.close();
 
 }
-
-
 

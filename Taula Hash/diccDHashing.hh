@@ -21,7 +21,7 @@ class HashTableDictionary {
         
     private:
         static const int tablesize;
-        list<string> table[hashGroups];
+        list<string> table[tablesize];
 
     
 
