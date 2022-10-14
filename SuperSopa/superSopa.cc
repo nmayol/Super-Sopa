@@ -44,10 +44,10 @@ void superSopa::resoldre (TrieDictionary d, Sopa& sopa) {
 
 //RESTA DE MÈTODES
 // crea una super sopa on l'atribut sopa té mida nxn
-superSopa::superSopa(const int& mida) {
+/*superSopa::superSopa(const int& mida) {
     n = mida;
     so = Sopa(n,vector<char>(n, '#'));
-}
+}*/
 
 
 void superSopa::llegir() {

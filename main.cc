@@ -79,9 +79,9 @@ int main () {
 
     
     //GENERAR SOPA
-    superSopa super_sopa;
-    Sopa sopa;
     int n = 10;
+    superSopa super_sopa = (n,vector<char>(n, '#'));
+    Sopa sopa;    
     
     super_sopa.generarSopa(n, sopa);
 
