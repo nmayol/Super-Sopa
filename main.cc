@@ -1,5 +1,7 @@
 #include "./SuperSopa/superSopa.hh"
 
+#include <iostream>
+#include <fstream>
 #include <chrono>
 
 using namespace std;
