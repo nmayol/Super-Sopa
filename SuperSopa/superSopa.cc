@@ -218,7 +218,7 @@ void superSopa::omplebuits() {
 }
 ///////////////////////// FUNCIONS SORTED VECTOR ////////////////////////////////
 
-void superSopa::resoldreVector () {
+/*void superSopa::resoldreVector () {
     SortedVector sv = SortedVector();
     int l = 0 , r = sv.getSize() - 1;
     vector<vector<bool>> pos(n, vector<bool>(n,false));
@@ -231,7 +231,7 @@ void superSopa::resoldreVector () {
         }
     }
     sv.imprimirTrobades();
-}
+}*/
 
 // (i,j) es una posicio valida a la sopa
 void superSopa:: buscarParaula(int i , int j, vector<vector<bool>>& pos, int l, int r, SortedVector& sv) {
@@ -258,7 +258,7 @@ void superSopa:: buscarParaula(int i , int j, vector<vector<bool>>& pos, int l, 
 
 //////////////////////////////////////////////////////////////////////////////////
 
-void superSopa::resoldreTrie () {}
+//void superSopa::resoldreTrie () {}
 
 int superSopa::mida() const {
     return n;
@@ -268,9 +268,9 @@ char superSopa::getchar(int i, int j) const {
     return so[i][j];
 }
 
-void superSopa::resoldreBloom () {}
+//void superSopa::resoldreBloom () {}
 
-void superSopa::resoldreDHash () {}
+//void superSopa::resoldreDHash () {}
 
 void superSopa::afegirParaula (string s, int i0, int j0, vector<vector<bool>>& pos, int k, bool& afegida) {   
     // Escull una posició random i hi posa la paraula.

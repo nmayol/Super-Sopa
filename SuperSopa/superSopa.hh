@@ -18,6 +18,7 @@ using namespace std;
 #include "../Filtre Bloom/diccBloomFilter.hh"
 #include "../Taula Hash/diccDHashing.hh"
 #include "../Sorted Vector/diccSortedVector.hh"
+#include "../Trie/diccTrie.hh"
 
 
 typedef vector<vector<char >> Sopa;
