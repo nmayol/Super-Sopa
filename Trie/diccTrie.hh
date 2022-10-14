@@ -19,6 +19,7 @@ class TrieDictionary {
         void simplificaArbre();
 
         void buscarParaulesSopa(const superSopa& ss);
+        bool existeixParaula(const string& c);
         
     private:
 
