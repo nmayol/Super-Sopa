@@ -70,7 +70,7 @@ int main () {
     begin = moment();
 
     for (int i = 0; i < diccionari.size(); ++i) {
-        hahs_table.afegir(diccionari[i]);
+        hash_table.afegir(diccionari[i]);
     }
 
     end = moment();
