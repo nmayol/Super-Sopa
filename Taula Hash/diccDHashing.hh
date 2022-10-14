@@ -22,7 +22,7 @@ class HashTableDictionary {
         
         
     private:
-        static const int tablesize;
+        static const int tableSize;
         int *hashTable;
         int curr_size;
     

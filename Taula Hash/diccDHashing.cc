@@ -6,10 +6,10 @@ void HashTableDictionary::HashTableDictionary() {
         hashTable = new int[tableSize];
         curr_size = 0;
         for (int i=0; i<tableSize; i++)
-            hashTable[i] = -1;
+            hashTable[i] = "nnnn";
     } 
 }
-
+-
 
 bool HashTableDictionary::plena() {
         return (cur_size == tableSize);
@@ -44,7 +44,7 @@ void HashTableDictionary::afegir(string key)
         int index = hash1(key);
  
         // si hi ha colisio
-        if (hashTable[index] != -1) {
+        if (hashTable[index] != "nnnn") {
             // index2 del segon hash
             int index2 = hash2(key);
             int i = 1;
@@ -67,17 +67,14 @@ void HashTableDictionary::afegir(string key)
         curr_size++;
     }
 
-bool HashTableDictionary::comprovar (string s) {
+bool HashTableDictionary::comprovar(string s) {
+    int index = hash1(s);
+    if (hashTable[index] != s) {
+
+    }
     return true;  
 }
-/*
-bool HashTableDictionary::isEmpty() {
-    int sum;
-    for(int i; i = 0; i++) sum+= table[i].size();
-    if(sum == 0) return true;
-    return false;
-    index = hash % tablesize
-}*/
+
 
 void HashTableDictionary::imprimir() {
     ofstream fp_out;
