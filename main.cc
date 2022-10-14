@@ -62,11 +62,11 @@ int main () {
     cout << chrono::duration_cast<chrono::microseconds>(end - begin).count() << "[µs]" << std::endl;
 
     //hash table
-    SortedVector sorted_vector;
+    HashTableDictionary hash_table;
     chrono::steady_clock::time_point begin = chrono::steady_clock::now();
 
     for (int i = 0; i < diccionari.size(); ++i) {
-        //sorted_vector.afegir(diccionari[i]);
+        //hahs_table.afegir(diccionari[i]);
     }
 
     chrono::steady_clock::time_point end = chrono::steady_clock::now();

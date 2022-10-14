@@ -25,17 +25,21 @@ typedef vector<vector<char >> Sopa;
 
 class superSopa {
     public:
+        //MÈTODES FINALS
         superSopa ();
-        superSopa (const int& mida);        
+        superSopa (const int& mida);
 
-        // Metodes per resoldre-la de cadascuna de les maneres
-        void resoldreVector (); 
+        void generarSopa(int n, vector<vector<char>>& sopa);
+
+        // Metodes per resoldre-la de cadascuna de les maneres       
+        void resoldre (SortedVector d, vector<vector<char>>& sopa); 
+        void resoldre (TrieDictionary d, vector<vector<char>>& sopa);
+        void resoldre (HashTableDictionary d, vector<vector<char>>& sopa);
+        void resoldre (BloomFilterDictionary d, vector<vector<char>>& sopa);
+
+        //ALTRES MÈTODES
         void buscarParaula(int i , int j, vector<vector<bool>>& pos, int l, int r, SortedVector& sv);
-
-        void resoldreTrie ();
-        void resoldreDHash ();
-        void resoldreBloom ();        
-        
+               
         void imprimirSopa ();  
 
         /*  Imprimeix la sopa a la Terminal.

@@ -11,10 +11,16 @@ vector<char> letters = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
                          'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
                          's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
 
+//MÈTODES FINALS (la resta no sé com funcionen i segur que es poden aprofitar
+//i barrejar bé, però els definitius haurien de ser aquests)
 
-
-
+//constructor buit
 superSopa::superSopa(){};
+
+
+
+
+//RESTA DE MÈTODES
 
 // crea una super sopa on l'atribut sopa té mida nxn
 superSopa::superSopa(const int& mida) {
