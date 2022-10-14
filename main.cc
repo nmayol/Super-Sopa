@@ -73,7 +73,7 @@ int main () {
 
     cout << chrono::duration_cast<chrono::microseconds>(end - begin).count() << "[µs]" << std::endl;
 
-
+    //RESOLDRE SOPA
     
     
     
@@ -83,8 +83,7 @@ int main () {
 
     
     
-    //chrono::duration_cast<chrono::nanoseconds> (end - begin).count() << "[ns]" << std::endl;
-
+    
     /*
     // n es la mida de la sopa
     int n;
