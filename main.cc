@@ -80,8 +80,8 @@ int main () {
     
     //GENERAR SOPA
     int n = 10;
-    superSopa super_sopa = (n,vector<char>(n, '#'));
-    Sopa sopa;    
+    Sopa sopa = Sopa(n,vector<char>(n, '#'));
+    superSopa super_sopa;    
     
     super_sopa.generarSopa(n, sopa);
 
