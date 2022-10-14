@@ -17,23 +17,23 @@ vector<char> letters = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
 //constructor buit
 superSopa::superSopa(){};
 
-void superSopa::generarSopa (int n, vector<vector<char>>& sopa) {
+void superSopa::generarSopa (int n, Sopa& sopa) {
 
 }
 
-void superSopa::resoldre (SortedVector d, vector<vector<char>>& sopa) {
+void superSopa::resoldre (SortedVector d, Sopa& sopa) {
 
 }
 
-void superSopa::resoldre (BloomFilterDictionary d, vector<vector<char>>& sopa) {
+void superSopa::resoldre (BloomFilterDictionary d, Sopa& sopa) {
 
 }
 
-void superSopa::resoldre (HashTableDictionaryd, vector<vector<char>>& sopa) {
+void superSopa::resoldre (HashTableDictionary d, Sopa& sopa) {
 
 }
 
-void superSopa::resoldre (TrieDictionary d, vector<vector<char>>& sopa) {
+void superSopa::resoldre (TrieDictionary d, Sopa& sopa) {
 
 }
 
@@ -44,10 +44,10 @@ void superSopa::resoldre (TrieDictionary d, vector<vector<char>>& sopa) {
 
 //RESTA DE MÈTODES
 // crea una super sopa on l'atribut sopa té mida nxn
-superSopa::superSopa(const int& mida) {
+/*superSopa::superSopa(const int& mida) {
     n = mida;
     so = Sopa(n,vector<char>(n, '#'));
-}
+}*/
 
 
 void superSopa::llegir() {
@@ -218,7 +218,7 @@ void superSopa::omplebuits() {
 }
 ///////////////////////// FUNCIONS SORTED VECTOR ////////////////////////////////
 
-void superSopa::resoldreVector () {
+/*void superSopa::resoldreVector () {
     SortedVector sv = SortedVector();
     int l = 0 , r = sv.getSize() - 1;
     vector<vector<bool>> pos(n, vector<bool>(n,false));
@@ -231,7 +231,7 @@ void superSopa::resoldreVector () {
         }
     }
     sv.imprimirTrobades();
-}
+}*/
 
 // (i,j) es una posicio valida a la sopa
 void superSopa:: buscarParaula(int i , int j, vector<vector<bool>>& pos, int l, int r, SortedVector& sv) {
@@ -258,7 +258,7 @@ void superSopa:: buscarParaula(int i , int j, vector<vector<bool>>& pos, int l, 
 
 //////////////////////////////////////////////////////////////////////////////////
 
-void superSopa::resoldreTrie () {}
+//void superSopa::resoldreTrie () {}
 
 int superSopa::mida() const {
     return n;
@@ -268,9 +268,9 @@ char superSopa::getchar(int i, int j) const {
     return so[i][j];
 }
 
-void superSopa::resoldreBloom () {}
+//void superSopa::resoldreBloom () {}
 
-void superSopa::resoldreDHash () {}
+//void superSopa::resoldreDHash () {}
 
 void superSopa::afegirParaula (string s, int i0, int j0, vector<vector<bool>>& pos, int k, bool& afegida) {   
     // Escull una posició random i hi posa la paraula.
