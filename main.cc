@@ -24,31 +24,66 @@ int main () {
 
     llegir_fitxer(diccionari, path);
 
-    //temps vector ordenat    
+    //AFEGIR ELEMENTS ALS DICCIONARIS
+    //vector ordenat   
     SortedVector sorted_vector;
     chrono::steady_clock::time_point begin = chrono::steady_clock::now();
+
+    for (int i = 0; i < diccionari.size(); ++i) {
+        //sorted_vector.afegir(diccionari[i]);
+    }
 
     chrono::steady_clock::time_point end = chrono::steady_clock::now();
 
     cout << chrono::duration_cast<chrono::microseconds>(end - begin).count() << "[µs]" << std::endl;
 
-    //temps trie
-
-    //temps bloom filter
-
-    //temps hash table
-
-    BloomFilterDictionary bloom_filter;
-    HashTableDictionary hash_table;
+    //trie
     TrieDictionary trie;
+    chrono::steady_clock::time_point begin = chrono::steady_clock::now();
+
+    for (int i = 0; i < diccionari.size(); ++i) {
+        //trie.afegir(diccionari[i]);
+    }
+
+    chrono::steady_clock::time_point end = chrono::steady_clock::now();
+
+    cout << chrono::duration_cast<chrono::microseconds>(end - begin).count() << "[µs]" << std::endl;
+
+    //bloom filter
+    BloomFilterDictionary bloom_filter;
+    chrono::steady_clock::time_point begin = chrono::steady_clock::now();
+
+    for (int i = 0; i < diccionari.size(); ++i) {
+        bloom_filter.afegir(diccionari[i]);
+    }
+
+    chrono::steady_clock::time_point end = chrono::steady_clock::now();
+
+    cout << chrono::duration_cast<chrono::microseconds>(end - begin).count() << "[µs]" << std::endl;
+
+    //hash table
+    HashTableDictionary hash_table;
+    chrono::steady_clock::time_point begin = chrono::steady_clock::now();
+
+    for (int i = 0; i < diccionari.size(); ++i) {
+        //hahs_table.afegir(diccionari[i]);
+    }
+
+    chrono::steady_clock::time_point end = chrono::steady_clock::now();
+
+    cout << chrono::duration_cast<chrono::microseconds>(end - begin).count() << "[µs]" << std::endl;
+
+    //RESOLDRE SOPA
+    
+    
+    
 
     
     
 
     
     
-    //chrono::duration_cast<chrono::nanoseconds> (end - begin).count() << "[ns]" << std::endl;
-
+    
     /*
     // n es la mida de la sopa
     int n;
