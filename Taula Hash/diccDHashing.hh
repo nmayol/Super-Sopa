@@ -13,11 +13,13 @@ class HashTableDictionary {
         //constructora
         HashTableDictionary ();
         //Afegir una paraula al diccionari
-        void afegir (int key, string s);
+        void afegir (string key);
         //mira si esta la paraula al diccionari
-        bool comprovar(int key, string s);
+        bool comprovar(string key);
+        int hash1(string key);
+        int hash2(string key);
         void escriure();
-        int hashFunction(int key);
+        
         
     private:
         static const int tablesize;

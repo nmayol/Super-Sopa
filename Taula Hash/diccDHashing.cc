@@ -11,10 +11,10 @@ void HashTableDictionary::HashTableDictionary() {
 }
 
 
-bool HashTableDictionary::isFull() {
+bool HashTableDictionary::plena() {
  
         // if hash size reaches maximum size
-        return (curr_size == TABLE_SIZE);
+        return (cur_size == TABLE_SIZE);
     }
 
 int HashTableDictionary::hash1(string key) {
@@ -37,26 +37,24 @@ int HashTableDictionary::hash2(string key) {
     }
  
 
-void HashTableDictionary::insertHash(string key)
+void HashTableDictionary::afegir(string key)
     {
-        // if hash table is full
-        if (isFull())
+        // si la taula esta plena
+        if (plena())
             return;
  
-        // get index from first hash
         int index = hash1(key);
  
-        // if collision occurs
+        // si hi ha colisio
         if (hashTable[index] != -1) {
-            // get index2 from second hash
+            // index2 del segon hash
             int index2 = hash2(key);
             int i = 1;
             bool found = false;
             while (!found) {
-                // get newIndex
+                // doble hash
                 int newIndex = (index + i * index2) % TABLE_SIZE;
-                // if no collision occurs, store
-                // the key
+                
                 if (hashTable[newIndex] == -1) {
                     hashTable[newIndex] = key;
                     found = true;
@@ -65,7 +63,7 @@ void HashTableDictionary::insertHash(string key)
             }
         }
  
-        // if no collision occurs
+        // si no hi ha
         else
             hashTable[index] = key;
         curr_size++;
@@ -74,14 +72,14 @@ void HashTableDictionary::insertHash(string key)
 bool HashTableDictionary::comprovar (string s) {
     return true;  
 }
-
+/*
 bool HashTableDictionary::isEmpty() {
     int sum;
     for(int i; i = 0; i++) sum+= table[i].size();
     if(sum == 0) return true;
     return false;
     index = hash % tablesize
-}
+}*/
 
 void HashTableDictionary::imprimir() {
     ofstream fp_out;
