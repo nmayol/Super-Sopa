@@ -3,7 +3,6 @@
 
 SortedVector::SortedVector () {
     v = vector< string>(0);
-    iterador = 0;
     trobades.clear();
     construirVector();
 }
@@ -75,7 +74,11 @@ void SortedVector::merge(int l, int r, int m) {
 }
 
 
-int SortedVector::first_ocurrence(int l, int r, const char& c) {
+
+
+
+
+int SortedVector::first_ocurrence(int l, int r, const char& c, const int& iterador) {
     // les lletres anteriors ja han complert la condició 
     if (l > r) return -1;
     int m = (l + r) / 2;
@@ -83,7 +86,7 @@ int SortedVector::first_ocurrence(int l, int r, const char& c) {
     if (v[m].size() > iterador) { 
         if  (v[m][iterador] == c) {
             if (l != m and (m != 0 and v[m-1].size() > iterador and v[m-1][iterador] == c)) 
-                return first_ocurrence(l,m-1,c);
+                return first_ocurrence(l,m-1,c,iterador);
             else {
                 if (v[m].size() == (iterador+1)) {
                     trobades.insert(m);
@@ -92,14 +95,14 @@ int SortedVector::first_ocurrence(int l, int r, const char& c) {
                 return m;
             }
         }
-        else if  (v[m][iterador] < c) return first_ocurrence(m+1,r,c);
-        else return first_ocurrence(l,m-1,c);       
+        else if  (v[m][iterador] < c) return first_ocurrence(m+1,r,c,iterador);
+        else return first_ocurrence(l,m-1,c,iterador);       
     }
-    else return first_ocurrence(l,m-1,c);
+    else return first_ocurrence(l,m-1,c,iterador);
 
 }
 
-int SortedVector::last_ocurrence(int l, int r, const char& c) {
+int SortedVector::last_ocurrence(int l, int r, const char& c, const int& iterador) {
     // les lletres anteriors ja han complert la condició 
     if (l > r) return -1;
     int m = (l + r) / 2;
@@ -107,12 +110,12 @@ int SortedVector::last_ocurrence(int l, int r, const char& c) {
     if (v[m].size() > iterador) {
         if (v[m][iterador] == c) {
             if (r == m or (m == (v.size() - 1) ) or (c != v[m+1][iterador]) ) return m;
-            else return last_ocurrence(m+1,r,c);
+            else return last_ocurrence(m+1,r,c,iterador);
         }
-        else if (v[m][iterador] < c) return last_ocurrence(m+1,r,c);
-        else return last_ocurrence(l,m-1,c);
+        else if (v[m][iterador] < c) return last_ocurrence(m+1,r,c,iterador);
+        else return last_ocurrence(l,m-1,c,iterador);
     }
-    else return last_ocurrence(l,m-1,c);   
+    else return last_ocurrence(l,m-1,c,iterador);   
 
 }
 
@@ -123,11 +126,6 @@ const int SortedVector::getSize() {
 }
 
 
-const int SortedVector::getIterador() {
-    return iterador;
-}
 
-void SortedVector::setIterador(const int& i) {
-    iterador = i;
-}
+
 
