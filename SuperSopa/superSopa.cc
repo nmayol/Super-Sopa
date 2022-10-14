@@ -22,7 +22,15 @@ void superSopa::generarSopa (int n, Sopa& sopa) {
 }
 
 void superSopa::resoldre (SortedVector d, Sopa& sopa) {
-
+    int l = 0 , r = d.getSize() - 1;
+    vector<vector<bool>> pos(n, vector<bool>(n,false));
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            int l = 0, r = d.getSize()-1, iterador = 0;
+            buscarParaula(i,j,pos,l,r,d,iterador);            
+        }
+    }
+    d.imprimirTrobades();
 }
 
 void superSopa::resoldre (BloomFilterDictionary d, Sopa& sopa) {
@@ -44,10 +52,10 @@ void superSopa::resoldre (TrieDictionary d, Sopa& sopa) {
 
 //RESTA DE MÈTODES
 // crea una super sopa on l'atribut sopa té mida nxn
-/*superSopa::superSopa(const int& mida) {
+superSopa::superSopa(const int& mida) {
     n = mida;
     so = Sopa(n,vector<char>(n, '#'));
-}*/
+}
 
 
 void superSopa::llegir() {
@@ -216,37 +224,23 @@ void superSopa::omplebuits() {
         }
     }
 }
-///////////////////////// FUNCIONS SORTED VECTOR ////////////////////////////////
+///////////////////////// FUNCIO BACKTRACKING PEL SORTED VECTOR ////////////////////////////////
 
-/*void superSopa::resoldreVector () {
-    SortedVector sv = SortedVector();
-    int l = 0 , r = sv.getSize() - 1;
-    vector<vector<bool>> pos(n, vector<bool>(n,false));
-    sv.setIterador(0);
-    
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j) {
-            int l = 0, r = sv.getSize()-1;
-            buscarParaula(i,j,pos,l,r,sv);            
-        }
-    }
-    sv.imprimirTrobades();
-}*/
 
 // (i,j) es una posicio valida a la sopa
-void superSopa:: buscarParaula(int i , int j, vector<vector<bool>>& pos, int l, int r, SortedVector& sv) {
+void superSopa:: buscarParaula(int i , int j, vector<vector<bool>>& pos, int l, int r, SortedVector & sv, int iterador) {
     int direccions_provades = 0, ni, nj, nl, nr;
     pos[i][j] = true;
     
     while (direccions_provades < 8) {
         ni = DIR[direccions_provades].first + i; nj = DIR[direccions_provades].second + j; 
         if (compleixLimits(ni,nj) and not pos[ni][nj]) {
-            nl = sv.first_ocurrence(l,r,so[i][j]);
-            nr = sv.last_ocurrence(max(l,nl),r,so[i][j]);
+            nl = sv.first_ocurrence(l,r,so[i][j],iterador);
+            nr = sv.last_ocurrence(max(l,nl),r,so[i][j],iterador);
             if ((nl != -1 and nr != -1)){                
-                sv.setIterador(sv.getIterador()+1);
-                buscarParaula(ni,nj,pos,nl,nr,sv);
-                sv.setIterador(sv.getIterador()-1);
+                ++iterador;
+                buscarParaula(ni,nj,pos,nl,nr,sv,iterador);
+                --iterador;
 
             }    
         }
@@ -256,7 +250,8 @@ void superSopa:: buscarParaula(int i , int j, vector<vector<bool>>& pos, int l, 
 
 }
 
-//////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////////////////////
 
 //void superSopa::resoldreTrie () {}
 
