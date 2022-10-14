@@ -29,5 +29,6 @@ diccBloomFilter.o: ./Filtre\ Bloom/diccBloomFilter.hh
 
 	
 clean:
+	rm *.o
 	rm *.exe
 
