@@ -17,13 +17,32 @@ vector<char> letters = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
 //constructor buit
 superSopa::superSopa(){};
 
+void superSopa::generarSopa (int n, vector<vector<char>>& sopa) {
+
+}
+
+void superSopa::resoldre (SortedVector d, vector<vector<char>>& sopa) {
+
+}
+
+void superSopa::resoldre (BloomFilterDictionary d, vector<vector<char>>& sopa) {
+
+}
+
+void superSopa::resoldre (HashTableDictionaryd, vector<vector<char>>& sopa) {
+
+}
+
+void superSopa::resoldre (TrieDictionary d, vector<vector<char>>& sopa) {
+
+}
+
+
+
 
 
 
 //RESTA DE MÈTODES
-
-
-
 // crea una super sopa on l'atribut sopa té mida nxn
 superSopa::superSopa(const int& mida) {
     n = mida;

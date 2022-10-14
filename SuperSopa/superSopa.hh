@@ -9,7 +9,7 @@
 #include <random>
 #include <algorithm>
 #include <stdlib.h>
-#include<fstream>
+#include <fstream>
 
 
 using namespace std;
