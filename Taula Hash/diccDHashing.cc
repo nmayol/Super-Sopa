@@ -86,11 +86,11 @@ bool HashTableDictionary::comprovar(string s) {
     return true;  
 }
 
-
+/*
 void HashTableDictionary::imprimir() {
     ofstream fp_out;
     fp_out.open("./DHashing/out.txt");
     for(int i = 0; i < tableSize; i++) fp_out << hashTable[i] << endl;
     fp_out.close();
 }
-
+*/
