@@ -3,16 +3,16 @@
 
 void HashTableDictionary::HashTableDictionary() {
     {
-        hashTable = new int[TABLE_SIZE];
+        hashTable = new int[tableSize];
         curr_size = 0;
-        for (int i=0; i<TABLE_SIZE; i++)
+        for (int i=0; i<tableSize; i++)
             hashTable[i] = -1;
     } 
 }
 
 
 bool HashTableDictionary::plena() {
-        return (cur_size == TABLE_SIZE);
+        return (cur_size == tableSize);
     }
 
 int HashTableDictionary::hash1(string key) {
@@ -22,7 +22,7 @@ int HashTableDictionary::hash1(string key) {
         sum += (int)key[i];
     }
 
-        return (sum % TABLE_SIZE);
+        return (sum % tableSize);
     }
 
 int HashTableDictionary::hash2(string key) {
@@ -51,7 +51,7 @@ void HashTableDictionary::afegir(string key)
             bool found = false;
             while (!found) {
                 // doble hash
-                int newIndex = (index + i * index2) % TABLE_SIZE;
+                int newIndex = (index + i * index2) % tableSize;
                 
                 if (hashTable[newIndex] == -1) {
                     hashTable[newIndex] = key;
