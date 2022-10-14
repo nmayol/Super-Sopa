@@ -247,3 +247,10 @@ void TrieDictionary::buscarParaulesSopa(const superSopa& ss) {
         }
     }
 }
+
+bool TrieDictionary::existeixParaula(const string& c) {
+
+    bool r = false;
+    bool f = busquemParaula(c, arrel, 0, r);
+    return r;
+}
