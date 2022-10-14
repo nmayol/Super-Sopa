@@ -11,7 +11,7 @@ using namespace std;
 class HashTableDictionary {
     public:
         //constructora
-        HashTableDictionary ();
+        HashTableDictionary (int mida);
         //Afegir una paraula al diccionari
         void afegir (string key);
         //mira si esta la paraula al diccionari
@@ -25,6 +25,7 @@ class HashTableDictionary {
         static const int tableSize;
         int *hashTable;
         int curr_size;
+        int maxcolision;
     
 
         
