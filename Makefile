@@ -18,7 +18,7 @@ superSopa.o: ./SuperSopa/superSopa.cc ./SuperSopa/superSopa.hh ./Taula\ Hash/dic
 diccSortedVector.o: ./Sorted\ Vector/diccSortedVector.hh 
 	g++ -c ./Sorted\ Vector/diccSortedVector.cc
 
-diccTrie.o: ./Trie/diccTrie.hh
+diccTrie.o: ./Trie/diccTrie.hh ./SuperSopa/superSopa.hh
 	g++ -c ./Trie/diccTrie.cc
 
 diccDHashing.o: ./Taula\ Hash/diccDHashing.hh
@@ -29,5 +29,6 @@ diccBloomFilter.o: ./Filtre\ Bloom/diccBloomFilter.hh
 
 	
 clean:
+	rm *.o
 	rm *.exe
 

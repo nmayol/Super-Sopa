@@ -11,18 +11,43 @@ vector<char> letters = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
                          'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
                          's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
 
+//MÈTODES FINALS (la resta no sé com funcionen i segur que es poden aprofitar
+//i barrejar bé, però els definitius haurien de ser aquests)
 
-
-
+//constructor buit
 superSopa::superSopa(){};
 
+void superSopa::generarSopa (int n, Sopa& sopa) {
+
+}
+
+void superSopa::resoldre (SortedVector d, Sopa& sopa) {
+
+}
+
+void superSopa::resoldre (BloomFilterDictionary d, Sopa& sopa) {
+
+}
+
+void superSopa::resoldre (HashTableDictionary d, Sopa& sopa) {
+
+}
+
+void superSopa::resoldre (TrieDictionary d, Sopa& sopa) {
+
+}
 
 
+
+
+
+
+//RESTA DE MÈTODES
 // crea una super sopa on l'atribut sopa té mida nxn
-superSopa::superSopa(const int& mida) {
+/*superSopa::superSopa(const int& mida) {
     n = mida;
     so = Sopa(n,vector<char>(n, '#'));
-}
+}*/
 
 
 void superSopa::llegir() {
@@ -193,7 +218,7 @@ void superSopa::omplebuits() {
 }
 ///////////////////////// FUNCIONS SORTED VECTOR ////////////////////////////////
 
-void superSopa::resoldreVector () {
+/*void superSopa::resoldreVector () {
     SortedVector sv = SortedVector();
     int l = 0 , r = sv.getSize() - 1;
     vector<vector<bool>> pos(n, vector<bool>(n,false));
@@ -206,7 +231,7 @@ void superSopa::resoldreVector () {
         }
     }
     sv.imprimirTrobades();
-}
+}*/
 
 // (i,j) es una posicio valida a la sopa
 void superSopa:: buscarParaula(int i , int j, vector<vector<bool>>& pos, int l, int r, SortedVector& sv) {
@@ -233,11 +258,19 @@ void superSopa:: buscarParaula(int i , int j, vector<vector<bool>>& pos, int l, 
 
 //////////////////////////////////////////////////////////////////////////////////
 
-void superSopa::resoldreTrie () {}
+//void superSopa::resoldreTrie () {}
 
-void superSopa::resoldreBloom () {}
+int superSopa::mida() const {
+    return n;
+}
 
-void superSopa::resoldreDHash () {}
+char superSopa::getchar(int i, int j) const {
+    return so[i][j];
+}
+
+//void superSopa::resoldreBloom () {}
+
+//void superSopa::resoldreDHash () {}
 
 void superSopa::afegirParaula (string s, int i0, int j0, vector<vector<bool>>& pos, int k, bool& afegida) {   
     // Escull una posició random i hi posa la paraula.

@@ -1,4 +1,6 @@
+/*
 #include "./SuperSopa/superSopa.hh"
+#include "./Trie/diccTrie.hh"
 using namespace std;
 
 int main() {
@@ -30,60 +32,61 @@ int main() {
 
         Tambe al tenir les sopes ja generades, podem crear els outpus
         i comprovarne els seus resultats.
-    */
+    -/
 
     if (metode == 'v') {
 
         cout << "Heu escollit el metode SORTED VECTOR" << endl;
         /*  Lectura diccionari.
-        */
+        -/
         cout << "Diccionari guardat correctament!" << endl;
         ss.resoldreVector ();
         cout << " FET! Per veure la solucio sha d'anar al fitxer out.txt del directori Sorted Vector.";
         /*  Metode per bucar paraules a la Sopa.
             + output de paraules trobades i temps tardat.
-        */
+        -/
     }
     else if (metode == 't') {
 
         cout << "Heu escollit el metode TRIE" << endl;
         /* Lectura diccionari -> guardar en arbre.
-        */
+        -/
         TrieDictionary dicTrie = TrieDictionary();
         dicTrie.llegirTrie();
         cout << "Diccionari guardat correctament!" << endl;
 
         /*  Metode per bucar paraules a la Sopa.
             + output de paraules trobades i temps tardat.
-        */
+        -/
         cout << "Imprimim el diccionari guardat:" << endl;
-        dicTrie.escriure();
-        cout << endl << "Ara simplifiquem" << endl;
-        dicTrie.simplificaArbre();
-        dicTrie.escriure();
+        //dicTrie.escriure();
+        //cout << endl << "Ara simplifiquem" << endl;
+        //dicTrie.simplificaArbre();
+        //dicTrie.escriure();
         cout << endl;
+        dicTrie.buscarParaulesSopa(ss);
     }
     else if (metode == 'b') {
 
         cout << "Heu escollit el metode FILTRE BLOOM" << endl;
         /* Lectura diccionari
-        */
+        -/
         cout << "Diccionari guardat correctament!" << endl;
 
         /*  Metode per bucar paraules a la Sopa.
             + output de paraules trobades i temps tardat.
-        */
+        -/
     }
     else if (metode == 'h'){
 
         cout << "Heu escollit el metode TAULA HASH" << endl;
         /* Lectura diccionari
-        */
+        -/
         cout << "Diccionari guardat correctament!" << endl;
 
         /*  Metode per bucar paraules a la Sopa.
             + output de paraules trobades i temps tardat.
-        */
+        -/
     }
 
     
@@ -91,3 +94,4 @@ int main() {
 
 
 }
+*/
