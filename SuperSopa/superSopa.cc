@@ -22,12 +22,13 @@ void superSopa::generarSopa (int n, Sopa& sopa) {
 }
 
 void superSopa::resoldre (SortedVector d, Sopa& sopa) {
+
     int l = 0 , r = d.getSize() - 1;
     vector<vector<bool>> pos(n, vector<bool>(n,false));
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < n; ++j) {
             int l = 0, r = d.getSize()-1, iterador = 0;
-            buscarParaula(i,j,pos,l,r,d,iterador);            
+            d.buscarParaula(i,j,pos,l,r,iterador,sopa);            
         }
     }
     d.imprimirTrobades();
@@ -224,36 +225,7 @@ void superSopa::omplebuits() {
         }
     }
 }
-///////////////////////// FUNCIO BACKTRACKING PEL SORTED VECTOR ////////////////////////////////
 
-
-// (i,j) es una posicio valida a la sopa
-void superSopa:: buscarParaula(int i , int j, vector<vector<bool>>& pos, int l, int r, SortedVector & sv, int iterador) {
-    int direccions_provades = 0, ni, nj, nl, nr;
-    pos[i][j] = true;
-    
-    while (direccions_provades < 8) {
-        ni = DIR[direccions_provades].first + i; nj = DIR[direccions_provades].second + j; 
-        if (compleixLimits(ni,nj) and not pos[ni][nj]) {
-            nl = sv.first_ocurrence(l,r,so[i][j],iterador);
-            nr = sv.last_ocurrence(max(l,nl),r,so[i][j],iterador);
-            if ((nl != -1 and nr != -1)){                
-                ++iterador;
-                buscarParaula(ni,nj,pos,nl,nr,sv,iterador);
-                --iterador;
-
-            }    
-        }
-        ++direccions_provades;
-    }
-    pos[i][j] = false;
-
-}
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////
-
-//void superSopa::resoldreTrie () {}
 
 int superSopa::mida() const {
     return n;
@@ -263,9 +235,6 @@ char superSopa::getchar(int i, int j) const {
     return so[i][j];
 }
 
-//void superSopa::resoldreBloom () {}
-
-//void superSopa::resoldreDHash () {}
 
 void superSopa::afegirParaula (string s, int i0, int j0, vector<vector<bool>>& pos, int k, bool& afegida) {   
     // Escull una posició random i hi posa la paraula.
