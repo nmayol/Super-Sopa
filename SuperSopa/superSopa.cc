@@ -42,6 +42,7 @@ void superSopa::generarSopa (const vector<string>& dicc, Sopa& sopa) {
         while (not start and not end) {
             
             if (sopa[i][j] == '#' or sopa[i][j] == p[0]) {
+                cout << "primer if " << p << endl;
                 sopa[i][j] = p[0];
                 start = true;
             }
