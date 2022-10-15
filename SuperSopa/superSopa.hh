@@ -34,17 +34,17 @@ class superSopa {
         void generarSopa(const vector<string>& dicc, Sopa& sopa);
 
         // Metodes per resoldre-la de cadascuna de les maneres       
-        void resoldre (SortedVector d, Sopa& sopa); 
-        void resoldre (TrieDictionary d, Sopa& sopa);
-        void resoldre (HashTableDictionary d, Sopa& sopa);
-        map<string, int> resoldre (BloomFilterDictionary d, Sopa& sopa);
+        void resoldre (SortedVector& d, Sopa& sopa); 
+        void resoldre (TrieDictionary& d, Sopa& sopa);
+        map<string, int> resoldre (HashTableDictionary& d, Sopa& sopa);
+        map<string, int> resoldre (BloomFilterDictionary& d, Sopa& sopa);
 
         //ALTRES MÈTODES
         void buscarParaula(int i , int j, vector<vector<bool>>& pos, int l, int r, SortedVector& sv,int iterador);
                
         
         bool comprovarPosicio (Sopa& sopa, vector<vector<bool>>& v, int i, int j);
-        void resoldreRecursiu (Sopa& sopa, BloomFilterDictionary& d, string paraula, vector<vector<bool>>& visitats, int i, int j);
+        void resoldreRecursiu (Sopa& sopa, HashTableDictionary& d, string paraula, vector<vector<bool>>& visitats, int i, int j);
 
         
         //void imprimirSopa ();  
