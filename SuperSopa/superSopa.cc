@@ -237,7 +237,14 @@ map<string, int> bfs(Sopa& soap, int f, int c) {
 */
 
 void superSopa::resoldre (SortedVector d, Sopa& sopa) {
-    
+    int l = 0 , r = d.getSize() - 1;
+    vector<vector<bool>> pos(n, vector<bool>(n,false));
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            int l = 0, r = d.getSize()-1, iterador = 0;
+            d.buscarParaula(i,j,pos,l,r,iterador,sopa);            
+        }
+    }
 }
 
 
