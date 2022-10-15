@@ -37,11 +37,16 @@ class superSopa {
         void resoldre (SortedVector d, Sopa& sopa); 
         void resoldre (TrieDictionary d, Sopa& sopa);
         void resoldre (HashTableDictionary d, Sopa& sopa);
-        void resoldre (BloomFilterDictionary d, Sopa& sopa);
+        map<string, int> resoldre (BloomFilterDictionary d, Sopa& sopa);
 
         //ALTRES MÈTODES
         void buscarParaula(int i , int j, vector<vector<bool>>& pos, int l, int r, SortedVector& sv,int iterador);
                
+        
+        bool comprovarPosicio (Sopa& sopa, vector<vector<bool>>& v, int i, int j);
+        void resoldreRecursiu (Sopa& sopa, BloomFilterDictionary& d, string paraula, vector<vector<bool>>& visitats, int i, int j);
+
+        
         //void imprimirSopa ();  
 
         /*  Imprimeix la sopa a la Terminal.
@@ -63,6 +68,8 @@ class superSopa {
     private:        
         int n;
         vector<vector<bool>> visitat;
+        map<string, int> resultat;
+        map<string, int>::iterator itResultat;
 
         void omplebuits(Sopa& sopa);
         bool colocarParaulaRec(const string& p, int l, int i, int j, Sopa& sopa);

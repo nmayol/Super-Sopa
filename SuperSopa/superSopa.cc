@@ -15,7 +15,9 @@ vector<char> letters = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
 //i barrejar bé, però els definitius haurien de ser aquests)
 
 //constructor buit
-superSopa::superSopa(){};
+superSopa::superSopa(){
+    resultat = map<string, int>();
+};
 
 void superSopa::generarSopa (const vector<string>& dicc, Sopa& sopa) {
     n = sopa.size();
@@ -139,6 +141,58 @@ int superSopa::randomInferiorA(int x) {
     return r;
 }
 
+
+map<string, int> superSopa::resoldre (BloomFilterDictionary d, Sopa& sopa) {
+    int n = sopa.size();
+    vector<vector<bool>> visitats;
+    resultat.clear();
+
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            string p = "";
+            p.push_back(sopa[i][0]);
+            visitats = vector<vector<bool>>(n, vector<bool>(n, false));
+            visitats[i][j] = true;
+            resoldreRecursiu(sopa, d, p, visitats, i, j);
+        }
+    }
+    
+    return resultat;
+}
+
+bool superSopa::comprovarPosicio (Sopa& sopa, vector<vector<bool>>& v, int i, int j) {
+    return i >= 0 and i < sopa.size() and j >= 0 and j < sopa.size() and not v[i][j];
+}
+
+//des de resoldre, cridar-lo des de 0, 0
+void superSopa::resoldreRecursiu (Sopa& sopa, BloomFilterDictionary& d, string paraula, vector<vector<bool>>& visitats, int i, int j) {
+    //paraula correcta?
+    if (d.comprovar(paraula)) {
+        itResultat = resultat.find(paraula);
+        if (itResultat != resultat.end()) {
+            itResultat->second++;
+        } else {
+            resultat.insert({paraula, 1});
+        }
+        return;
+    }
+
+    for (auto dir : DIR) {
+        int i2 = i+dir.first;
+        int j2 = j+dir.second;
+
+        if (comprovarPosicio(sopa, visitats, i2, j2)) {
+            visitats[i2][j2] = true;
+            string paraula2 = paraula += sopa[i2][j2];
+            resoldreRecursiu(sopa, d, paraula2, visitats, i2, j2);
+            visitats[i2][j2] = true;
+        }
+    }
+}
+
+
+/*
+
 map<string, int> bfs(Sopa& soap, int f, int c) {
     string paraula = 0;
     map<string, int> sol;
@@ -180,15 +234,13 @@ map<string, int> bfs(Sopa& soap, int f, int c) {
 }
 
 
-
+*/
 
 void superSopa::resoldre (SortedVector d, Sopa& sopa) {
     
 }
 
-void superSopa::resoldre (BloomFilterDictionary d, Sopa& sopa) {
 
-}
 
 void superSopa::resoldre (HashTableDictionary d, Sopa& sopa) {
 
