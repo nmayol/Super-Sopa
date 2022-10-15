@@ -18,9 +18,7 @@ vector<char> letters = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
 superSopa::superSopa(){};
 
 void superSopa::generarSopa (const vector<string>& dicc, Sopa& sopa) {
-    vector<vector<bool>> visitat;
-
-    int n = sopa.size();
+    n = sopa.size();
 
     int paraules = dicc.size();     // paraules dintre diccionari
     int parSopa = 0;                // paraules dintre la SOPA

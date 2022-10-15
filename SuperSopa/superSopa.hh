@@ -58,16 +58,16 @@ class superSopa {
         //int mida() const;
         //char getchar(int i, int j) const;
  
-    private:
-        //Sopa so;
-        //vector<vector<bool>> visitat;
+    private:        
+        int n;
+        vector<vector<bool>> visitat;
 
         void omplebuits(Sopa& sopa);
         bool colocarParaulaRec(const string& p, int l, int i, int j, Sopa& sopa);
         bool posok(int i, int j);
         int randomInferiorA(int x);
         
-        //int n;
+        //Sopa so;
         /*void afegirParaula (string s, int i0, int j0, vector<vector<bool>>& pos, int k,bool& afegida);
         void afegirLletra(const int& i,const int& j, const char& c);
         
