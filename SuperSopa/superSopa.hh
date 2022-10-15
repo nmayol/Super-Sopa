@@ -27,7 +27,7 @@ class superSopa {
     public:
         //MÈTODES FINALS
         superSopa ();
-        superSopa (const int& mida);
+        //superSopa (const int& mida);
 
         void generarSopa(const vector<string>& dicc, Sopa& sopa);
 
@@ -40,11 +40,11 @@ class superSopa {
         //ALTRES MÈTODES
         void buscarParaula(int i , int j, vector<vector<bool>>& pos, int l, int r, SortedVector& sv,int iterador);
                
-        void imprimirSopa ();  
+        //void imprimirSopa ();  
 
         /*  Imprimeix la sopa a la Terminal.
         */
-        void imprimirSopaTerminal();
+        //void imprimirSopaTerminal();
 
         /*  Coloca un nombre determinat de paraules a la sopa i despres
             la ompla amb lletres de forma aleatoria.
@@ -53,33 +53,36 @@ class superSopa {
 
         /*  Llegeix una sopa de lletres.
         */
-        void llegir();
+        //void llegir();
         
-        int mida() const;
-        char getchar(int i, int j) const;
+        //int mida() const;
+        //char getchar(int i, int j) const;
  
     private:
-        Sopa so;
-        vector<vector<bool>> visitat;
-        
-        int n;
-        void afegirParaula (string s, int i0, int j0, vector<vector<bool>>& pos, int k,bool& afegida);
-        void afegirLletra(const int& i,const int& j, const char& c);
+        //Sopa so;
+        //vector<vector<bool>> visitat;
+
         void omplebuits(Sopa& sopa);
-        bool compleixLimits(const int& i,const int& j);
+        bool colocarParaulaRec(const string& p, int l, int i, int j, Sopa& sopa);
+        bool posok(int i, int j);
         int randomInferiorA(int x);
+        
+        //int n;
+        /*void afegirParaula (string s, int i0, int j0, vector<vector<bool>>& pos, int k,bool& afegida);
+        void afegirLletra(const int& i,const int& j, const char& c);
+        
+        bool compleixLimits(const int& i,const int& j);
         bool caracterSituable(const int& i,const int& j, const char& c);
-        void imprimirParaulaenSopa (const vector< vector< bool>>& pos);
+        void imprimirParaulaenSopa (const vector< vector< bool>>& pos);*/
 
         /*  Coloca una paraula p a la superSopa. Retorna cert si s'ha 
             pogut colocar, false altrament.
         */
-        bool colocarParaulaRec(const string& p, int l, int i, int j, Sopa& sopa);
-
+        
         /*  Mira si la posicio {i,j} existeix a la sopa. Cert si existeix,
             fals altrament.
         */
-        bool posok(int i, int j);
+        
         
 };
 

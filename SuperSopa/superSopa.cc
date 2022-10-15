@@ -1,9 +1,9 @@
 #include "superSopa.hh"
 
-const vector<pair<int,int>> DIR = {make_pair( 1, 0), make_pair( 1, 1),
-                                   make_pair( 0, 1), make_pair(-1, 1),
-                                   make_pair(-1, 0), make_pair(-1,-1),
-                                   make_pair( 0,-1), make_pair( 1,-1)};
+const vector<pair<int,int>> DIR = {{1, 0}, {1, 1},
+                                   {0, 1}, {-1, 1},
+                                   {-1, 0}, {-1,-1},
+                                   {0,-1}, {1,-1}};
 
 const vector<int> SENTIT = {-1,1};
 
@@ -18,6 +18,10 @@ vector<char> letters = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
 superSopa::superSopa(){};
 
 void superSopa::generarSopa (const vector<string>& dicc, Sopa& sopa) {
+    vector<vector<bool>> visitat;
+
+    int n = sopa.size();
+
     int paraules = dicc.size();     // paraules dintre diccionari
     int parSopa = 0;                // paraules dintre la SOPA
 
@@ -128,8 +132,13 @@ void superSopa::omplebuits(Sopa& sopa) {
 }
 
 bool superSopa::posok(int i, int j) {
-
     return (i < n and i >= 0 and j < n and j >= 0 and visitat[i][j] == false);
+}
+
+int superSopa::randomInferiorA(int x) {
+    srand(time(NULL));
+    int r = abs(rand()) % x;
+    return r;
 }
 
 
@@ -138,15 +147,7 @@ bool superSopa::posok(int i, int j) {
 
 
 void superSopa::resoldre (SortedVector d, Sopa& sopa) {
-    int l = 0 , r = d.getSize() - 1;
-    vector<vector<bool>> pos(n, vector<bool>(n,false));
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j) {
-            int l = 0, r = d.getSize()-1, iterador = 0;
-            buscarParaula(i,j,pos,l,r,d,iterador);            
-        }
-    }
-    d.imprimirTrobades();
+    
 }
 
 void superSopa::resoldre (BloomFilterDictionary d, Sopa& sopa) {
@@ -165,25 +166,18 @@ void superSopa::resoldre (TrieDictionary d, Sopa& sopa) {
 
 //RESTA DE MÈTODES
 // crea una super sopa on l'atribut sopa té mida nxn
-superSopa::superSopa(const int& mida) {
+/*superSopa::superSopa(const int& mida) {
     n = mida;
     so = Sopa(n,vector<char>(n, '#'));
-}
+}*/
 
-
+/*
 void superSopa::llegir() {
 
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < n; ++j) cin >> so[i][j];
     }
-}
-
-
-
-
-
-
-
+}*/
 
 /* p -> paraula a colocar dins la sopa, l -> lletres colocades.
    El resultat es cert si hem pogut colocar correctament la paraula, fals altrament.
@@ -243,50 +237,22 @@ void superSopa::construirParaules(const vector<string>& dicc) {
     omplebuits();
 }*/
 
-
-///////////////////////// FUNCIO BACKTRACKING PEL SORTED VECTOR ////////////////////////////////
-
-
-// (i,j) es una posicio valida a la sopa
-void superSopa:: buscarParaula(int i , int j, vector<vector<bool>>& pos, int l, int r, SortedVector & sv, int iterador) {
-    int direccions_provades = 0, ni, nj, nl, nr;
-    pos[i][j] = true;
-    
-    while (direccions_provades < 8) {
-        ni = DIR[direccions_provades].first + i; nj = DIR[direccions_provades].second + j; 
-        if (compleixLimits(ni,nj) and not pos[ni][nj]) {
-            nl = sv.first_ocurrence(l,r,so[i][j],iterador);
-            nr = sv.last_ocurrence(max(l,nl),r,so[i][j],iterador);
-            if ((nl != -1 and nr != -1)){                
-                ++iterador;
-                buscarParaula(ni,nj,pos,nl,nr,sv,iterador);
-                --iterador;
-
-            }    
-        }
-        ++direccions_provades;
-    }
-    pos[i][j] = false;
-
-}
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////
-
 //void superSopa::resoldreTrie () {}
 
-int superSopa::mida() const {
+/*int superSopa::mida() const {
     return n;
-}
-
-char superSopa::getchar(int i, int j) const {
-    return so[i][j];
-}
+}*/
 
 //void superSopa::resoldreBloom () {}
 
 //void superSopa::resoldreDHash () {}
 
+/*
+char superSopa::getchar(int i, int j) const {
+    return so[i][j];
+}*/
+
+/*
 void superSopa::afegirParaula (string s, int i0, int j0, vector<vector<bool>>& pos, int k, bool& afegida) {   
     // Escull una posició random i hi posa la paraula.
     
@@ -318,12 +284,50 @@ void superSopa::afegirParaula (string s, int i0, int j0, vector<vector<bool>>& p
             
         }
         ++direccions_provades;  
+    }   
+}*/
+
+/*
+///////////////////////// FUNCIO BACKTRACKING PEL SORTED VECTOR ////////////////////////////////
+void superSopa::resoldre (SortedVector d, Sopa& sopa) {
+    int l = 0 , r = d.getSize() - 1;
+    vector<vector<bool>> pos(n, vector<bool>(n,false));
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            int l = 0, r = d.getSize()-1, iterador = 0;
+            buscarParaula(i,j,pos,l,r,d,iterador);            
+        }
     }
-     
-    
-    
+    d.imprimirTrobades();
 }
 
+// (i,j) es una posicio valida a la sopa
+void superSopa:: buscarParaula(int i , int j, vector<vector<bool>>& pos, int l, int r, SortedVector & sv, int iterador) {
+    int direccions_provades = 0, ni, nj, nl, nr;
+    pos[i][j] = true;
+    
+    while (direccions_provades < 8) {
+        ni = DIR[direccions_provades].first + i; nj = DIR[direccions_provades].second + j; 
+        if (compleixLimits(ni,nj) and not pos[ni][nj]) {
+            nl = sv.first_ocurrence(l,r,so[i][j],iterador);
+            nr = sv.last_ocurrence(max(l,nl),r,so[i][j],iterador);
+            if ((nl != -1 and nr != -1)){                
+                ++iterador;
+                buscarParaula(ni,nj,pos,nl,nr,sv,iterador);
+                --iterador;
+
+            }    
+        }
+        ++direccions_provades;
+    }
+    pos[i][j] = false;
+
+}*/
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+/*
 // Retorna true si ha pogut posar la lletra a la posició (i,j).
 void superSopa::afegirLletra (const int& i,const int& j, const char& c) {   
     // Escull una posició so[i][j] i hi posa la lletra.
@@ -340,18 +344,8 @@ bool superSopa::compleixLimits(const int& i,const int& j) {
 bool superSopa::caracterSituable(const int& i,const int& j, const char& c) {
     return (compleixLimits(i,j) and (so[i][j] == ' ' or so[i][j] == c));
 }
-
-
-int superSopa::randomInferiorA(int x) {
-    srand(time(NULL));
-    int r = abs(rand()) % x;
-    return r;
-}
-
-
-
-
-
+*/
+/*
 void superSopa::imprimirSopa () {
     ofstream fp_out;
     fp_out.open("./Sorted Vector/sopa.txt");
@@ -390,4 +384,4 @@ void superSopa::imprimirParaulaenSopa (const vector< vector< bool>>& pos) {
     }
     fp_out << "----------------------" << endl;
     fp_out.close();
-}
+}*/
