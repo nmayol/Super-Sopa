@@ -30,8 +30,7 @@ class TrieDictionary {
             ajunta aquells nodes que no tenen fills i poden ajuntar-se.
         */
         void simplificaArbre();
-/*
-        void buscarParaulesSopa(const superSopa& ss);*/
+
         bool existeixParaula(const string& c);
 
         void buscarParaules(const sopa& so, matbool& v);
@@ -65,12 +64,6 @@ class TrieDictionary {
 
         void escriureRec(node_trie* n);
         void simplificaRec(node_trie* &n);
-
-        /*
-        void cercaDireccions(const superSopa& ss, vector<vector<bool>>& v, int i, int j, const string& par, int ind);
-        bool buscarChar(const string& c, node_trie* n);
-        bool posok(int i, int j, int n, const vector<vector<bool>>& v);
-        bool busquemParaula(const string& c, node_trie* n, int i, bool& b);*/
         
         void calculaDireccions(const sopa& so, matbool& v, const string& par, int i, int j);
         bool posok(int i, int j, int n, const vector<vector<bool>>& v);
