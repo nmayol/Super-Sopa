@@ -1,19 +1,10 @@
+#include "./SuperSopa/superSopa.hh"
+
 #include <iostream>
 #include <fstream>
 #include <chrono>
-#include <map>
-//#include <vector>
-
-#include "./SuperSopa/superSopa.hh"
 
 using namespace std;
-
-//typedef vector<vector<char >> Sopa;
-
-//retorna el moment actual
-auto moment () {
-    return chrono::steady_clock::now();
-}
 
 void llegir_fitxer (vector<string>& v, const string& path) {
     ifstream fp_in;
@@ -25,18 +16,36 @@ void llegir_fitxer (vector<string>& v, const string& path) {
     fp_in.close(); 
 }
 
+//retorna el moment actual
+auto moment () {
+    return chrono::steady_clock::now();
+}
+
+void afegir_prefix(TrieDictionary& d, string s) {
+    int n = s.size();
+
+    string aux = "";
+    for (int i = 0; i < n-1; ++i) {
+        aux.push_back(s[i]);
+        
+        if (i > 1 and not d.comprovar(aux)) {
+            d.afegir(aux);
+        }
+    }
+}
+
 int abs (int x) {
     if (x > 0) return x;
     return x*-1;
 }
 
-void mitjana (vector<pair<double, int>>& execucions, double& temps) {
+void mitjana (vector<double>& execucions, double& temps) {
     int n = execucions.size();
 
     double sumaT = 0;
 
     for (int i = 0; i < n; ++i) {
-        sumaT += execucions[i].first;
+        sumaT += execucions[i];
     }
 
     temps = sumaT/n;
@@ -50,16 +59,17 @@ int main () {
     string pathResultat = "resultatTrie.txt";
     string pathDiccionari = "./diccionaris/mare-balena-vocabulary-3.txt";
 
-    //llegir diccionari    
     vector<string> diccionari;
 
     llegir_fitxer(diccionari, pathDiccionari);
-    
-    HashTableDictionary TrieDictionary(diccionari.size());    
+
+    TrieDictionary trie;
+    TrieDictionary prefixos;  
 
     for (int i = 0; i < diccionari.size(); ++i) {
-        TrieDictionary.afegir(diccionari[i]);
-    } 
+        afegir_prefix(prefixos, diccionari[i]);
+        trie.afegir(diccionari[i]);
+    }
 
     //EXPERIMENT COMPROVAR
     fp_in.open(pathSopes); 
@@ -83,10 +93,10 @@ int main () {
         //resoldre-la 10 cops
         vector<double> execucions; //temps de cada execució
         for (int cops = 0; cops < 10; ++cops) {
-            map<string, int> resultatTrie;
+            map<string, int> resultatTrieDictionary;
 
             auto begin = moment();
-            //super_sopa.resoldre(TrieDictionary, sopa, resultatTrie);
+            //super_sopa.resoldre(TrieDictionaryDictionary, sopa, resultatTrieDictionary);
             auto end = moment();
 
             double t = chrono::duration_cast<chrono::microseconds>(end - begin).count();
@@ -104,5 +114,5 @@ int main () {
     }
 
     fp_in.close();    
-    fp_out.close();
+    fp_out.close();   
 }
