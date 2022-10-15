@@ -59,7 +59,7 @@ int main () {
 
     HashTableDictionary hash_table(diccionari.size());
     HashTableDictionary prefixos(diccionari.size()*10);  
-    superSopa super_sopa;  
+    //superSopa super_sopa;  
 
     for (int i = 0; i < diccionari.size(); ++i) {
         if (diccionari[i].length() > maxim) maxim = diccionari[i].length();
@@ -67,7 +67,7 @@ int main () {
         hash_table.afegir(diccionari[i]);
     }
 
-    int n = 30;
+    int n = 8;
     Sopa matriu = Sopa(n, vector<char>(n, '#'));
     super_sopa.generarSopa(diccionari, matriu);
     
