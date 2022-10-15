@@ -18,7 +18,9 @@ typedef vector<vector<char >> Sopa;
 class SortedVector {
     public:
         SortedVector ();
-        void afegir (const vector<string>& dicc);
+        void afegir (vector<string>& dicc);
+        //void afegir(const string& s);
+        void ordenar();
         int first_ocurrence(int l, int r, const char& c, const int& iterador);
         int last_ocurrence(int l, int r, const char& c, const int& iterador);
         const int getSize();
