@@ -86,7 +86,7 @@ int main () {
             map<string, int> resultatTrie;
 
             auto begin = moment();
-            //super_sopa.resoldre(TrieDictionary, sopa, resultatHash);
+            //super_sopa.resoldre(TrieDictionary, sopa, resultatTrie);
             auto end = moment();
 
             double t = chrono::duration_cast<chrono::microseconds>(end - begin).count();
