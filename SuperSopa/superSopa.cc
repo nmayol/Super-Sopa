@@ -142,7 +142,7 @@ int superSopa::randomInferiorA(int x) {
 }
 
 
-map<string, int> superSopa::resoldre (BloomFilterDictionary d, Sopa& sopa) {
+map<string, int> superSopa::resoldre (HashTableDictionary& d, Sopa& sopa) {
     int n = sopa.size();
     vector<vector<bool>> visitats;
     resultat.clear();
@@ -150,7 +150,7 @@ map<string, int> superSopa::resoldre (BloomFilterDictionary d, Sopa& sopa) {
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < n; ++j) {
             string p = "";
-            p.push_back(sopa[i][0]);
+            p.push_back(sopa[i][j]);
             visitats = vector<vector<bool>>(n, vector<bool>(n, false));
             visitats[i][j] = true;
             resoldreRecursiu(sopa, d, p, visitats, i, j);
@@ -165,7 +165,7 @@ bool superSopa::comprovarPosicio (Sopa& sopa, vector<vector<bool>>& v, int i, in
 }
 
 //des de resoldre, cridar-lo des de 0, 0
-void superSopa::resoldreRecursiu (Sopa& sopa, BloomFilterDictionary& d, string paraula, vector<vector<bool>>& visitats, int i, int j) {
+void superSopa::resoldreRecursiu (Sopa& sopa, HashTableDictionary& d, string paraula, vector<vector<bool>>& visitats, int i, int j) {
     //paraula correcta?
     if (d.comprovar(paraula)) {
         itResultat = resultat.find(paraula);
@@ -249,11 +249,11 @@ void superSopa::resoldre (SortedVector d, Sopa& sopa) {
 
 
 
-void superSopa::resoldre (HashTableDictionary d, Sopa& sopa) {
+/*void superSopa::resoldre (HashTableDictionary& d, Sopa& sopa) {
 
-}
+}*/
 
-void superSopa::resoldre (TrieDictionary d, Sopa& sopa) {
+void superSopa::resoldre (TrieDictionary& d, Sopa& sopa) {
 
 }
 
