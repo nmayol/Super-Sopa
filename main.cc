@@ -28,7 +28,7 @@ void afegir_prefix(HashTableDictionary& d, string s) {
     for (int i = 0; i < n-1; ++i) {
         aux.push_back(s[i]);
         
-        if (not d.comprovar(aux)) {
+        if (i > 1 and not d.comprovar(aux)) {
             d.afegir(aux);
         }
     }
@@ -131,7 +131,17 @@ int main () {
         hash_table.afegir(diccionari[i]);
     }
 
-    map<string, int> resultat = super_sopa.resoldre(hash_table, prefixos, sopa, maxim);
+    Sopa matriu = Sopa(8, vector<char>(8, '#'));
+    super_sopa.generarSopa(diccionari, matriu);
+    
+    for (int i = 0; i < matriu.size(); ++i) {
+        for (int j = 0; j < matriu.size(); ++j) {
+            cout << matriu[i][j] << ' ';
+        }
+        cout << endl;
+    }    
+
+    map<string, int> resultat = super_sopa.resoldre(hash_table, prefixos, matriu, maxim);
     map<string, int>::iterator it;
     
     cout << "resultat" << endl;
