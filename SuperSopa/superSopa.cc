@@ -26,7 +26,7 @@ void superSopa::generarSopa (const vector<string>& dicc, Sopa& sopa) {
 
     srand(time(NULL));
 
-    for(int k = 20; k < 40; k++) {
+    for(int k = 20; k < 220; k += 10 ) {
 
         string p = dicc[k];
 
