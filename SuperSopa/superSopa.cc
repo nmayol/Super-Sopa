@@ -36,7 +36,7 @@ void superSopa::generarSopa (const vector<string>& dicc, Sopa& sopa) {
         srand(time(NULL));
         int i = rand() % n;
         int j = rand() % n;
-        int io = i, jo = j;
+        int io = i, jo = j;                                                                                                                                                   
 
         while (not start and not end) {
             
