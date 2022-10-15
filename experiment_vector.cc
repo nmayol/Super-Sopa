@@ -47,7 +47,7 @@ int main () {
     ofstream fp_out;
     superSopa super_sopa;
     string pathSopes = "sopes.txt";
-    string pathResultat = "resultatHash.txt";
+    string pathResultat = "resultatSortedVector.txt";
     string pathDiccionari = "./diccionaris/mare-balena-vocabulary-3.txt";
 
     //llegir diccionari    
@@ -55,10 +55,10 @@ int main () {
 
     llegir_fitxer(diccionari, pathDiccionari);
     
-    HashTableDictionary hash_table(diccionari.size());    
+    HashTableDictionary SortedVector();    
 
     for (int i = 0; i < diccionari.size(); ++i) {
-        hash_table.afegir(diccionari[i]);
+        SortedVector.afegir(diccionari[i]);
     } 
 
     //EXPERIMENT COMPROVAR
@@ -83,10 +83,10 @@ int main () {
         //resoldre-la 10 cops
         vector<double> execucions; //temps de cada execució
         for (int cops = 0; cops < 10; ++cops) {
-            map<string, int> resultatHash;
+            map<string, int> resultatSortedVector;
 
             auto begin = moment();
-            //super_sopa.resoldre(hash_table, sopa, resultatHash);
+            //super_sopa.resoldre(SortedVector, sopa, resultatSortedVector);
             auto end = moment();
 
             double t = chrono::duration_cast<chrono::microseconds>(end - begin).count();
