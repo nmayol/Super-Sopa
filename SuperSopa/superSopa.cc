@@ -145,7 +145,7 @@ int superSopa::randomInferiorA(int x) {
 
 map<string, int> superSopa::resoldre (HashTableDictionary& d, Sopa& sopa, int m) {
     maxim = m;
-    maxim = 5;
+    //maxim = 5;
     int n = sopa.size();
     vector<vector<bool>> visitats;
     resultat.clear();
@@ -156,6 +156,7 @@ map<string, int> superSopa::resoldre (HashTableDictionary& d, Sopa& sopa, int m)
             p.push_back(sopa[i][j]);
             visitats = vector<vector<bool>>(n, vector<bool>(n, false));
             visitats[i][j] = true;
+            cout << i << ' ' << j << endl;
             resoldreRecursiu(sopa, d, p, visitats, i, j);
         }
     }
@@ -170,8 +171,8 @@ bool superSopa::comprovarPosicio (Sopa& sopa, vector<vector<bool>>& v, int i, in
 //des de resoldre, cridar-lo des de 0, 0
 void superSopa::resoldreRecursiu (Sopa& sopa, HashTableDictionary& d, string paraula, vector<vector<bool>>& visitats, int i, int j) {
     //paraula correcta?
-    cout << paraula << endl;
-    if (paraula.length() > maxim) return;
+    //cout << paraula << endl;
+    //if (paraula.length() > maxim) return;
     
     if (d.comprovar(paraula)) {
         cout << "Trobat: " << paraula << endl;
@@ -184,16 +185,25 @@ void superSopa::resoldreRecursiu (Sopa& sopa, HashTableDictionary& d, string par
         return;
     }
 
+    /*cout << "direccions" << endl;
     for (auto dir : DIR) {
-        int i2 = i+dir.first;
-        int j2 = j+dir.second;
+        cout << dir.first << ' ' << dir.second << endl;
+    }*/
 
+    for (auto dir : DIR) {
+        int i2 = i + dir.first;
+        int j2 = j + dir.second;
+
+        //cout << 'o' << endl;
+        //cout << dir.first << ' ' << dir.second << endl;
         //cout << i << ' ' << i2 << endl << j << ' ' << j2 << endl;
 
         if (comprovarPosicio(sopa, visitats, i2, j2)) {
             visitats[i2][j2] = true;
-            string paraula2 = paraula += sopa[i2][j2];
-            resoldreRecursiu(sopa, d, paraula2, visitats, i2, j2);
+            //string paraula2 = (paraula += sopa[i2][j2]);
+            string paraula2 = paraula;
+            paraula2.push_back(sopa[i2][j2]);
+            resoldreRecursiu(sopa, d, paraula2, visitats, i2, j2);            
             visitats[i2][j2] = false;
         }
     }
@@ -253,8 +263,7 @@ void superSopa::resoldre (SortedVector& d, Sopa& sopa) {
             int l = 0, r = d.getSize()-1, iterador = 0;
             d.buscarParaula(i,j,pos,l,r,iterador,sopa);            
         }
-    }
-    
+    }    
 }
 
 

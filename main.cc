@@ -97,6 +97,10 @@ int main () {
                 {'i', 'j', 'k', 'l'},
                 {'m', 'n', 'o', 'p'}};
 
+    //sopa = {{'a', 'b', 'u'}, 
+            //{'d', 'e', 's'}, 
+            //{'g', 'h', 'i'}};
+
     string path = "./diccionaris/mare-balena-vocabulary-3.txt";
 
     vector<string> diccionari;
