@@ -3,6 +3,8 @@
 
 #include <vector>
 #include <string>
+#include <queue>
+#include <map>
 #include <iostream>
 #include <time.h>
 #include <cstdlib>

@@ -139,7 +139,40 @@ int superSopa::randomInferiorA(int x) {
     return r;
 }
 
+map<string, int> bfs(Sopa& soap, int f, int c) {
+    string paraula = 0;
+    map<string, int> sol;
+    pair<string,pair<int,int>> pos_par;
+    queue<pos_par> q;
+    q.push({soap[f,c], {f, c}});
 
+    while(not q.empty()) {
+        string p = q.front().first;
+        act = q.front().second;
+        q.pop();
+
+        for (int i = 0; i < 8; ++i){
+            int x = act.first + DIR.firts[i];
+            int y = act.second + DIR.second[i];
+
+			if (x >= 0 and x < n and y >= 0 and y < n) {
+                if(p.length() > 2) {
+                    p =+ sopa[act.first][act.second]
+                    if(h.comprovar(p)) {
+                        bool ja_tinc_p = false;
+                        for (itr = sol.begin(); itr != sol.end(); ++itr) {
+                            if(itr.first == p) itr.second++;
+                            ja_tinc_p =true;
+                        }
+                        if(!ja_tinc_p) sol.end().insert(p, 0); 
+                    }
+                    q.push({sopa[x,y], {x,y}});
+                }
+            }
+        }
+    }
+    return sol;
+}
 
 
 
