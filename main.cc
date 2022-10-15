@@ -21,6 +21,19 @@ auto moment () {
     return chrono::steady_clock::now();
 }
 
+void afegir_prefix(HashTableDictionary& d, string s) {
+    int n = s.size();
+
+    string aux = "";
+    for (int i = 0; i < n-1; ++i) {
+        aux.push_back(s[i]);
+        
+        if (not d.comprovar(aux)) {
+            d.afegir(aux);
+        }
+    }
+}
+
 int main () {
     /*string path = "./diccionaris/mare-balena-vocabulary-3.txt";
 
@@ -92,7 +105,7 @@ int main () {
 
     super_sopa.resoldre(trie, sopa);  */
 
-    Sopa sopa = {{'a', 'b', 'c', 'd'},
+    Sopa sopa = {{'a', 'b', 'u', 's'},
                 {'e', 'f', 'g', 'h'},
                 {'i', 'j', 'k', 'l'},
                 {'m', 'n', 'o', 'p'}};
@@ -108,17 +121,20 @@ int main () {
 
     llegir_fitxer(diccionari, path);
 
-    HashTableDictionary hash_table(diccionari.size());  
+    HashTableDictionary hash_table(diccionari.size());
+    HashTableDictionary prefixos(diccionari.size()*10);  
     superSopa super_sopa;  
 
     for (int i = 0; i < diccionari.size(); ++i) {
         if (diccionari[i].length() > maxim) maxim = diccionari[i].length();
+        afegir_prefix(prefixos, diccionari[i]);
         hash_table.afegir(diccionari[i]);
     }
 
-    map<string, int> resultat = super_sopa.resoldre(hash_table, sopa, maxim);
+    map<string, int> resultat = super_sopa.resoldre(hash_table, prefixos, sopa, maxim);
     map<string, int>::iterator it;
-                    
+    
+    cout << "resultat" << endl;
     for (it = resultat.begin(); it != resultat.end(); ++it) {
         cout << it->first << ' ' << it->second << ' ' << endl;
     }

@@ -143,7 +143,7 @@ int superSopa::randomInferiorA(int x) {
 
 
 
-map<string, int> superSopa::resoldre (HashTableDictionary& d, Sopa& sopa, int m) {
+map<string, int> superSopa::resoldre (HashTableDictionary& d, HashTableDictionary& pre, Sopa& sopa, int m) {
     maxim = m;
     //maxim = 5;
     int n = sopa.size();
@@ -156,8 +156,8 @@ map<string, int> superSopa::resoldre (HashTableDictionary& d, Sopa& sopa, int m)
             p.push_back(sopa[i][j]);
             visitats = vector<vector<bool>>(n, vector<bool>(n, false));
             visitats[i][j] = true;
-            cout << i << ' ' << j << endl;
-            resoldreRecursiu(sopa, d, p, visitats, i, j);
+            //cout << i << ' ' << j << endl;
+            resoldreRecursiu(sopa, pre, d, p, visitats, i, j);
         }
     }
     
@@ -169,10 +169,12 @@ bool superSopa::comprovarPosicio (Sopa& sopa, vector<vector<bool>>& v, int i, in
 }
 
 //des de resoldre, cridar-lo des de 0, 0
-void superSopa::resoldreRecursiu (Sopa& sopa, HashTableDictionary& d, string paraula, vector<vector<bool>>& visitats, int i, int j) {
+void superSopa::resoldreRecursiu (Sopa& sopa, HashTableDictionary& pre, HashTableDictionary& d, string paraula, vector<vector<bool>>& visitats, int i, int j) {
     //paraula correcta?
     //cout << paraula << endl;
     //if (paraula.length() > maxim) return;
+
+    
     
     if (d.comprovar(paraula)) {
         cout << "Trobat: " << paraula << endl;
@@ -184,6 +186,8 @@ void superSopa::resoldreRecursiu (Sopa& sopa, HashTableDictionary& d, string par
         }
         return;
     }
+
+    if (not pre.comprovar(paraula)) return;
 
     /*cout << "direccions" << endl;
     for (auto dir : DIR) {
@@ -203,7 +207,7 @@ void superSopa::resoldreRecursiu (Sopa& sopa, HashTableDictionary& d, string par
             //string paraula2 = (paraula += sopa[i2][j2]);
             string paraula2 = paraula;
             paraula2.push_back(sopa[i2][j2]);
-            resoldreRecursiu(sopa, d, paraula2, visitats, i2, j2);            
+            resoldreRecursiu(sopa, pre, d, paraula2, visitats, i2, j2);            
             visitats[i2][j2] = false;
         }
     }
