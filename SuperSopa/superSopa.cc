@@ -177,7 +177,7 @@ void superSopa::resoldreRecursiu (Sopa& sopa, HashTableDictionary& pre, HashTabl
     
     
     if (d.comprovar(paraula)) {
-        cout << "Trobat: " << paraula << endl;
+        //cout << "Trobat: " << paraula << endl;
         itResultat = resultat.find(paraula);
         if (itResultat != resultat.end()) {
             itResultat->second++;

@@ -131,7 +131,8 @@ int main () {
         hash_table.afegir(diccionari[i]);
     }
 
-    Sopa matriu = Sopa(8, vector<char>(8, '#'));
+    int n = 6;
+    Sopa matriu = Sopa(n, vector<char>(n, '#'));
     super_sopa.generarSopa(diccionari, matriu);
     
     for (int i = 0; i < matriu.size(); ++i) {
