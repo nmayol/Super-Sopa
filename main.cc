@@ -22,7 +22,7 @@ auto moment () {
 }
 
 int main () {
-    string path = "./diccionaris/mare-balena-vocabulary-3.txt";
+    /*string path = "./diccionaris/mare-balena-vocabulary-3.txt";
 
     vector<string> diccionari;
 
@@ -90,7 +90,32 @@ int main () {
 
     super_sopa.resoldre(bloom_filter, sopa);
 
-    super_sopa.resoldre(trie, sopa);     
+    super_sopa.resoldre(trie, sopa);  */
+
+    Sopa sopa = {{'a', 'b', 'u', 's'},
+                {'a', 'c', 'u', 'z'},
+                {'z', 'z', 'u', 'z'},
+                {'a', 'z', 'z', 's'}};
+
+    string path = "./diccionaris/mare-balena-vocabulary-3.txt";
+
+    vector<string> diccionari;
+
+    llegir_fitxer(diccionari, path);
+
+    BloomFilterDictionary bloom_filter;  
+    superSopa super_sopa;  
+
+    for (int i = 0; i < diccionari.size(); ++i) {
+        bloom_filter.afegir(diccionari[i]);
+    }
+
+    map<string, int> resultat = super_sopa.resoldre(bloom_filter, sopa);
+    map<string, int>::iterator it;
+                    
+    for (it = resultat.begin(); it != resultat.end(); ++it) {
+        cout << it->first << ' ' << it->second << ' ' << endl;
+    }
 }
 
 
