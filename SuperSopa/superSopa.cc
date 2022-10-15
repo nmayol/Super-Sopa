@@ -20,16 +20,16 @@ superSopa::superSopa(){
 
 void superSopa::generarSopa (const vector<string>& dicc, Sopa& sopa) {
     n = sopa.size();
-
+    cout << "posem paraules:" << endl;
     int paraules = dicc.size();     // paraules dintre diccionari
     int parSopa = 0;                // paraules dintre la SOPA
 
     srand(time(NULL));
 
-    for(int k = 20; k < 40; k ++ ) {
+    for(int k = 0; k < 20; k ++ ) {
 
         string p = dicc[k];
-
+        cout << p << endl;
         // calculem la posicio on comencem.
         bool start = false;
         bool end = false;
