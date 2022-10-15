@@ -33,9 +33,7 @@ int main () {
     //vector ordenat   
     SortedVector sorted_vector;    
     auto begin = moment();
-
     sorted_vector.afegir(diccionari);    
-
     auto end = moment();
 
     cout << chrono::duration_cast<chrono::microseconds>(end - begin).count() << "[µs]" << std::endl;
