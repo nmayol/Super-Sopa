@@ -36,7 +36,7 @@ class superSopa {
         // Metodes per resoldre-la de cadascuna de les maneres       
         void resoldre (SortedVector& d, Sopa& sopa); 
         void resoldre (TrieDictionary& d, Sopa& sopa);
-        map<string, int> resoldre (HashTableDictionary& d, HashTableDictionary& pre, Sopa& sopa, int m);
+        map<string, int> resoldre (HashTableDictionary& d, HashTableDictionary& pre, Sopa& sopa);
         map<string, int> resoldre (BloomFilterDictionary& d, Sopa& sopa);
 
         //ALTRES MÈTODES
@@ -65,8 +65,7 @@ class superSopa {
         //int mida() const;
         //char getchar(int i, int j) const;
  
-    private: 
-        int maxim;       
+    private:       
         int n;
         vector<vector<bool>> visitat;
         map<string, int> resultat;
