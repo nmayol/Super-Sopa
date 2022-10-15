@@ -150,21 +150,26 @@ map<string, int> bfs(Sopa& soap, int f, int c) {
         string p = q.front().first;
         act = q.front().second;
         q.pop();
+        bool paraula_existeix = false;
 
         for (int i = 0; i < 8; ++i){
             int x = act.first + DIR.firts[i];
             int y = act.second + DIR.second[i];
-
+            if(paraula_existeix) {
+                paraula = sopa[x,y];
+                paraula_existeix = false;
+            }
 			if (x >= 0 and x < n and y >= 0 and y < n) {
-                if(p.length() > 2) {
-                    p =+ sopa[act.first][act.second]
-                    if(h.comprovar(p)) {
+                if(paraula.length() > 2) {
+                    paraula =+ sopa[act.first][act.second]
+                    paraula_existeix = h.comprovar(paraula);
+                    if(paraula_existeix) {
                         bool ja_tinc_p = false;
                         for (itr = sol.begin(); itr != sol.end(); ++itr) {
-                            if(itr.first == p) itr.second++;
+                            if(itr.first == paraula) itr.second++;
                             ja_tinc_p =true;
                         }
-                        if(!ja_tinc_p) sol.end().insert(p, 0); 
+                        if(!ja_tinc_p) sol.end().insert(paraula, 0); 
                     }
                     q.push({sopa[x,y], {x,y}});
                 }
