@@ -3,8 +3,12 @@
 
 #include <iostream>
 #include <string>
-#include "../SuperSopa/superSopa.hh"
+#include <vector>
+//#include "../SuperSopa/superSopa.hh"
 using namespace std;
+
+typedef vector<vector<bool>> matbool;
+typedef vector<vector<char>> sopa;
 
 class TrieDictionary {
 
@@ -14,12 +18,23 @@ class TrieDictionary {
 
         void afegir_node(const string& c);
         bool cercar_paraula();
-        void llegirTrie();
-        void escriure();
-        void simplificaArbre();
 
-        void buscarParaulesSopa(const superSopa& ss);
+        /*  Llegueix el diccionari i, a mesura que el va lleguint, el 
+            guarda a un trie.
+        */
+        void llegirTrie();
+
+        void escriure();
+
+        /*  Simplifica el trie ja llegit. Ajunta els prefixos, es a dir,
+            ajunta aquells nodes que no tenen fills i poden ajuntar-se.
+        */
+        void simplificaArbre();
+/*
+        void buscarParaulesSopa(const superSopa& ss);*/
         bool existeixParaula(const string& c);
+
+        void buscarParaules(const sopa& so, matbool& v);
         
     private:
 
@@ -51,11 +66,19 @@ class TrieDictionary {
         void escriureRec(node_trie* n);
         void simplificaRec(node_trie* &n);
 
+        /*
         void cercaDireccions(const superSopa& ss, vector<vector<bool>>& v, int i, int j, const string& par, int ind);
         bool buscarChar(const string& c, node_trie* n);
         bool posok(int i, int j, int n, const vector<vector<bool>>& v);
-        bool busquemParaula(const string& c, node_trie* n, int i, bool& b);
+        bool busquemParaula(const string& c, node_trie* n, int i, bool& b);*/
         
-};
+        void calculaDireccions(const sopa& so, matbool& v, const string& par, int i, int j);
+        bool posok(int i, int j, int n, const vector<vector<bool>>& v);
+        bool inclouParaula(const string& a, const string& b, int i, int& k);
+        void existeixParaula(const string& par, node_trie* n, int i, bool& r);
+
+
+
+};      
 
 #endif

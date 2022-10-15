@@ -79,7 +79,7 @@ void TrieDictionary::simplificaRec(node_trie* &n) {
 
         node_trie* seg = n->cnt;
 
-        if (seg != nullptr and seg->dre == nullptr and seg->esq == nullptr and not n->finalparaula) {
+        if (n->dre == nullptr and n->esq == nullptr and seg != nullptr and seg->dre == nullptr and seg->esq == nullptr and not n->finalparaula) {
             n->info += seg->info;
             n->finalparaula = seg->finalparaula;
             n->cnt = seg->cnt;
@@ -113,136 +113,118 @@ void TrieDictionary::escriure() {
     escriureRec(arrel);
 }
 
-/* nomes funciona amb arbre no reduit */
-bool TrieDictionary::buscarChar(const string& c, node_trie* n) {
-
-    if (n != nullptr) {
-
-        cout << "n: " << n->info << " c: " << c << endl;
-        if (c == n->info) {
-            
-            cout << "cas1: son iguals." << endl;
-            if (n->finalparaula) cout << "TROBAT " << c << endl;
-            return true;
-        }
-        else if (c < n->info) {
-            buscarChar(c, n->dre);
-        }
-        else if (c > n->info) {
-            buscarChar(c, n->esq);
-        }
-    }
-    else {
-        return false;
-        //n = nullptr;
-    }
-}
-
 bool TrieDictionary::posok(int i, int j, int n, const vector<vector<bool>>& v) {
 
     return (i >= 0 and i < n and j >= 0 and j < n and not v[i][j]);
 }
 
-bool TrieDictionary::busquemParaula(const string& c, node_trie* n, int i, bool& b) {
+// a: par, b: n
+bool TrieDictionary::inclouParaula(const string& a, const string& b, int i, int& k) {
 
-    if (n == nullptr or i == c.size()) {
-        //cout << "FALSE" << endl;
-        b = false;
-        return false;
+    bool resultat = true;
+
+    if (a.size() - i <= b.size()) {
+        k = 0;
+        int mida = a.size() - i;
+        while (k < mida) {
+            if (a[i] != b[k]) resultat = false;
+            ++i; ++k;
+        }
+        k = 0;
     }
     else {
+        k = 0;
+        while (k < b.size()) {
 
-        string letter(1, c[i]);
-        cout << "c: " << c << " i: " << letter << " n: " << n->info << endl;
-
-        if (letter == n->info) {
-
-            //cout << "cas 1: iguals" << endl;
-            if (n->finalparaula and i == c.size() - 1) {
-                //cout << "n: " << n->finalparaula << "i: " << i << endl;
-                cout << "TRUE" << endl << "TROBAT " << c << endl;
-                b = true;
-                if (n->cnt == nullptr) b = false;
-                return true;
-            }
-            else if (i == c.size() - 1) {
-                //cout << "TRUE" << endl;
-                b = true;
-                return true;
-            }
-            else {
-                string cc(1, c[i+1]);
-                if (n->cnt != nullptr) {
-                    //if (n->cnt->info == cc) busquemParaula(c, n->cnt, i+1, b);
-                    //else if (n->cnt->info > cc) busquemParaula(c, n->cnt->dre, i+1, b);
-                    //else busquemParaula(c, n->cnt->esq, i+1, b);
-                    //else busquemParaula(c, n->cnt, i, b);
-                    busquemParaula(c, n->cnt, i+1, b);
-                }
-            }
+            if (a[i] != b[k]) resultat = false;
+            ++i; ++k;
         }
-        else if (letter < n->info) {
-            //cout << "dreta" << endl;
-            busquemParaula(c, n->dre, i, b);
-        }
-        else if (letter > n->info) {
-            //cout << "esquerra" << endl;
-            busquemParaula(c, n->esq, i, b);
-        }
+        k = 1;
     }
-    return false;
+    return resultat;
+
 }
 
-void TrieDictionary::cercaDireccions(const superSopa& ss, vector<vector<bool>>& v, int i, int j, const string& par, int ind) {
+void TrieDictionary::existeixParaula(const string& par, node_trie* n, int i, bool& r) {
 
-    //v[i][j] = true;
+    if (n != nullptr) cout << "n: " << n->info << " par: " << par << " i: " << i << endl;
+    int j = 0;
+    if (n == nullptr) {
+        r = false;
+        return;
+    }
+    else if (i == par.size()) {
+        if (n->finalparaula) cout << "TROBAT " << par << endl;
+        r = true;
+        return;
+    }
+    else if (n->info.size() == par.size() and n->info == par) {
+        existeixParaula(par, n->cnt, i+1, r);
+    }
+    // act - aca
+    else if (inclouParaula(par, n->info, i, j)) {
+        
+        if (j == 0) {
+            i += n->info.size();
+            r = true;
+            if (n->finalparaula and i == par.size()) cout << "TROBAT " << par << endl;
+            
+            return;
+        }
+        else {
+            int salt = n->info.size();
+            cout << endl << salt << endl;
+            existeixParaula(par, n->cnt, i+salt, r);
+        } 
+        
+    }
+    else if (n->info[0] < par[i]) {
+        existeixParaula(par, n->esq, i, r);
+    }
+    else if (n->info[0] > par[i]) {
+        existeixParaula(par, n->dre, i, r);
+    }
+    
+}
+
+void TrieDictionary::calculaDireccions(const sopa& so, matbool& v, const string& par, int i, int j) {
+
+    v[i][j] = true;
+    //string par(1, so[i][j]);
 
     for (int k = 0; k < DIR.size(); ++k) {
 
-        int diri = i + DIR[k].first;
-        int dirj = j + DIR[k].second;
+        int di = i + DIR[k].first;
+        int dj = j + DIR[k].second;
 
-        if (posok(diri, dirj, ss.mida(), v)) {
+        if (posok(di, dj, so.size(), v)) {
 
-            string c(1, ss.getchar(diri, dirj));
-            string aux = par+c;
-            
-            bool r = false;
-            bool f = busquemParaula(aux, arrel, 0, r);
-            //if (r) cout << "true" << endl;
-            //else cout << "false" << endl;
-            if (r) {
-                v[diri][dirj] = true;
-                cercaDireccions(ss, v, diri, dirj, aux, 0);
-                v[diri][dirj] = false;
+            string seg(1, so[di][dj]);
+            string suma = par + seg;
+
+            bool existeix = false;
+            existeixParaula(suma, arrel, 0, existeix);
+
+            if (existeix) {
+                calculaDireccions(so, v, suma, di, dj);
             }
-            
         }
     }
 }
 
-void TrieDictionary::buscarParaulesSopa(const superSopa& ss) {
+void TrieDictionary::buscarParaules(const sopa& so, matbool& v) {
 
-    int mida = ss.mida();
-    
+    for (int i = 0; i < so.size(); ++i) {
+        for (int j = 0; j < so.size(); ++j) {
 
-    for (int i = 0; i < mida; ++i) {
-        for (int j = 0; j < mida; ++j) {
+            string primer(1, so[i][j]);
+            bool existeix = false;
 
-            node_trie* n = arrel;
-            
-            vector<vector<bool>> visit(mida, vector<bool> (mida, false));
-            string s(1, ss.getchar(i, j));
-            cout << endl << "BEGIN " << s << endl;
-            
-            int id = 0;
-            
-            if (buscarChar(s, n)) {
-                // mirem les direccions.
-                visit[i][j] = true;
-                //cout << "cerca cap a les direccions" << endl;
-                
-                cercaDireccions(ss, visit, i, j, s, id);
+            existeixParaula(primer, arrel, 0, existeix);
+            cout << existeix << endl;
+
+            if (existeix) {
+                calculaDireccions(so, v, primer, i,j);
             }
         }
     }
@@ -251,6 +233,6 @@ void TrieDictionary::buscarParaulesSopa(const superSopa& ss) {
 bool TrieDictionary::existeixParaula(const string& c) {
 
     bool r = false;
-    bool f = busquemParaula(c, arrel, 0, r);
+    existeixParaula(c, arrel, 0, r);
     return r;
 }
