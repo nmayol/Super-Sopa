@@ -25,8 +25,8 @@ void SortedVector::ordenar() {
 
 void SortedVector::imprimirTrobades() {
     ofstream fp_out;
-    fp_out.open("./Sorted Vector/out.txt");
-    for (std::set<int>::iterator it = trobades.begin(); it != trobades.end(); ++it) fp_out << v[*it] << endl;
+    fp_out.open("./out.txt");
+    for (std::set<int>::iterator it = trobades.begin(); it != trobades.end(); ++it) fp_out << v[*it]  << endl;
     fp_out.close();
 }
 

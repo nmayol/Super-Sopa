@@ -40,7 +40,7 @@ class superSopa {
         map<string, int> resoldre (BloomFilterDictionary& d, Sopa& sopa);
 
         //ALTRES MÈTODES
-        //void buscarParaula(int i , int j, vector<vector<bool>>& pos, int l, int r, SortedVector& sv,int iterador);
+        
                
         
         bool comprovarPosicio (Sopa& sopa, vector<vector<bool>>& v, int i, int j);
