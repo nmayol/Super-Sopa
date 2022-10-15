@@ -24,7 +24,7 @@ class HashTableDictionary {
         
     private:
         int tableSize;
-        int *hashTable;
+        string *hashTable;
         int curr_size;
         int maxcolision;      
 };
