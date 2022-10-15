@@ -29,7 +29,7 @@ class superSopa {
         superSopa ();
         superSopa (const int& mida);
 
-        void generarSopa(int n, Sopa& sopa);
+        void generarSopa(const vector<string>& dicc, Sopa& sopa);
 
         // Metodes per resoldre-la de cadascuna de les maneres       
         void resoldre (SortedVector d, Sopa& sopa); 
@@ -49,7 +49,7 @@ class superSopa {
         /*  Coloca un nombre determinat de paraules a la sopa i despres
             la ompla amb lletres de forma aleatoria.
         */
-        void construirParaules(const vector<string>& dicc);
+        //void construirParaules(const vector<string>& dicc);
 
         /*  Llegeix una sopa de lletres.
         */
@@ -65,7 +65,7 @@ class superSopa {
         int n;
         void afegirParaula (string s, int i0, int j0, vector<vector<bool>>& pos, int k,bool& afegida);
         void afegirLletra(const int& i,const int& j, const char& c);
-        void omplebuits();
+        void omplebuits(Sopa& sopa);
         bool compleixLimits(const int& i,const int& j);
         int randomInferiorA(int x);
         bool caracterSituable(const int& i,const int& j, const char& c);
@@ -74,7 +74,7 @@ class superSopa {
         /*  Coloca una paraula p a la superSopa. Retorna cert si s'ha 
             pogut colocar, false altrament.
         */
-        bool colocarParaulaRec(const string& p, int l, int i, int j);
+        bool colocarParaulaRec(const string& p, int l, int i, int j, Sopa& sopa);
 
         /*  Mira si la posicio {i,j} existeix a la sopa. Cert si existeix,
             fals altrament.

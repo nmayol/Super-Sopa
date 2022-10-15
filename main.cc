@@ -34,8 +34,7 @@ int main () {
     SortedVector sorted_vector;    
     auto begin = moment();
 
-    sorted_vector.afegir(diccionari);
-    
+    sorted_vector.afegir(diccionari);    
 
     auto end = moment();
 
@@ -83,7 +82,7 @@ int main () {
     Sopa sopa = Sopa(n,vector<char>(n, '#'));
     superSopa super_sopa;    
     
-    super_sopa.generarSopa(n, sopa);
+    //super_sopa.generarSopa(n, sopa);
 
 
     //RESOLDRE SOPA
