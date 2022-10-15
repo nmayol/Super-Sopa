@@ -7,9 +7,19 @@ const vector<pair<int,int>> DIR = {make_pair( 1, 0), make_pair( 1, 1),
 
 SortedVector::SortedVector(){}
 
-void SortedVector::afegir(const vector<string>& dicc) {
+void SortedVector::afegir(vector<string>& dicc) {
     v = dicc;
     trobades.clear();
+    ordenar();
+}
+
+/*
+void SortedVector::afegir(const string& s) {
+    v.push_back(s);
+}
+*/
+
+void SortedVector::ordenar() {
     mergesort(0,getSize()-1);
 }
 
@@ -112,6 +122,7 @@ int SortedVector::last_ocurrence(int l, int r, const char& c, const int& iterado
     else return last_ocurrence(l,m-1,c,iterador);   
 
 }
+
 
 
 
