@@ -1,9 +1,8 @@
 #include "superSopa.hh"
 
-const vector<pair<int,int>> DIR = {{1, 0}, {1, 1},
-                                   {0, 1}, {-1, 1},
-                                   {-1, 0}, {-1,-1},
-                                   {0,-1}, {1,-1}};
+const vector<pair<int,int>> DIR = {{-1, -1}, {-1, 0}, {-1, 1},
+                                   {0, -1}, {0, 1},
+                                   {1, -1}, {1, 0}, {1, 1}};
 
 const vector<int> SENTIT = {-1,1};
 
@@ -142,7 +141,11 @@ int superSopa::randomInferiorA(int x) {
 }
 
 
-map<string, int> superSopa::resoldre (HashTableDictionary& d, Sopa& sopa) {
+
+
+map<string, int> superSopa::resoldre (HashTableDictionary& d, Sopa& sopa, int m) {
+    maxim = m;
+    maxim = 5;
     int n = sopa.size();
     vector<vector<bool>> visitats;
     resultat.clear();
@@ -167,7 +170,11 @@ bool superSopa::comprovarPosicio (Sopa& sopa, vector<vector<bool>>& v, int i, in
 //des de resoldre, cridar-lo des de 0, 0
 void superSopa::resoldreRecursiu (Sopa& sopa, HashTableDictionary& d, string paraula, vector<vector<bool>>& visitats, int i, int j) {
     //paraula correcta?
+    cout << paraula << endl;
+    if (paraula.length() > maxim) return;
+    
     if (d.comprovar(paraula)) {
+        cout << "Trobat: " << paraula << endl;
         itResultat = resultat.find(paraula);
         if (itResultat != resultat.end()) {
             itResultat->second++;
@@ -181,11 +188,13 @@ void superSopa::resoldreRecursiu (Sopa& sopa, HashTableDictionary& d, string par
         int i2 = i+dir.first;
         int j2 = j+dir.second;
 
+        //cout << i << ' ' << i2 << endl << j << ' ' << j2 << endl;
+
         if (comprovarPosicio(sopa, visitats, i2, j2)) {
             visitats[i2][j2] = true;
             string paraula2 = paraula += sopa[i2][j2];
             resoldreRecursiu(sopa, d, paraula2, visitats, i2, j2);
-            visitats[i2][j2] = true;
+            visitats[i2][j2] = false;
         }
     }
 }
@@ -242,9 +251,9 @@ void superSopa::resoldre (SortedVector& d, Sopa& sopa) {
 
 
 
-/*void superSopa::resoldre (HashTableDictionary& d, Sopa& sopa) {
+map<string, int> superSopa::resoldre (BloomFilterDictionary& d, Sopa& sopa) {
 
-}*/
+}
 
 void superSopa::resoldre (TrieDictionary& d, Sopa& sopa) {
 

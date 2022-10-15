@@ -92,25 +92,27 @@ int main () {
 
     super_sopa.resoldre(trie, sopa);  */
 
-    Sopa sopa = {{'a', 'b', 'u', 's'},
-                {'a', 'c', 'u', 'z'},
-                {'z', 'z', 'u', 'z'},
-                {'a', 'z', 'z', 's'}};
+    Sopa sopa = {{'a', 'b', 'c', 'd'},
+                {'e', 'f', 'g', 'h'},
+                {'i', 'j', 'k', 'l'},
+                {'m', 'n', 'o', 'p'}};
 
     string path = "./diccionaris/mare-balena-vocabulary-3.txt";
 
     vector<string> diccionari;
+    int maxim = 0;
 
     llegir_fitxer(diccionari, path);
 
-    BloomFilterDictionary bloom_filter;  
+    HashTableDictionary hash_table(diccionari.size());  
     superSopa super_sopa;  
 
     for (int i = 0; i < diccionari.size(); ++i) {
-        bloom_filter.afegir(diccionari[i]);
+        if (diccionari[i].length() > maxim) maxim = diccionari[i].length();
+        hash_table.afegir(diccionari[i]);
     }
 
-    map<string, int> resultat = super_sopa.resoldre(bloom_filter, sopa);
+    map<string, int> resultat = super_sopa.resoldre(hash_table, sopa, maxim);
     map<string, int>::iterator it;
                     
     for (it = resultat.begin(); it != resultat.end(); ++it) {
