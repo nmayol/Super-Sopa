@@ -38,6 +38,7 @@ class superSopa {
         void resoldre (BloomFilterDictionary d, Sopa& sopa);
 
         //ALTRES MÈTODES
+        void buscarParaula(int i , int j, vector<vector<bool>>& pos, int l, int r, SortedVector& sv,int iterador);
                
         void imprimirSopa ();  
 
