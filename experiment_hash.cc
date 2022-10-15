@@ -1,19 +1,10 @@
+#include "./SuperSopa/superSopa.hh"
+
 #include <iostream>
 #include <fstream>
 #include <chrono>
-#include <map>
-//#include <vector>
-
-#include "./SuperSopa/superSopa.hh"
 
 using namespace std;
-
-//typedef vector<vector<char >> Sopa;
-
-//retorna el moment actual
-auto moment () {
-    return chrono::steady_clock::now();
-}
 
 void llegir_fitxer (vector<string>& v, const string& path) {
     ifstream fp_in;
@@ -25,21 +16,22 @@ void llegir_fitxer (vector<string>& v, const string& path) {
     fp_in.close(); 
 }
 
-int abs (int x) {
-    if (x > 0) return x;
-    return x*-1;
+//retorna el moment actual
+auto moment () {
+    return chrono::steady_clock::now();
 }
 
-void mitjana (vector<pair<double, int>>& execucions, double& temps) {
-    int n = execucions.size();
+void afegir_prefix(HashTableDictionary& d, string s) {
+    int n = s.size();
 
-    double sumaT = 0;
-
-    for (int i = 0; i < n; ++i) {
-        sumaT += execucions[i].first;
+    string aux = "";
+    for (int i = 0; i < n-1; ++i) {
+        aux.push_back(s[i]);
+        
+        if (i > 1 and not d.comprovar(aux)) {
+            d.afegir(aux);
+        }
     }
-
-    temps = sumaT/n;
 }
 
 int main () {
@@ -50,59 +42,39 @@ int main () {
     string pathResultat = "resultatHash.txt";
     string pathDiccionari = "./diccionaris/mare-balena-vocabulary-3.txt";
 
-    //llegir diccionari    
     vector<string> diccionari;
 
     llegir_fitxer(diccionari, pathDiccionari);
-    
-    HashTableDictionary hash_table(diccionari.size());    
+
+    HashTableDictionary hash_table(diccionari.size());
+    HashTableDictionary prefixos(diccionari.size()*10);  
+    superSopa super_sopa;  
 
     for (int i = 0; i < diccionari.size(); ++i) {
+        afegir_prefix(prefixos, diccionari[i]);
         hash_table.afegir(diccionari[i]);
-    } 
-
-    //EXPERIMENT COMPROVAR
-    fp_in.open(pathSopes); 
-    fp_out.open(pathResultat);
-
-    char s;
-    int n;
-
-    for (int nSopes = 0; nSopes < 100; ++nSopes) {
-        //llegir sopa
-        fp_in >> n;
-        Sopa sopa = Sopa(n, vector<char>(n, '#'));
-
-        for (int i = 0; i < n; ++i) {
-            for (int j = 0; j < n; ++j) {
-                fp_in >> s;
-                sopa[i][j] = s;
-            }
-        }
-
-        //resoldre-la 10 cops
-        vector<double> execucions; //temps de cada execució
-        for (int cops = 0; cops < 10; ++cops) {
-            map<string, int> resultatHash;
-
-            auto begin = moment();
-            //super_sopa.resoldre(hash_table, sopa, resultatHash);
-            auto end = moment();
-
-            double t = chrono::duration_cast<chrono::microseconds>(end - begin).count();
-
-            execucions.push_back(t);
-        }
-
-        double t;
- 
-        mitjana(execucions, t);
-
-        fp_out << "Sopa: " << nSopes+1 << endl;
-        fp_out << "Mida:" << n << endl;
-        fp_out << "Temps: " << t << endl;
     }
 
-    fp_in.close();    
-    fp_out.close();
+    int n = 30;
+    Sopa matriu = Sopa(n, vector<char>(n, '#'));
+    super_sopa.generarSopa(diccionari, matriu);
+    
+    for (int i = 0; i < matriu.size(); ++i) {
+        for (int j = 0; j < matriu.size(); ++j) {
+            cout << matriu[i][j] << ' ';
+        }
+        cout << endl;
+    }    
+
+    map<string, int> resultat = super_sopa.resoldre(hash_table, prefixos, matriu);
+    map<string, int>::iterator it;
+    
+    cout << "resultat" << endl;
+    for (it = resultat.begin(); it != resultat.end(); ++it) {
+        cout << it->first << ' ' << it->second << ' ' << endl;
+    }
 }
+
+
+//chrono::steady_clock::time_point begin = chrono::steady_clock::now();
+//chrono::steady_clock::time_point end = chrono::steady_clock::now();

@@ -143,9 +143,7 @@ int superSopa::randomInferiorA(int x) {
 
 
 
-map<string, int> superSopa::resoldre (HashTableDictionary& d, HashTableDictionary& pre, Sopa& sopa, int m) {
-    maxim = m;
-    //maxim = 5;
+map<string, int> superSopa::resoldre (HashTableDictionary& d, HashTableDictionary& pre, Sopa& sopa) {
     int n = sopa.size();
     vector<vector<bool>> visitats;
     resultat.clear();
