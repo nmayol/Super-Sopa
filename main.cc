@@ -59,7 +59,7 @@ int main () {
 
     HashTableDictionary hash_table(diccionari.size());
     HashTableDictionary prefixos(diccionari.size()*10);  
-    superSopa super_sopa;  
+    //superSopa super_sopa;  
 
     for (int i = 0; i < diccionari.size(); ++i) {
         if (diccionari[i].length() > maxim) maxim = diccionari[i].length();
