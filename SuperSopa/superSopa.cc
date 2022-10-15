@@ -25,12 +25,10 @@ void superSopa::generarSopa (const vector<string>& dicc, Sopa& sopa) {
     int parSopa = 0;                // paraules dintre la SOPA
 
     srand(time(NULL));
-    int index = abs(rand()) % paraules;
-    int indexo = index;
 
-    do {
+    for(int k = 20; k < 220; k += 10 ) {
 
-        string p = dicc[index];
+        string p = dicc[k];
 
         // calculem la posicio on comencem.
         bool start = false;
@@ -61,10 +59,8 @@ void superSopa::generarSopa (const vector<string>& dicc, Sopa& sopa) {
                 cout << p << " : " << i << ' ' << j << endl;
             }
         }
-        ++index;
-        if (index == paraules) index = 0;
+        
     }
-    while (parSopa < 30 and indexo != index);
     
     cout << "Total paraules: " << parSopa << endl;
 
