@@ -278,34 +278,7 @@ void superSopa::resoldreRecursiuHash (matbool& v, string paraula, int i, int j) 
             }
         }
     }
-}
-
-
-/*void superSopa::resoldreRecursiuHash (matbool& v, string paraula, int i, int j) {
-    //cout << paraula << endl;
-    
-    if (d_hash.comprovar(paraula)) {
-        //cout << "Trobat: " << paraula << endl;
-        itResultat = resultat.find(paraula);
-        if (itResultat != resultat.end()) {
-            itResultat->second++;
-        } else {
-            resultat.insert({paraula, 1});
-        }
-    }
-    if (not pre_hash.comprovar(paraula)) return;    
-    for (auto dir : DIR) {
-        int i2 = i + dir.first;
-        int j2 = j + dir.second;        
-        if (comprovarPosicio(i2, j2, v)) {
-            v[i2][j2] = true;
-            string paraula2 = paraula;
-            paraula2.push_back(sopa[i2][j2]);
-            resoldreRecursiuHash(v, paraula2, i2, j2);            
-            v[i2][j2] = false;
-        }
-    }
-}*/
+}   
 
 /*map<string, int> superSopa::resoldre (SortedVector& d, Sopa& sopa) {
        
