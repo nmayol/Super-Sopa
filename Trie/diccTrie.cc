@@ -10,9 +10,6 @@ TrieDictionary::TrieDictionary() {
     arrel = nullptr;
 }
 
-bool TrieDictionary::esbuit() const {
-    return (arrel == nullptr);
-}
 
 void TrieDictionary::afegirRec(node_trie* &n, const string& info, int i) {
 
@@ -28,7 +25,7 @@ void TrieDictionary::afegirRec(node_trie* &n, const string& info, int i) {
         aux->esq = nullptr;
         aux->cnt = nullptr;
         aux->finalparaula = false;
-        aux->cerca = 0;
+        //aux->cerca = 0;
         
         n = aux;
 
@@ -52,13 +49,11 @@ void TrieDictionary::afegirRec(node_trie* &n, const string& info, int i) {
 
 void TrieDictionary::afegir(const string& p) {
 
-    /* comencem crida recursiva */
     afegirRec(arrel, p, 0);
 }
 
 void TrieDictionary::llegirTrie() {
 
-    cout << "Mida diccionari: ";
     int mida;
     cin >> mida;
 
@@ -69,8 +64,7 @@ void TrieDictionary::llegirTrie() {
 
         afegir(p);    
     }
-    cout << "arbre llegit correctament!" << endl;
-    // agrupar prefixes.
+
 }
 
 void TrieDictionary::simplificaRec(node_trie* &n) {
@@ -96,7 +90,7 @@ void TrieDictionary::simplificaArbre() {
     simplificaRec(arrel);
 }
 
-void TrieDictionary::escriureRec(node_trie* n) {
+void TrieDictionary::escriureRec(node_trie* n) const {
 
     if (n != nullptr) {
         cout << " " << n->info;
@@ -107,18 +101,11 @@ void TrieDictionary::escriureRec(node_trie* n) {
     else cout << " 0";
 }
 
-void TrieDictionary::escriure() {
-/* Pre: cert */ 
-/* Post: El canal estandar de sortida cont� el recorregut en inordre d'a */ 
+void TrieDictionary::escriure() const {
+
     escriureRec(arrel);
 }
 
-bool TrieDictionary::posok(int i, int j, int n, const vector<vector<bool>>& v) {
-
-    return (i >= 0 and i < n and j >= 0 and j < n and not v[i][j]);
-}
-
-// a: par, b: n
 bool TrieDictionary::inclouParaula(const string& a, const string& b, int i, int& k) {
 
     bool resultat = true;
@@ -184,48 +171,6 @@ void TrieDictionary::existeixParaula(const string& par, node_trie* n, int i, boo
         existeixParaula(par, n->dre, i, r);
     }
     
-}
-
-void TrieDictionary::calculaDireccions(const sopa& so, matbool& v, const string& par, int i, int j) {
-
-    v[i][j] = true;
-    //string par(1, so[i][j]);
-
-    for (int k = 0; k < DIR.size(); ++k) {
-
-        int di = i + DIR[k].first;
-        int dj = j + DIR[k].second;
-
-        if (posok(di, dj, so.size(), v)) {
-
-            string seg(1, so[di][dj]);
-            string suma = par + seg;
-
-            bool existeix = false;
-            existeixParaula(suma, arrel, 0, existeix);
-
-            if (existeix) {
-                calculaDireccions(so, v, suma, di, dj);
-            }
-        }
-    }
-}
-
-void TrieDictionary::buscarParaules(const sopa& so, matbool& v) {
-
-    for (int i = 0; i < so.size(); ++i) {
-        for (int j = 0; j < so.size(); ++j) {
-
-            string primer(1, so[i][j]);
-            bool existeix = false;
-
-            existeixParaula(primer, arrel, 0, existeix);
-
-            if (existeix) {
-                calculaDireccions(so, v, primer, i,j);
-            }
-        }
-    }
 }
 
 bool TrieDictionary::comprovar(const string& c) {
