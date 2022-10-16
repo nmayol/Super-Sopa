@@ -2,10 +2,17 @@
 #include "diccBloomFilter.hh"
 
 BloomFilterDictionary::BloomFilterDictionary () {
-
-    for (int i = 0; i < mida; ++i) {
+    mida = 47925;
+    BloomFilter = vector<bool>(mida, false);  
+    /*for (int i = 0; i < mida; ++i) {
         BloomFilter[i] = false;
-    }
+    }*/
+}
+
+BloomFilterDictionary::BloomFilterDictionary (int m) {
+    double n = 0.01; //ratio d'errors
+    int mida = ceil((-n * log(n))/(log(2)*log(2)));
+    BloomFilter = vector<bool>(mida, false);
 }
 
 void BloomFilterDictionary::afegir (const string& s) {

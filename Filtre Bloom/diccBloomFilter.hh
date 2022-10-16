@@ -6,7 +6,8 @@
 //esborrar
 #include <iostream>
 #include <vector>
-#include <fstream>
+//#include <fstream>
+#include <cmath>
 
 using namespace std;
 
@@ -14,6 +15,8 @@ class BloomFilterDictionary {
     public:
         //Constructor
         BloomFilterDictionary ();
+
+        BloomFilterDictionary (int m);
 
         //Afegir paraula al diccionari
         void afegir (const string& s);
@@ -26,7 +29,7 @@ class BloomFilterDictionary {
         int mida = 47925;
 
         //vector bloom
-        bool BloomFilter [47925];        
+        vector<bool> BloomFilter;        
 
         //Funcions de hash
         int h1 (const string& s);
