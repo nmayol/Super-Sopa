@@ -21,7 +21,7 @@ auto moment () {
     return chrono::steady_clock::now();
 }
 
-void afegir_prefix(HashTableDictionary& d, string s) {
+void afegir_prefix(SortedVector& d, string s) {
     int n = s.size();
 
     string aux = "";
@@ -56,19 +56,19 @@ int main () {
     ofstream fp_out;
     superSopa super_sopa;
     string pathSopes = "sopes.txt";
-    string pathResultat = "resultatHash.txt";
+    string pathResultat = "resultatVector.txt";
     string pathDiccionari = "./diccionaris/mare-balena-vocabulary-3.txt";
 
     vector<string> diccionari;
 
     llegir_fitxer(diccionari, pathDiccionari);
 
-    HashTableDictionary hash_table(diccionari.size());
-    HashTableDictionary prefixos(diccionari.size()*10);  
+    SortedVector vector;
+    SortedVector prefixos;  
 
     for (int i = 0; i < diccionari.size(); ++i) {
         afegir_prefix(prefixos, diccionari[i]);
-        hash_table.afegir(diccionari[i]);
+        vector.afegir(diccionari[i]);
     }
 
     //EXPERIMENT COMPROVAR
@@ -93,10 +93,10 @@ int main () {
         //resoldre-la 10 cops
         vector<double> execucions; //temps de cada execució
         for (int cops = 0; cops < 10; ++cops) {
-            map<string, int> resultatTrie;
+            map<string, int> resultatSortedVector;
 
             auto begin = moment();
-            //super_sopa.resoldre(TrieDictionary, sopa, resultatTrie);
+            //super_sopa.resoldre(SortedVectorDictionary, sopa, resultatSortedVector);
             auto end = moment();
 
             double t = chrono::duration_cast<chrono::microseconds>(end - begin).count();

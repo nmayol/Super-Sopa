@@ -36,7 +36,7 @@ class superSopa {
         // Metodes per resoldre-la de cadascuna de les maneres       
         map<string, int> resoldre (SortedVector& d, Sopa& sopa); 
         void resoldre (TrieDictionary& d, Sopa& sopa);
-        map<string, int> resoldre (HashTableDictionary& d, Sopa& sopa, int m);
+        map<string, int> resoldre (HashTableDictionary& d, HashTableDictionary& pre, Sopa& sopa);
         map<string, int> resoldre (BloomFilterDictionary& d, Sopa& sopa);
 
         //ALTRES MÈTODES
@@ -44,7 +44,7 @@ class superSopa {
                
         
         bool comprovarPosicio (Sopa& sopa, vector<vector<bool>>& v, int i, int j);
-        void resoldreRecursiu (Sopa& sopa, HashTableDictionary& d, string paraula, vector<vector<bool>>& visitats, int i, int j);
+        void resoldreRecursiu (Sopa& sopa, HashTableDictionary& pre, HashTableDictionary& d, string paraula, vector<vector<bool>>& visitats, int i, int j);
 
         
         //void imprimirSopa ();  
@@ -65,8 +65,7 @@ class superSopa {
         //int mida() const;
         //char getchar(int i, int j) const;
  
-    private: 
-        int maxim;       
+    private:       
         int n;
         vector<vector<bool>> visitat;
         map<string, int> resultat;
