@@ -90,21 +90,24 @@ int main () {
                 sopa[i][j] = s;
             }
         }
-
+        
         //resoldre-la 10 cops
         vector<double> execucions; //temps de cada execució
+        vector<int> nTrobades;
         for (int cops = 0; cops < 10; ++cops) {
             map<string, int> resultatTrieDictionary;
 
             auto begin = moment();
-            //super_sopa.resoldre(TrieDictionaryDictionary, sopa, resultatTrieDictionary);
+            trie.buidarResultats();
+            super_sopa.resoldre(trie, sopa);
             auto end = moment();
 
             double t = chrono::duration_cast<chrono::microseconds>(end - begin).count();
 
             execucions.push_back(t);
+            nTrobades.push_back(trie.midaMap());
         }
-
+        
         double t;
  
         mitjana(execucions, t);
@@ -112,6 +115,9 @@ int main () {
         fp_out << "Sopa: " << nSopes+1 << endl;
         fp_out << "Mida:" << n << endl;
         fp_out << "Temps: " << t << endl;
+        for (int i = 0;  i < nTrobades.size(); ++i) fp_out << nTrobades[i] << ' ';
+        fp_out << endl;
+        //if (nSopes == 1) trie.imprimirResultats();
     }
 
     fp_in.close();    
