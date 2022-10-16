@@ -21,7 +21,7 @@ auto moment () {
     return chrono::steady_clock::now();
 }
 
-void afegir_prefix(TrieDictionary& d, string s) {
+void afegir_prefix(HashTableDictionary& d, string s) {
     int n = s.size();
 
     string aux = "";
@@ -63,8 +63,8 @@ int main () {
 
     llegir_fitxer(diccionari, pathDiccionari);
 
-    TrieDictionary hash_table;
-    TrieDictionary prefixos;  
+    HashTableDictionary hash_table(diccionari.size());
+    HashTableDictionary prefixos(diccionari.size()*10);  
 
     for (int i = 0; i < diccionari.size(); ++i) {
         afegir_prefix(prefixos, diccionari[i]);
