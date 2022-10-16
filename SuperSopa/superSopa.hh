@@ -29,7 +29,7 @@ class superSopa {
 
         // Metodes per resoldre-la de cadascuna de les maneres       
         map<string, int> resoldre (SortedVector& d, Sopa& sopa); 
-        map<string, int> resoldre (TrieDictionary& d, Sopa& sopa);
+        void resoldre (TrieDictionary& d, Sopa& sopa);
         void resoldre (map<string, int>& resultat, HashTableDictionary& d, HashTableDictionary& pre, Sopa& sopa);
         map<string, int> resoldre (BloomFilterDictionary& d, Sopa& sopa);
 
@@ -51,6 +51,7 @@ class superSopa {
         int randomInferiorA(int x);  
         
         void calculaDireccions(HashTableDictionary& d, HashTableDictionary& pre, const sopa& so, matbool& v, const string& par, int i, int j);
+        void calculaDireccions(TrieDictionary& d, const sopa& so, matbool& v, const string& par, int i, int j);
    
 };
 
