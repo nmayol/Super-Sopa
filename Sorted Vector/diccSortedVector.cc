@@ -133,14 +133,12 @@ void SortedVector:: buscarParaula(int i , int j, vector<vector<bool>>& pos, int 
     int  nr = last_ocurrence(max(l,nl),r,s[i][j],iterador);
 
     
-    
-    // else if (iterador == v[l].size()) cout << iterador << ' ' << 
-    
+        
     if ((nl <= nr and nl != -1 and nr != -1)) {
         ++iterador;
-        //cout << i << ' ' << j << ' ' << s[i][j] << ' ' << v[nl] << ' ' << nl << ' ' << nr << ' ' << iterador << endl;
-        if (iterador == v[nl].size() and s[i][j] == v[nl][v[nl].size()-1]) { // l'iterador aqui ja és tres
-            ++trobades[v[nl]]; //cout << "he trobat" << v[nl] << " i les meves x i y son " << i+1 << ' ' << j+1 << endl;
+        
+        if (iterador == v[nl].size() and s[i][j] == v[nl][v[nl].size()-1]) { 
+            ++trobades[v[nl]]; 
             ++nl; 
         }
 
@@ -152,12 +150,10 @@ void SortedVector:: buscarParaula(int i , int j, vector<vector<bool>>& pos, int 
                 if (compleixLimits(s,ni,nj,s.size()) and not pos[ni][nj]) {
                     
                     ++direccions_possibles;
-                    //if (v[l].size() == iterador) --trobades[v[l]];
-                    //cout << " iterador: " << iterador << ' ' << i << ' ' << j << ' ';
-                    //cout << ni << ' ' << nj << '/';
+                   
                         
                     buscarParaula(ni,nj,pos,nl,nr,iterador,s);
-                    //if (iterador == v[nl].size())--trobades[v[nl]];
+                   
                         
                 
                 }
