@@ -11,7 +11,7 @@ vector<char> letters = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
                          's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
 
 //constructor buit
-superSopa::superSopa(){
+superSopa::superSopa() {
     resultat = map<string, int>();
 };
 
@@ -136,6 +136,9 @@ map<string, int> superSopa::resoldre (HashTableDictionary& d, HashTableDictionar
     vector<vector<bool>> visitats;
     resultat.clear();
 
+    d_hash = d;
+    pre_hash = pre;
+
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < n; ++j) {
             string p = "";
@@ -143,23 +146,21 @@ map<string, int> superSopa::resoldre (HashTableDictionary& d, HashTableDictionar
             visitats = vector<vector<bool>>(n, vector<bool>(n, false));
             visitats[i][j] = true;
             //cout << i << ' ' << j << endl;
-            resoldreRecursiu(sopa, pre, d, p, visitats, i, j);
+            resoldreRecursiuHash(sopa, p, i, j);            
         }
     }
     
     return resultat;
 }
 
-bool superSopa::comprovarPosicio (Sopa& sopa, vector<vector<bool>>& v, int i, int j) {
-    return i >= 0 and i < sopa.size() and j >= 0 and j < sopa.size() and not v[i][j];
+bool superSopa::comprovarPosicio (Sopa& sopa, int i, int j) {
+    return i >= 0 and i < sopa.size() and j >= 0 and j < sopa.size() and not visitats[i][j];
 }
 
-void superSopa::resoldreRecursiu (Sopa& sopa, HashTableDictionary& pre, HashTableDictionary& d, string paraula, vector<vector<bool>>& visitats, int i, int j) {
-    //paraula correcta?
+void superSopa::resoldreRecursiuHash (Sopa& sopa, string paraula, int i, int j) {
     //cout << paraula << endl;
-    //if (paraula.length() > maxim) return;    
     
-    if (d.comprovar(paraula)) {
+    if (d_hash.comprovar(paraula)) {
         //cout << "Trobat: " << paraula << endl;
         itResultat = resultat.find(paraula);
         if (itResultat != resultat.end()) {
@@ -169,27 +170,17 @@ void superSopa::resoldreRecursiu (Sopa& sopa, HashTableDictionary& pre, HashTabl
         }
     }
 
-    if (not pre.comprovar(paraula)) return;
-
-    /*cout << "direccions" << endl;
-    for (auto dir : DIR) {
-        cout << dir.first << ' ' << dir.second << endl;
-    }*/
+    if (not pre_hash.comprovar(paraula)) return;    
 
     for (auto dir : DIR) {
         int i2 = i + dir.first;
-        int j2 = j + dir.second;
+        int j2 = j + dir.second;        
 
-        //cout << 'o' << endl;
-        //cout << dir.first << ' ' << dir.second << endl;
-        //cout << i << ' ' << i2 << endl << j << ' ' << j2 << endl;
-
-        if (comprovarPosicio(sopa, visitats, i2, j2)) {
+        if (comprovarPosicio(sopa, i2, j2)) {
             visitats[i2][j2] = true;
-            //string paraula2 = (paraula += sopa[i2][j2]);
             string paraula2 = paraula;
             paraula2.push_back(sopa[i2][j2]);
-            resoldreRecursiu(sopa, pre, d, paraula2, visitats, i2, j2);            
+            resoldreRecursiuHash(sopa, paraula2, i2, j2);            
             visitats[i2][j2] = false;
         }
     }
