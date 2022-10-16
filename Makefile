@@ -1,4 +1,9 @@
+main.exe:  main.o superSopa.o diccDHashing.o diccBloomFilter.o diccTrie.o diccSortedVector.o
+	g++ -o main.exe main.o superSopa.o diccDHashing.o diccBloomFilter.o diccTrie.o diccSortedVector.o
+	rm *.o
 
+main.o: superSopa.o diccDHashing.o diccBloomFilter.o diccTrie.o diccSortedVector.o
+	g++ -c main.cc
 
 experiment_vector.exe:  experiment_vector.o superSopa.o diccDHashing.o diccBloomFilter.o diccTrie.o diccSortedVector.o
 	g++ -o experiment_vector.exe experiment_vector.o superSopa.o diccDHashing.o diccBloomFilter.o diccTrie.o diccSortedVector.o

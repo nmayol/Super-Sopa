@@ -131,9 +131,6 @@ int superSopa::randomInferiorA(int x) {
     return r;
 }
 
-
-
-
 map<string, int> superSopa::resoldre (HashTableDictionary& d, HashTableDictionary& pre, Sopa& sopa) {
     int n = sopa.size();
     vector<vector<bool>> visitats;
@@ -160,9 +157,7 @@ bool superSopa::comprovarPosicio (Sopa& sopa, vector<vector<bool>>& v, int i, in
 void superSopa::resoldreRecursiu (Sopa& sopa, HashTableDictionary& pre, HashTableDictionary& d, string paraula, vector<vector<bool>>& visitats, int i, int j) {
     //paraula correcta?
     //cout << paraula << endl;
-    //if (paraula.length() > maxim) return;
-
-    
+    //if (paraula.length() > maxim) return;    
     
     if (d.comprovar(paraula)) {
         //cout << "Trobat: " << paraula << endl;
@@ -172,7 +167,6 @@ void superSopa::resoldreRecursiu (Sopa& sopa, HashTableDictionary& pre, HashTabl
         } else {
             resultat.insert({paraula, 1});
         }
-        return;
     }
 
     if (paraula.size() > 2 and not pre.comprovar(paraula)) return;
@@ -201,48 +195,9 @@ void superSopa::resoldreRecursiu (Sopa& sopa, HashTableDictionary& pre, HashTabl
     }
 }
 
-map<string, int> superSopa::resoldre (SortedVector& d, Sopa& sopa) {
+/*map<string, int> superSopa::resoldre (SortedVector& d, Sopa& sopa) {
        
-
-/*
-map<string, int> bfs(Sopa& soap, int f, int c) {
-    string paraula = 0;
-    map<string, int> sol;
-    pair<string,pair<int,int>> pos_par;
-    queue<pos_par> q;
-    q.push({soap[f,c], {f, c}});
-    while(not q.empty()) {
-        string p = q.front().first;
-        act = q.front().second;
-        q.pop();
-        bool paraula_existeix = false;
-        for (int i = 0; i < 8; ++i){
-            int x = act.first + DIR.firts[i];
-            int y = act.second + DIR.second[i];
-            if(paraula_existeix) {
-                paraula = sopa[x,y];
-                paraula_existeix = false;
-            }
-			if (x >= 0 and x < n and y >= 0 and y < n) {
-                if(paraula.length() > 2) {
-                    paraula =+ sopa[act.first][act.second]
-                    paraula_existeix = h.comprovar(paraula);
-                    if(paraula_existeix) {
-                        bool ja_tinc_p = false;
-                        for (itr = sol.begin(); itr != sol.end(); ++itr) {
-                            if(itr.first == paraula) itr.second++;
-                            ja_tinc_p =true;
-                        }
-                        if(!ja_tinc_p) sol.end().insert(paraula, 0); 
-                    }
-                    q.push({sopa[x,y], {x,y}});
-                }
-            }
-        }
-    }
-    return sol;
-}
-*/
+}*/
 
 map<string,int> superSopa::resoldre (SortedVector& d, Sopa& sopa) {
     int l = 0 , r = d.getSize() - 1;
@@ -266,39 +221,4 @@ map<string, int>  superSopa::resoldre (TrieDictionary& d, Sopa& sopa) {
 
 }
 
-}
 
-/*
-///////////////////////// FUNCIO BACKTRACKING PEL SORTED VECTOR ////////////////////////////////
-void superSopa::resoldre (SortedVector d, Sopa& sopa) {
-    int n = sopa.size();
-    int l = 0 , r = d.getSize() - 1;
-    vector<vector<bool>> pos(n, vector<bool>(n,false));
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j) {
-            int l = 0, r = d.getSize()-1, iterador = 0;
-            buscarParaula(i,j,pos,l,r,d,iterador);            
-        }
-    }
-    d.imprimirTrobades();
-}
-// (i,j) es una posicio valida a la sopa
-void superSopa:: buscarParaula(int i , int j, vector<vector<bool>>& pos, int l, int r, SortedVector & sv, int iterador) {
-    int direccions_provades = 0, ni, nj, nl, nr;
-    pos[i][j] = true;
-    
-    while (direccions_provades < 8) {
-        ni = DIR[direccions_provades].first + i; nj = DIR[direccions_provades].second + j; 
-        if (compleixLimits(ni,nj) and not pos[ni][nj]) {
-            nl = sv.first_ocurrence(l,r,so[i][j],iterador);
-            nr = sv.last_ocurrence(max(l,nl),r,so[i][j],iterador);
-            if ((nl != -1 and nr != -1)){                
-                ++iterador;
-                buscarParaula(ni,nj,pos,nl,nr,sv,iterador);
-                --iterador;
-            }    
-        }
-        ++direccions_provades;
-    }
-    pos[i][j] = false;
-}*/

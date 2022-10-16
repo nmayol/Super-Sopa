@@ -16,6 +16,34 @@ void llegir_fitxer (vector<string>& v, const string& path) {
     fp_in.close(); 
 }
 
+int calcularFalsosPositius (map<string, int>& mapHash, map<string, int>& mapFiltre) {
+    map<string,int>::iterator it, aux;
+    int errors = 0;
+    cout << "errors" << endl;
+    for (it = mapHash.begin(); it != mapHash.end();) {
+        string p = it->first;
+        cout << p << endl;
+        int q1 = it->second;
+        ++it;
+        mapHash.erase(it);
+
+        int q2 = 0;
+        aux = mapFiltre.find(p);
+        if (aux != mapFiltre.end()) {
+            q2 = aux->second;
+            mapFiltre.erase(aux);
+        }
+        
+        errors += abs(q2-q1);
+    }
+
+    for (it = mapFiltre.begin(); it != mapFiltre.end(); ++it) {
+        errors += it->second;
+    }
+
+    return errors;
+}
+
 //retorna el moment actual
 auto moment () {
     return chrono::steady_clock::now();
@@ -67,7 +95,7 @@ int main () {
         hash_table.afegir(diccionari[i]);
     }
 
-    int n = 8;
+    int n = 4;
     Sopa matriu = Sopa(n, vector<char>(n, '#'));
 
     vector<string> p = {"abus", "era", "acer", "baba", "frare","reina", "abandonar",
@@ -86,10 +114,22 @@ int main () {
     map<string, int> resultat = super_sopa.resoldre(hash_table, prefixos, matriu);
     map<string, int>::iterator it;
     
-    cout << "resultat" << endl;
+    cout << "RESULTAT HASH" << endl;
     for (it = resultat.begin(); it != resultat.end(); ++it) {
         cout << it->first << ' ' << it->second << ' ' << endl;
     }
+
+    SortedVector vector;
+    vector.afegir(diccionari);
+    
+    map<string, int> resultat2 = super_sopa.resoldre(vector, matriu);
+
+    cout << "RESULTAT VECTOR" << endl;
+    for (it = resultat2.begin(); it != resultat2.end(); ++it) {
+        cout << it->first << ' ' << it->second << ' ' << endl;
+    }
+
+    //cout << calcularFalsosPositius(resultat, resultat2) << endl;
 }
 
 

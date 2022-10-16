@@ -57,7 +57,7 @@ int main () {
     ofstream fp_out;
     superSopa super_sopa;
     string pathSopes = "sopes.txt";
-    string pathResultat = "resultatVector.txt";
+    string pathResultat = "./resultats/resultatVector.txt";
     string pathDiccionari = "./diccionaris/mare-balena-vocabulary-3.txt";
 
     vector<string> diccionari;
