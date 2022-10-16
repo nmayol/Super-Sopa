@@ -251,7 +251,37 @@ void superSopa::resoldre (map<string, int>& res, HashTableDictionary& d, HashTab
 bool superSopa::comprovarPosicio (int i, int j, matbool& v) {
     return i >= 0 and i < sopa.size() and j >= 0 and j < sopa.size() and not v[i][j];
 }
+
 void superSopa::resoldreRecursiuHash (matbool& v, string paraula, int i, int j) {
+    //cout << paraula << endl;    
+    
+    for (auto dir : DIR) {
+        int i2 = i + dir.first;
+        int j2 = j + dir.second;
+
+        if (comprovarPosicio(i2, j2, v)) {           
+            string paraula2 = paraula;
+            paraula2.push_back(sopa[i2][j2]);
+
+            if (d_hash.comprovar(paraula2)) {
+                itResultat = resultat.find(paraula2);
+                if (itResultat != resultat.end()) {
+                    itResultat->second++;
+                } else {
+                    resultat.insert({paraula2, 1});
+                }
+            }
+            if (pre_hash.comprovar(paraula2)) {
+                v[i2][j2] = true;
+                resoldreRecursiuHash(v, paraula2, i2, j2);            
+                v[i2][j2] = false;
+            }
+        }
+    }
+}
+
+
+/*void superSopa::resoldreRecursiuHash (matbool& v, string paraula, int i, int j) {
     //cout << paraula << endl;
     
     if (d_hash.comprovar(paraula)) {
@@ -275,7 +305,7 @@ void superSopa::resoldreRecursiuHash (matbool& v, string paraula, int i, int j) 
             v[i2][j2] = false;
         }
     }
-}
+}*/
 
 /*map<string, int> superSopa::resoldre (SortedVector& d, Sopa& sopa) {
        
