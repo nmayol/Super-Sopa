@@ -26,6 +26,7 @@ class SortedVector {
         const int getSize();
         
         void imprimirTrobades();
+        void netejaTrobades();
         map<string,int> getTrobades();
         void buscarParaula(int i , int j, vector<vector<bool>>& pos, int l, int r, int iterador, Sopa& s);
 

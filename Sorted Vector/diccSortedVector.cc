@@ -32,6 +32,11 @@ void SortedVector::imprimirTrobades() {
     fp_out.close();
 }
 
+
+void SortedVector::netejaTrobades() {
+    trobades.clear();
+}
+
 map<string,int> SortedVector::getTrobades() {
     return trobades;
 }
@@ -161,8 +166,8 @@ void SortedVector:: buscarParaula(int i , int j, vector<vector<bool>>& pos, int 
                     //cout << " iterador: " << iterador << ' ' << i << ' ' << j << ' ';
                     //cout << ni << ' ' << nj << '/';
                         
-                        buscarParaula(ni,nj,pos,nl,nr,iterador,s);
-                        //if (iterador == v[nl].size())--trobades[v[nl]];
+                    buscarParaula(ni,nj,pos,nl,nr,iterador,s);
+                    //if (iterador == v[nl].size())--trobades[v[nl]];
                         
                 
                 }
