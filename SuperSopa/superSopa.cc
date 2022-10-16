@@ -133,11 +133,78 @@ int superSopa::randomInferiorA(int x) {
 
 map<string, int> superSopa::resoldre (HashTableDictionary& d, HashTableDictionary& pre, Sopa& sopa) {
     int n = sopa.size();
-    vector<vector<bool>> visitats;
     resultat.clear();
+    vector<vector<bool>> v = vector<vector<bool>>(n, vector<bool>(n, false));
+    
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            //cout << i << ' ' << j << endl;
+            string primer(1, sopa[i][j]);
+            bool existeix = false;
 
-    d_hash = d;
-    pre_hash = pre;
+            //existeix = pre.comprovar(primer);
+            //existeixParaula(primer, arrel, 0, existeix);
+            //cout << existeix << endl;
+
+            //if (existeix) {
+                //calculaDireccions(d, pre, sopa, v, primer, i,j);
+            //}
+            calculaDireccions(d, pre, sopa, v, primer, i, j);
+            //cout << "fi" << endl;
+        }
+    }
+
+    return resultat;
+}
+
+bool posok2(int i, int j, int n, const vector<vector<bool>>& v) {
+    return (i >= 0 and i < n and j >= 0 and j < n and not v[i][j]);
+}
+
+void superSopa::calculaDireccions(HashTableDictionary& d, HashTableDictionary& pre, const sopa& so, matbool& v, const string& par, int i, int j) {
+
+    v[i][j] = true;
+    //string par(1, so[i][j]);
+
+    for (int k = 0; k < DIR.size(); ++k) {
+
+        int di = i + DIR[k].first;
+        int dj = j + DIR[k].second;
+
+        if (posok2(di, dj, so.size(), v)) {
+            //cout << "v " << di << ' ' << dj << endl;
+            string seg(1, so[di][dj]);
+            string suma = par + seg;
+            //cout << '1';
+            if (d.comprovar(suma)) {
+                itResultat = resultat.find(suma);
+                if (itResultat != resultat.end()) {
+                    itResultat->second++;
+                } else {
+                    resultat.insert({suma, 1});
+                }
+                //cout << "Trobat: " << suma << endl;
+            }
+            //cout << '2';
+            bool existeix = false;
+            //existeixParaula(suma, arrel, 0, existeix);
+            existeix = pre.comprovar(suma);
+            //cout << '3';
+            if (existeix) {
+                calculaDireccions(d, pre, so, v, suma, di, dj);
+            }
+            //cout << '4';
+        }
+    }
+    v[i][j] = false;
+}
+
+
+
+/*map<string, int> superSopa::resoldre (HashTableDictionary& d, HashTableDictionary& pre, Sopa& sopa) {
+    int n = sopa.size();
+    //vector<vector<bool>> visitats;
+    resultat.clear();    
 
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < n; ++j) {
@@ -146,21 +213,22 @@ map<string, int> superSopa::resoldre (HashTableDictionary& d, HashTableDictionar
             visitats = vector<vector<bool>>(n, vector<bool>(n, false));
             visitats[i][j] = true;
             //cout << i << ' ' << j << endl;
-            resoldreRecursiuHash(sopa, p, i, j);            
+            resoldreRecursiuHash(sopa, p, i, j, d, pre);            
         }
     }
     
     return resultat;
 }
 
+
 bool superSopa::comprovarPosicio (Sopa& sopa, int i, int j) {
     return i >= 0 and i < sopa.size() and j >= 0 and j < sopa.size() and not visitats[i][j];
 }
 
-void superSopa::resoldreRecursiuHash (Sopa& sopa, string paraula, int i, int j) {
+void superSopa::resoldreRecursiuHash (Sopa& sopa, string paraula, int i, int j, HashTableDictionary& d, HashTableDictionary& pre) {
     //cout << paraula << endl;
     
-    if (d_hash.comprovar(paraula)) {
+    if (d.comprovar(paraula)) {
         //cout << "Trobat: " << paraula << endl;
         itResultat = resultat.find(paraula);
         if (itResultat != resultat.end()) {
@@ -170,7 +238,7 @@ void superSopa::resoldreRecursiuHash (Sopa& sopa, string paraula, int i, int j) 
         }
     }
 
-    if (not pre_hash.comprovar(paraula)) return;    
+    if (not pre.comprovar(paraula)) return;    
 
     for (auto dir : DIR) {
         int i2 = i + dir.first;
@@ -180,11 +248,11 @@ void superSopa::resoldreRecursiuHash (Sopa& sopa, string paraula, int i, int j) 
             visitats[i2][j2] = true;
             string paraula2 = paraula;
             paraula2.push_back(sopa[i2][j2]);
-            resoldreRecursiuHash(sopa, paraula2, i2, j2);            
+            resoldreRecursiuHash(sopa, paraula2, i2, j2, d, pre);            
             visitats[i2][j2] = false;
         }
     }
-}
+}*/
 
 /*map<string, int> superSopa::resoldre (SortedVector& d, Sopa& sopa) {
        
