@@ -26,7 +26,7 @@ void superSopa::generarSopa (const vector<string>& dicc, Sopa& sopa) {
 
     srand(time(NULL));
 
-    for(int k = 0; k < 20; k ++ ) {
+    for(int k = 0; k < 20; k++) {
 
         string p = dicc[k];
         cout << p << endl;
@@ -210,20 +210,17 @@ void superSopa::resoldreRecursiu (Sopa& sopa, HashTableDictionary& pre, HashTabl
 
 
 /*
-
 map<string, int> bfs(Sopa& soap, int f, int c) {
     string paraula = 0;
     map<string, int> sol;
     pair<string,pair<int,int>> pos_par;
     queue<pos_par> q;
     q.push({soap[f,c], {f, c}});
-
     while(not q.empty()) {
         string p = q.front().first;
         act = q.front().second;
         q.pop();
         bool paraula_existeix = false;
-
         for (int i = 0; i < 8; ++i){
             int x = act.first + DIR.firts[i];
             int y = act.second + DIR.second[i];
@@ -250,8 +247,6 @@ map<string, int> bfs(Sopa& soap, int f, int c) {
     }
     return sol;
 }
-
-
 */
 
 void superSopa::resoldre (SortedVector& d, Sopa& sopa) {
@@ -286,7 +281,6 @@ void superSopa::resoldre (TrieDictionary& d, Sopa& sopa) {
 
 /*
 void superSopa::llegir() {
-
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < n; ++j) cin >> so[i][j];
     }
@@ -298,27 +292,20 @@ void superSopa::llegir() {
 
 /*
 void superSopa::construirParaules(const vector<string>& dicc) {
-
     int paraules = dicc.size();     // paraules dintre diccionari
     int parSopa = 0;                // paraules dintre la SOPA
-
     srand(time(NULL));
     int index = abs(rand()) % paraules;
     int indexo = index;
-
     do {
-
         string p = dicc[index];
-
         // calculem la posicio on comencem.
         bool start = false;
         bool end = false;
-
         srand(time(NULL));
         int i = rand() % n;
         int j = rand() % n;
         int io = i, jo = j;
-
         while (not start and not end) {
             
             if (so[i][j] == '#' or so[i][j] == p[0]) {
@@ -345,7 +332,6 @@ void superSopa::construirParaules(const vector<string>& dicc) {
     while (parSopa < 30 and indexo != index);
     
     cout << "Total paraules: " << parSopa << endl;
-
     // acabem de fer la sopa.
     omplebuits();
 }*/
@@ -413,7 +399,6 @@ void superSopa::resoldre (SortedVector d, Sopa& sopa) {
     }
     d.imprimirTrobades();
 }
-
 // (i,j) es una posicio valida a la sopa
 void superSopa:: buscarParaula(int i , int j, vector<vector<bool>>& pos, int l, int r, SortedVector & sv, int iterador) {
     int direccions_provades = 0, ni, nj, nl, nr;
@@ -428,13 +413,11 @@ void superSopa:: buscarParaula(int i , int j, vector<vector<bool>>& pos, int l, 
                 ++iterador;
                 buscarParaula(ni,nj,pos,nl,nr,sv,iterador);
                 --iterador;
-
             }    
         }
         ++direccions_provades;
     }
     pos[i][j] = false;
-
 }*/
 
 
@@ -445,14 +428,11 @@ void superSopa:: buscarParaula(int i , int j, vector<vector<bool>>& pos, int l, 
 void superSopa::afegirLletra (const int& i,const int& j, const char& c) {   
     // Escull una posició so[i][j] i hi posa la lletra.
     so[i][j] = c;
-
 }
-
 // Retorna true si la posició (i,j) és una posició de la Sopa.
 bool superSopa::compleixLimits(const int& i,const int& j) {
     return(i >= 0 and j >= 0 and i < n and j < n);
 }
-
 // retorna cert si la lletra es vol posar a un lloc dins els limits de la sopa que sigui buit o que tingui la mateixa lletra
 bool superSopa::caracterSituable(const int& i,const int& j, const char& c) {
     return (compleixLimits(i,j) and (so[i][j] == ' ' or so[i][j] == c));
@@ -471,9 +451,7 @@ void superSopa::imprimirSopa () {
     fp_out << "----------------------" << endl;
     fp_out.close();
 }
-
 void superSopa::imprimirSopaTerminal () {
-
     cout << "----------------------" << endl;
     for (int i = 0; i < n; ++i) {
         cout << so[i][0];
@@ -482,7 +460,6 @@ void superSopa::imprimirSopaTerminal () {
     }
     cout << "----------------------" << endl;
 }
-
 // he fet aquesta funcio per comprovar que totes les paraules siguin a la sopa
 void superSopa::imprimirParaulaenSopa (const vector< vector< bool>>& pos) {
     ofstream fp_out;
