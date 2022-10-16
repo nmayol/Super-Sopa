@@ -74,7 +74,7 @@ int main () {
     char s;
     int n;
 
-    for (int nSopes = 0; nSopes < 100; ++nSopes) {
+    for (int nSopes = 0; nSopes < 2; ++nSopes) {
         //llegir sopa
         fp_in >> n;
         Sopa sopa = Sopa(n, vector<char>(n, '#'));
@@ -99,9 +99,11 @@ int main () {
             double t = chrono::duration_cast<chrono::microseconds>(end - begin).count();
 
             execucions.push_back(t);
+            
             nTrobades.push_back(resultatSortedVector.size());
         }
-
+        
+        sorted_vector.imprimirTrobades();
         double t;
  
         mitjana(execucions, t);
