@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <fstream>
+
 #include "./SuperSopa/superSopa.hh"
 
 using namespace std;
@@ -41,9 +42,16 @@ int main () {
 
     llegir_fitxer(diccionari, path);   
 
-    vector<string> p = {"abus", "era", "acer", "baba", "frare","reina", "abandonar",
+    vector<string> p;/* = {"abus", "era", "acer", "baba", "frare","reina", "abandonar",
                         "aire", "malalt", "nemo", "seny", "severa", "guineu",
-                        "gust", "has", "haja", "conve", "entes", "idea", "hostal"}; 
+                        "gust", "has", "haja", "conve", "entes", "idea", "hostal"}; */
+    int a;
+    srand(time(NULL));
+    for(int i = 0; i < 20; ++i) {
+        a = rand() % diccionari.size();
+        p.push_back(diccionari[a]);
+    }
+    
     
     for (int n = 10; n <= 55; n += 5) {
         for (int j = 0; j < 10; ++j) {
