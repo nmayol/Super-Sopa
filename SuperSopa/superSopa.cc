@@ -251,6 +251,7 @@ map<string, int> bfs(Sopa& soap, int f, int c) {
 
 map<string,int> superSopa::resoldre (SortedVector& d, Sopa& sopa) {
     int l = 0 , r = d.getSize() - 1;
+    int n = sopa.size();
     vector<vector<bool>> pos(n, vector<bool>(n,false));
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < n; ++j) {
