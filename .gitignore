@@ -21,3 +21,9 @@ program.o
 Sorted Vector/out.txt
 Sorted Vector/sopa.inp
 Sorted Vector/out.txt
+diccBloomFilter.o
+diccDHashing.o
+diccSortedVector.o
+diccTrie.o
+program.o
+superSopa.o
