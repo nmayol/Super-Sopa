@@ -28,7 +28,7 @@ diccTrie.o
 program.o
 superSopa.o
 out.txt
-resultatVector.txt
+
 experiment_vector.exe
 experiment_hash.exe
 
