@@ -169,7 +169,7 @@ void superSopa::resoldreRecursiu (Sopa& sopa, HashTableDictionary& pre, HashTabl
         }
     }
 
-    if (paraula.size() > 2 and not pre.comprovar(paraula)) return;
+    if (not pre.comprovar(paraula)) return;
 
     /*cout << "direccions" << endl;
     for (auto dir : DIR) {

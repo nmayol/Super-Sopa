@@ -28,7 +28,7 @@ void afegir_prefix(HashTableDictionary& d, string s) {
     for (int i = 0; i < n-1; ++i) {
         aux.push_back(s[i]);
         
-        if (i > 1 and not d.comprovar(aux)) {
+        if (not d.comprovar(aux)) {
             d.afegir(aux);
         }
     }
