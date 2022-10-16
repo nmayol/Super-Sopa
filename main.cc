@@ -69,7 +69,12 @@ int main () {
 
     int n = 8;
     Sopa matriu = Sopa(n, vector<char>(n, '#'));
-    super_sopa.generarSopa(diccionari, matriu);
+
+    vector<string> p = {"abus", "era", "acer", "baba", "frare","reina", "abandonar",
+                        "aire", "malalt", "nemo", "seny", "severa", "guineu",
+                        "gust", "has", "haja", "conve", "entes", "idea", "hostal"};
+
+    super_sopa.generarSopa(p, matriu);
     
     for (int i = 0; i < matriu.size(); ++i) {
         for (int j = 0; j < matriu.size(); ++j) {
