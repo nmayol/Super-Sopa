@@ -10,20 +10,10 @@ SortedVector::SortedVector(){}
 void SortedVector::afegir(vector<string>& dicc) {
     v = dicc;
     trobades.clear();
-    ordenar();
-}
-
-/*
-void SortedVector::afegir(const string& s) {
-    v.push_back(s);
-}
-*/
-///////////////////////////// COM ALGU ME L'ESBORRI LI TALLO ELS COLLONS //////////////////////////////////////////////
-
-
-void SortedVector::ordenar() {
     mergesort(0,getSize()-1);
 }
+
+
 
 void SortedVector::imprimirTrobades() {
     ofstream fp_out;
