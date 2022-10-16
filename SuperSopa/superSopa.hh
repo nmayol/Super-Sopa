@@ -43,7 +43,7 @@ class superSopa {
         map<string, int> resultat;
         map<string, int>::iterator itResultat;
 
-        HashTableDictionary& pre_hash, d_hash;
+        HashTableDictionary pre_hash, d_hash;
 
         void omplebuits(Sopa& sopa);
         bool colocarParaulaRec(const string& p, int l, int i, int j, Sopa& sopa);

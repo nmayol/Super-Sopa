@@ -11,7 +11,7 @@ vector<char> letters = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
                          's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
 
 //constructor buit
-superSopa::superSopa() {
+superSopa::superSopa() {    
     resultat = map<string, int>();
 };
 
