@@ -20,7 +20,7 @@ superSopa::superSopa(){
 
 void superSopa::generarSopa (const vector<string>& dicc, Sopa& sopa) {
     n = sopa.size();
-    cout << "posem paraules:" << endl;
+
     int paraules = dicc.size();     // paraules dintre diccionari
     int parSopa = 0;                // paraules dintre la SOPA
 
@@ -29,7 +29,7 @@ void superSopa::generarSopa (const vector<string>& dicc, Sopa& sopa) {
     for(int k = 0; k < 20; k++) {
 
         string p = dicc[k];
-        cout << p << endl;
+
         // calculem la posicio on comencem.
         bool start = false;
         bool end = false;
@@ -42,7 +42,6 @@ void superSopa::generarSopa (const vector<string>& dicc, Sopa& sopa) {
         while (not start and not end) {
             
             if (sopa[i][j] == '#' or sopa[i][j] == p[0]) {
-                cout << "primer if " << p << endl;
                 sopa[i][j] = p[0];
                 start = true;
             }
@@ -62,6 +61,7 @@ void superSopa::generarSopa (const vector<string>& dicc, Sopa& sopa) {
         }
         
     }
+    
     
     cout << "Total paraules: " << parSopa << endl;
 
@@ -140,7 +140,9 @@ int superSopa::randomInferiorA(int x) {
 
 
 
-map<string, int> superSopa::resoldre (HashTableDictionary& d, HashTableDictionary& pre, Sopa& sopa) {
+map<string, int> superSopa::resoldre (HashTableDictionary& d, HashTableDictionary& pre, Sopa& sopa, int m) {
+    maxim = m;
+    //maxim = 5;
     int n = sopa.size();
     vector<vector<bool>> visitats;
     resultat.clear();
