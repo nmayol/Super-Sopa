@@ -5,6 +5,13 @@ main.exe:  main.o superSopa.o diccDHashing.o diccBloomFilter.o diccTrie.o diccSo
 main.o: superSopa.o diccDHashing.o diccBloomFilter.o diccTrie.o diccSortedVector.o
 	g++ -c main.cc
 
+generar.exe:  generar.o superSopa.o diccDHashing.o diccBloomFilter.o diccTrie.o diccSortedVector.o
+	g++ -o generar.exe generar.o superSopa.o diccDHashing.o diccBloomFilter.o diccTrie.o diccSortedVector.o
+	rm *.o
+
+generar.o: superSopa.o diccDHashing.o diccBloomFilter.o diccTrie.o diccSortedVector.o
+	g++ -c generar.cc	
+
 experiment_vector.exe:  experiment_vector.o superSopa.o diccDHashing.o diccBloomFilter.o diccTrie.o diccSortedVector.o
 	g++ -o experiment_vector.exe experiment_vector.o superSopa.o diccDHashing.o diccBloomFilter.o diccTrie.o diccSortedVector.o
 	rm *.o
