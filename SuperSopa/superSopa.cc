@@ -131,7 +131,7 @@ int superSopa::randomInferiorA(int x) {
     return r;
 }
 
-map<string, int> superSopa::resoldre (HashTableDictionary& d, HashTableDictionary& pre, Sopa& sopa) {
+void superSopa::resoldre (map<string, int>& res, HashTableDictionary& d, HashTableDictionary& pre, Sopa& sopa) {
     int n = sopa.size();
     resultat.clear();
     vector<vector<bool>> v = vector<vector<bool>>(n, vector<bool>(n, false));
@@ -154,7 +154,7 @@ map<string, int> superSopa::resoldre (HashTableDictionary& d, HashTableDictionar
         }
     }
 
-    return resultat;
+    res = resultat;
 }
 
 bool posok2(int i, int j, int n, const vector<vector<bool>>& v) {

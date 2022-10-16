@@ -30,7 +30,7 @@ class superSopa {
         // Metodes per resoldre-la de cadascuna de les maneres       
         map<string, int> resoldre (SortedVector& d, Sopa& sopa); 
         map<string, int> resoldre (TrieDictionary& d, Sopa& sopa);
-        map<string, int> resoldre (HashTableDictionary& d, HashTableDictionary& pre, Sopa& sopa);
+        void resoldre (map<string, int>& resultat, HashTableDictionary& d, HashTableDictionary& pre, Sopa& sopa);
         map<string, int> resoldre (BloomFilterDictionary& d, Sopa& sopa);
 
                

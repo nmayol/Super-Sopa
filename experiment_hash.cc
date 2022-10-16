@@ -97,7 +97,7 @@ int main () {
             map<string, int> resultatHashTable;
 
             auto begin = moment();
-            resultatHashTable = super_sopa.resoldre(hash_table, prefixos, sopa);
+            super_sopa.resoldre(resultatHashTable, hash_table, prefixos, sopa);
             auto end = moment();
 
             double t = chrono::duration_cast<chrono::microseconds>(end - begin).count();
