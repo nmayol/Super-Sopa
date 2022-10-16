@@ -16,7 +16,7 @@ class TrieDictionary {
 
         TrieDictionary();
 
-        void afegir_node(const string& c);
+        void afegir(const string& c);
         bool cercar_paraula();
 
         /*  Llegueix el diccionari i, a mesura que el va lleguint, el 
@@ -31,7 +31,7 @@ class TrieDictionary {
         */
         void simplificaArbre();
 
-        bool existeixParaula(const string& c);
+        bool comprovar(const string& c);
 
         void buscarParaules(const sopa& so, matbool& v);
         

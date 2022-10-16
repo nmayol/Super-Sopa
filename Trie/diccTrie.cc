@@ -50,7 +50,7 @@ void TrieDictionary::afegirRec(node_trie* &n, const string& info, int i) {
     
 }
 
-void TrieDictionary::afegir_node(const string& p) {
+void TrieDictionary::afegir(const string& p) {
 
     /* comencem crida recursiva */
     afegirRec(arrel, p, 0);
@@ -67,7 +67,7 @@ void TrieDictionary::llegirTrie() {
         string p;
         cin >> p;
 
-        afegir_node(p);    
+        afegir(p);    
     }
     cout << "arbre llegit correctament!" << endl;
     // agrupar prefixes.
@@ -230,7 +230,7 @@ void TrieDictionary::buscarParaules(const sopa& so, matbool& v) {
     }
 }
 
-bool TrieDictionary::existeixParaula(const string& c) {
+bool TrieDictionary::comprovar(const string& c) {
 
     bool r = false;
     existeixParaula(c, arrel, 0, r);
