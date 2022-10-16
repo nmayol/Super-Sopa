@@ -27,3 +27,6 @@ diccSortedVector.o
 diccTrie.o
 program.o
 superSopa.o
+out.txt
+resultatVector.txt
+experiment_vector.exe
