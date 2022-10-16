@@ -203,13 +203,68 @@ void superSopa::resoldreRecursiu (Sopa& sopa, HashTableDictionary& pre, HashTabl
 
 map<string, int> superSopa::resoldre (SortedVector& d, Sopa& sopa) {
        
+
+/*
+map<string, int> bfs(Sopa& soap, int f, int c) {
+    string paraula = 0;
+    map<string, int> sol;
+    pair<string,pair<int,int>> pos_par;
+    queue<pos_par> q;
+    q.push({soap[f,c], {f, c}});
+    while(not q.empty()) {
+        string p = q.front().first;
+        act = q.front().second;
+        q.pop();
+        bool paraula_existeix = false;
+        for (int i = 0; i < 8; ++i){
+            int x = act.first + DIR.firts[i];
+            int y = act.second + DIR.second[i];
+            if(paraula_existeix) {
+                paraula = sopa[x,y];
+                paraula_existeix = false;
+            }
+			if (x >= 0 and x < n and y >= 0 and y < n) {
+                if(paraula.length() > 2) {
+                    paraula =+ sopa[act.first][act.second]
+                    paraula_existeix = h.comprovar(paraula);
+                    if(paraula_existeix) {
+                        bool ja_tinc_p = false;
+                        for (itr = sol.begin(); itr != sol.end(); ++itr) {
+                            if(itr.first == paraula) itr.second++;
+                            ja_tinc_p =true;
+                        }
+                        if(!ja_tinc_p) sol.end().insert(paraula, 0); 
+                    }
+                    q.push({sopa[x,y], {x,y}});
+                }
+            }
+        }
+    }
+    return sol;
+}
+*/
+
+map<string,int> superSopa::resoldre (SortedVector& d, Sopa& sopa) {
+    int l = 0 , r = d.getSize() - 1;
+    int n = sopa.size();
+    vector<vector<bool>> pos(n, vector<bool>(n,false));
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            int l = 0, r = d.getSize()-1, iterador = 0;
+            d.buscarParaula(i,j,pos,l,r,iterador,sopa);            
+        }
+    }
+    return d.getTrobades();
+    
 }
 
 map<string, int> superSopa::resoldre (BloomFilterDictionary& d, Sopa& sopa) {
 
 }
 
-map<string, int> superSopa::resoldre (TrieDictionary& d, Sopa& sopa) {
+map<string, int>  superSopa::resoldre (TrieDictionary& d, Sopa& sopa) {
+
+}
 
 }
 

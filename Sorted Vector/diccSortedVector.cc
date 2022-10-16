@@ -18,6 +18,8 @@ void SortedVector::afegir(const string& s) {
     v.push_back(s);
 }
 */
+///////////////////////////// COM ALGU ME L'ESBORRI LI TALLO ELS COLLONS //////////////////////////////////////////////
+
 
 void SortedVector::ordenar() {
     mergesort(0,getSize()-1);
@@ -26,8 +28,12 @@ void SortedVector::ordenar() {
 void SortedVector::imprimirTrobades() {
     ofstream fp_out;
     fp_out.open("./out.txt");
-    for (std::set<int>::iterator it = trobades.begin(); it != trobades.end(); ++it) fp_out << v[*it]  << endl;
+    for (std::map<string,int>::iterator it = trobades.begin(); it != trobades.end(); ++it) fp_out << it->first << ' ' << it->second << endl;
     fp_out.close();
+}
+
+map<string,int> SortedVector::getTrobades() {
+    return trobades;
 }
 
 
@@ -82,22 +88,17 @@ void SortedVector::merge(int l, int r, int m) {
 
 
 
-int SortedVector::first_ocurrence(int l, int r, const char& c, const int& iterador) {
+int SortedVector::first_ocurrence(int l, int r, const char& c, int iterador) {
     // les lletres anteriors ja han complert la condició 
     if (l > r) return -1;
     int m = (l + r) / 2;
     
+
     if (v[m].size() > iterador) { 
         if  (v[m][iterador] == c) {
             if (l != m and (m != 0 and v[m-1].size() > iterador and v[m-1][iterador] == c)) 
                 return first_ocurrence(l,m-1,c,iterador);
-            else {
-                if (v[m].size() == (iterador+1)) {
-                    trobades.insert(m);
-                    ++m;
-                }
-                return m;
-            }
+            else return m;
         }
         else if  (v[m][iterador] < c) return first_ocurrence(m+1,r,c,iterador);
         else return first_ocurrence(l,m-1,c,iterador);       
@@ -106,8 +107,9 @@ int SortedVector::first_ocurrence(int l, int r, const char& c, const int& iterad
 
 }
 
-int SortedVector::last_ocurrence(int l, int r, const char& c, const int& iterador) {
+int SortedVector::last_ocurrence(int l, int r, const char& c, int iterador) {
     // les lletres anteriors ja han complert la condició 
+    
     if (l > r) return -1;
     int m = (l + r) / 2;
    
@@ -129,24 +131,50 @@ int SortedVector::last_ocurrence(int l, int r, const char& c, const int& iterado
 
 // (i,j) es una posicio valida a la sopa
 void SortedVector:: buscarParaula(int i , int j, vector<vector<bool>>& pos, int l, int r, int iterador, Sopa& s) {
-    int direccions_provades = 0, ni, nj, nl, nr;
-    pos[i][j] = true;
     
-    while (direccions_provades < 8) {
-        ni = DIR[direccions_provades].first + i; nj = DIR[direccions_provades].second + j; 
-        if (compleixLimits(s,ni,nj,s.size()) and not pos[ni][nj]) {
-            nl = first_ocurrence(l,r,s[i][j],iterador);
-            nr = last_ocurrence(max(l,nl),r,s[i][j],iterador);
-            if ((nl != -1 and nr != -1)){                
-                ++iterador;
-                buscarParaula(ni,nj,pos,nl,nr,iterador,s);
-                --iterador;
+    
 
-            }    
+    int  nl = first_ocurrence(l,r,s[i][j],iterador);
+    int  nr = last_ocurrence(max(l,nl),r,s[i][j],iterador);
+
+    
+    
+    // else if (iterador == v[l].size()) cout << iterador << ' ' << 
+    
+    if ((nl <= nr and nl != -1 and nr != -1)) {
+        ++iterador;
+        //cout << i << ' ' << j << ' ' << s[i][j] << ' ' << v[nl] << ' ' << nl << ' ' << nr << ' ' << iterador << endl;
+        if (iterador == v[nl].size() and s[i][j] == v[nl][v[nl].size()-1]) { // l'iterador aqui ja és tres
+            ++trobades[v[nl]]; //cout << "he trobat" << v[nl] << " i les meves x i y son " << i+1 << ' ' << j+1 << endl;
+            ++nl; 
         }
-        ++direccions_provades;
+
+        int direccions_provades = 0, ni, nj;
+        pos[i][j] = true;
+        int direccions_possibles = 0;
+            while (direccions_provades < 8) {
+                ni = DIR[direccions_provades].first + i; nj = DIR[direccions_provades].second + j; 
+                if (compleixLimits(s,ni,nj,s.size()) and not pos[ni][nj]) {
+                    
+                    ++direccions_possibles;
+                    //if (v[l].size() == iterador) --trobades[v[l]];
+                    //cout << " iterador: " << iterador << ' ' << i << ' ' << j << ' ';
+                    //cout << ni << ' ' << nj << '/';
+                        
+                        buscarParaula(ni,nj,pos,nl,nr,iterador,s);
+                        //if (iterador == v[nl].size())--trobades[v[nl]];
+                        
+                
+                }
+                ++direccions_provades;
+            }
+        --iterador;
     }
+    
+    
+
     pos[i][j] = false;
+    //cout << endl;
 
 }
 

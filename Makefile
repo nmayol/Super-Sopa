@@ -1,16 +1,11 @@
-program.exe:  program.o superSopa.o diccDHashing.o diccBloomFilter.o diccTrie.o diccSortedVector.o
-	g++ -o program.exe program.o superSopa.o diccDHashing.o diccBloomFilter.o diccTrie.o diccSortedVector.o
+
+
+experiment_vector.exe:  experiment_vector.o superSopa.o diccDHashing.o diccBloomFilter.o diccTrie.o diccSortedVector.o
+	g++ -o experiment_vector.exe experiment_vector.o superSopa.o diccDHashing.o diccBloomFilter.o diccTrie.o diccSortedVector.o
 	rm *.o
 
-program.o: superSopa.o diccDHashing.o diccBloomFilter.o diccTrie.o diccSortedVector.o
-	g++ -c program.cc
-
-main.exe:  main.o superSopa.o diccDHashing.o diccBloomFilter.o diccTrie.o diccSortedVector.o
-	g++ -o main.exe main.o superSopa.o diccDHashing.o diccBloomFilter.o diccTrie.o diccSortedVector.o
-	rm *.o
-
-main.o: superSopa.o diccDHashing.o diccBloomFilter.o diccTrie.o diccSortedVector.o
-	g++ -c main.cc
+experiment_vector.o: superSopa.o diccDHashing.o diccBloomFilter.o diccTrie.o diccSortedVector.o
+	g++ -c experiment_vector.cc
 
 superSopa.o: ./SuperSopa/superSopa.cc ./SuperSopa/superSopa.hh ./Taula\ Hash/diccDHashing.hh ./Filtre\ Bloom/diccBloomFilter.hh ./Trie/diccTrie.hh ./Sorted\ Vector/diccSortedVector.hh
 	g++ -c ./SuperSopa/superSopa.cc
