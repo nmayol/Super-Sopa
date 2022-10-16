@@ -38,8 +38,8 @@ class superSopa {
         void resoldreRecursiuHash (Sopa& sopa, string paraula, int i, int j, HashTableDictionary& d, HashTableDictionary& pre);
  
     private:        
-        vector<vector<bool>> visitats;
-        vector<vector<bool>> visitat;
+        //vector<vector<bool>> visitats;
+        vector<vector<bool>> visitat ;
         map<string, int> resultat;
         map<string, int>::iterator itResultat;
 
