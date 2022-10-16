@@ -7,7 +7,7 @@
 #include <algorithm>
 #include <iostream>
 #include <fstream>
-#include <set>
+#include <map>
 
 using namespace std;
 
@@ -21,16 +21,19 @@ class SortedVector {
         void afegir (vector<string>& dicc);
         //void afegir(const string& s);
         void ordenar();
-        int first_ocurrence(int l, int r, const char& c, const int& iterador);
-        int last_ocurrence(int l, int r, const char& c, const int& iterador);
+        int first_ocurrence(int l, int r, const char& c, int iterador);
+        int last_ocurrence(int l, int r, const char& c, int iterador);
         const int getSize();
         
         void imprimirTrobades();
+        map<string,int> getTrobades();
         void buscarParaula(int i , int j, vector<vector<bool>>& pos, int l, int r, int iterador, Sopa& s);
+
+
     private:
         ////// Atributs //////
         vector < string> v;
-        set <int> trobades;
+        map <string,int> trobades;
         ///////////////////////
     
         
