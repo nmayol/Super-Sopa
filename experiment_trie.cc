@@ -20,7 +20,7 @@ void llegir_fitxer (vector<string>& v, const string& path) {
 auto moment () {
     return chrono::steady_clock::now();
 }
-
+/*
 void afegir_prefix(TrieDictionary& d, string s) {
     int n = s.size();
 
@@ -32,7 +32,7 @@ void afegir_prefix(TrieDictionary& d, string s) {
             d.afegir(aux);
         }
     }
-}
+}*/
 
 int abs (int x) {
     if (x > 0) return x;
@@ -64,10 +64,11 @@ int main () {
     llegir_fitxer(diccionari, pathDiccionari);
 
     TrieDictionary trie;
-    TrieDictionary prefixos;  
+    //TrieDictionary prefixos;  
 
     for (int i = 0; i < diccionari.size(); ++i) {
-        afegir_prefix(prefixos, diccionari[i]);
+        
+        //afegir_prefix(prefixos, diccionari[i]);
         trie.afegir(diccionari[i]);
     }
 
