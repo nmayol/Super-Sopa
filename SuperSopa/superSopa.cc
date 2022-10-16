@@ -131,8 +131,10 @@ int superSopa::randomInferiorA(int x) {
     return r;
 }
 
-map<string, int> superSopa::resoldre (HashTableDictionary& d, HashTableDictionary& pre, Sopa& sopa) {
+map<string, int> superSopa::resoldre (TrieDictionary& d, TrieDictionary& pre, Sopa& sopa) {
     int n = sopa.size();
+    d0 = d;
+    pre0 = pre;
     resultat.clear();
     vector<vector<bool>> v = vector<vector<bool>>(n, vector<bool>(n, false));
     
@@ -149,7 +151,7 @@ map<string, int> superSopa::resoldre (HashTableDictionary& d, HashTableDictionar
             //if (existeix) {
                 //calculaDireccions(d, pre, sopa, v, primer, i,j);
             //}
-            calculaDireccions(d, pre, sopa, v, primer, i, j);
+            calculaDireccions(sopa, v, primer, i, j);
             //cout << "fi" << endl;
         }
     }
@@ -161,7 +163,7 @@ bool posok2(int i, int j, int n, const vector<vector<bool>>& v) {
     return (i >= 0 and i < n and j >= 0 and j < n and not v[i][j]);
 }
 
-void superSopa::calculaDireccions(HashTableDictionary& d, HashTableDictionary& pre, const sopa& so, matbool& v, const string& par, int i, int j) {
+void superSopa::calculaDireccions(const sopa& so, matbool& v, const string& par, int i, int j) {
 
     v[i][j] = true;
     //string par(1, so[i][j]);
@@ -176,7 +178,7 @@ void superSopa::calculaDireccions(HashTableDictionary& d, HashTableDictionary& p
             string seg(1, so[di][dj]);
             string suma = par + seg;
             //cout << '1';
-            if (d.comprovar(suma)) {
+            if (d0.comprovar(suma)) {
                 itResultat = resultat.find(suma);
                 if (itResultat != resultat.end()) {
                     itResultat->second++;
@@ -188,10 +190,10 @@ void superSopa::calculaDireccions(HashTableDictionary& d, HashTableDictionary& p
             //cout << '2';
             bool existeix = false;
             //existeixParaula(suma, arrel, 0, existeix);
-            existeix = pre.comprovar(suma);
+            existeix = pre0.comprovar(suma);
             //cout << '3';
             if (existeix) {
-                calculaDireccions(d, pre, so, v, suma, di, dj);
+                calculaDireccions(so, v, suma, di, dj);
             }
             //cout << '4';
         }
