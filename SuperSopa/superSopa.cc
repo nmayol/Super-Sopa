@@ -270,6 +270,40 @@ map<string, int> superSopa::resoldre (BloomFilterDictionary& d, Sopa& sopa) {
 
 }
 
-map<string, int>  superSopa::resoldre (TrieDictionary& d, Sopa& sopa) {
+void superSopa::calculaDireccions(TrieDictionary& d, const sopa& so, matbool& v, const string& par, int i, int j) {
 
+
+    v[i][j] = true;
+    //string par(1, so[i][j]);
+
+    for (int k = 0; k < DIR.size(); ++k) {
+
+        int di = i + DIR[k].first;
+        int dj = j + DIR[k].second;
+
+        if (posok2(di, dj, so.size(), v)) {
+            
+            string seg(1, so[di][dj]);
+            string suma = par + seg;
+            
+            if (d.comprovar(suma)) {
+                calculaDireccions(d, so, v, suma, di, dj);
+            }
+        }
+    }
+    v[i][j] = false;
+}
+
+void superSopa::resoldre (TrieDictionary& d, Sopa& sopa) {
+    
+    int n = sopa.size();
+    matbool vis(n, vector<bool>(n, false));
+
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+
+            string primer(1, sopa[i][j]);
+            if (d.comprovar(primer)) calculaDireccions(d, sopa, vis, primer, i, j);
+        }
+    }
 }
