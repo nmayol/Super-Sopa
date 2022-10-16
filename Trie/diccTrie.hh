@@ -4,7 +4,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-//#include "../SuperSopa/superSopa.hh"
+#include <map>
 using namespace std;
 
 typedef vector<vector<bool>> matbool;
@@ -34,6 +34,9 @@ class TrieDictionary {
         bool comprovar(const string& c);
 
         void buscarParaules(const sopa& so, matbool& v);
+        void imprimirResultats() const;
+        int midaMap() const;
+        void buidarResultats();
         
     private:
 
@@ -50,6 +53,7 @@ class TrieDictionary {
         };
 
         node_trie* arrel;
+        map<string,int> results;
 
         /* Especificacio operacions privades.
         */
@@ -69,7 +73,6 @@ class TrieDictionary {
         bool posok(int i, int j, int n, const vector<vector<bool>>& v);
         bool inclouParaula(const string& a, const string& b, int i, int& k);
         void existeixParaula(const string& par, node_trie* n, int i, bool& r);
-
 
 
 };      

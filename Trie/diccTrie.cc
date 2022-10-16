@@ -147,14 +147,13 @@ bool TrieDictionary::inclouParaula(const string& a, const string& b, int i, int&
 
 void TrieDictionary::existeixParaula(const string& par, node_trie* n, int i, bool& r) {
 
-    if (n != nullptr) cout << "n: " << n->info << " par: " << par << " i: " << i << endl;
     int j = 0;
     if (n == nullptr) {
         r = false;
         return;
     }
     else if (i == par.size()) {
-        if (n->finalparaula) cout << "TROBAT " << par << endl;
+        if (n->finalparaula) results[par]++;
         r = true;
         return;
     }
@@ -167,13 +166,13 @@ void TrieDictionary::existeixParaula(const string& par, node_trie* n, int i, boo
         if (j == 0) {
             i += n->info.size();
             r = true;
-            if (n->finalparaula and i == par.size()) cout << "TROBAT " << par << endl;
-            
+            if (n->finalparaula and i == par.size()) {
+                results[par]++;
+            }
             return;
         }
         else {
             int salt = n->info.size();
-            cout << endl << salt << endl;
             existeixParaula(par, n->cnt, i+salt, r);
         } 
         
@@ -221,7 +220,6 @@ void TrieDictionary::buscarParaules(const sopa& so, matbool& v) {
             bool existeix = false;
 
             existeixParaula(primer, arrel, 0, existeix);
-            cout << existeix << endl;
 
             if (existeix) {
                 calculaDireccions(so, v, primer, i,j);
@@ -235,4 +233,25 @@ bool TrieDictionary::comprovar(const string& c) {
     bool r = false;
     existeixParaula(c, arrel, 0, r);
     return r;
+}
+
+void TrieDictionary::imprimirResultats() const {
+
+    // imrpimer tot el map.
+    map<string,int>::const_iterator it = results.begin();
+
+    while (it != results.end()) {
+        cout << it->first << ' ' << it->second << endl;
+        ++it;
+    }
+}
+
+int TrieDictionary::midaMap() const {
+
+    return results.size();
+}
+
+void TrieDictionary::buidarResultats() {
+
+    results.clear();
 }
