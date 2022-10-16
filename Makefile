@@ -19,6 +19,27 @@ experiment_vector.exe:  experiment_vector.o superSopa.o diccDHashing.o diccBloom
 experiment_vector.o: superSopa.o diccDHashing.o diccBloomFilter.o diccTrie.o diccSortedVector.o
 	g++ -c experiment_vector.cc
 
+experiment_hash.exe:  experiment_hash.o superSopa.o diccDHashing.o diccBloomFilter.o diccTrie.o diccSortedVector.o
+	g++ -o experiment_hash.exe experiment_hash.o superSopa.o diccDHashing.o diccBloomFilter.o diccTrie.o diccSortedVector.o
+	rm *.o
+
+experiment_hash.o: superSopa.o diccDHashing.o diccBloomFilter.o diccTrie.o diccSortedVector.o
+	g++ -c experiment_hash.cc
+
+experiment_trie.exe:  experiment_trie.o superSopa.o diccDHashing.o diccBloomFilter.o diccTrie.o diccSortedVector.o
+	g++ -o experiment_trie.exe experiment_trie.o superSopa.o diccDHashing.o diccBloomFilter.o diccTrie.o diccSortedVector.o
+	rm *.o
+
+experiment_trie.o: superSopa.o diccDHashing.o diccBloomFilter.o diccTrie.o diccSortedVector.o
+	g++ -c experiment_trie.cc
+
+experiment_filtre.exe:  experiment_filtre.o superSopa.o diccDHashing.o diccBloomFilter.o diccTrie.o diccSortedVector.o
+	g++ -o experiment_filtre.exe experiment_filtre.o superSopa.o diccDHashing.o diccBloomFilter.o diccTrie.o diccSortedVector.o
+	rm *.o
+
+experiment_filtre.o: superSopa.o diccDHashing.o diccBloomFilter.o diccTrie.o diccSortedVector.o
+	g++ -c experiment_filtre.cc
+
 superSopa.o: ./SuperSopa/superSopa.cc ./SuperSopa/superSopa.hh ./Taula\ Hash/diccDHashing.hh ./Filtre\ Bloom/diccBloomFilter.hh ./Trie/diccTrie.hh ./Sorted\ Vector/diccSortedVector.hh
 	g++ -c ./SuperSopa/superSopa.cc
 

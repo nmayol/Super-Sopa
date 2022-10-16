@@ -124,7 +124,7 @@ int main () {
 
             double t = chrono::duration_cast<chrono::microseconds>(end - begin).count();
 
-            //super_sopa.resoldre(hash_table, sopa, resultatHash);
+            resultatHash = super_sopa.resoldre(hash_table, pre, sopa);
 
             int e = calcularFalsosPositius(resultatFiltre, resultatHash);
             execucions.push_back({t, e});
