@@ -111,7 +111,8 @@ int main () {
         cout << endl;
     }    
 
-    map<string, int> resultat = super_sopa.resoldre(hash_table, prefixos, matriu);
+    map<string, int> resultat;
+    super_sopa.resoldre(resultat, hash_table, prefixos, matriu);
     map<string, int>::iterator it;
     
     cout << "RESULTAT HASH" << endl;
