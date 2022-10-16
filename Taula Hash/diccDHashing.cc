@@ -10,6 +10,15 @@ HashTableDictionary::HashTableDictionary(int mida) {
         hashTable[i] = "nnnn";
 }
 
+HashTableDictionary::HashTableDictionary() {
+    tableSize = 100;
+    hashTable = new string[tableSize];
+    curr_size = 0;
+    maxcolision = 0;
+    for (int i=0; i<tableSize; i++)
+        hashTable[i] = "nnnn";
+}
+
 int HashTableDictionary::hash1(string key) {
     int length = key.length();
     int sum = 0;

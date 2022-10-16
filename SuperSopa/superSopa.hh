@@ -34,18 +34,24 @@ class superSopa {
         map<string, int> resoldre (BloomFilterDictionary& d, Sopa& sopa);
 
                
-        bool comprovarPosicio (Sopa& sopa, vector<vector<bool>>& v, int i, int j);
-        void resoldreRecursiu (Sopa& sopa, HashTableDictionary& pre, HashTableDictionary& d, string paraula, vector<vector<bool>>& visitats, int i, int j);
+        bool comprovarPosicio (Sopa& sopa, int i, int j);
+        void resoldreRecursiuHash (Sopa& sopa, string paraula, int i, int j, HashTableDictionary& d, HashTableDictionary& pre);
  
     private:        
+        vector<vector<bool>> visitats;
         vector<vector<bool>> visitat;
         map<string, int> resultat;
         map<string, int>::iterator itResultat;
 
+        //HashTableDictionary pre_hash, d_hash;
+
         void omplebuits(Sopa& sopa);
         bool colocarParaulaRec(const string& p, int l, int i, int j, Sopa& sopa);
         bool posok(int n, int i, int j);
-        int randomInferiorA(int x);     
+        int randomInferiorA(int x);  
+        
+        void calculaDireccions(HashTableDictionary& d, HashTableDictionary& pre, const sopa& so, matbool& v, const string& par, int i, int j);
+   
 };
 
 #endif

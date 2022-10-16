@@ -11,6 +11,7 @@ using namespace std;
 class HashTableDictionary {
     public:
         //Constructora
+        HashTableDictionary();
         HashTableDictionary (int mida);
         //hashFunctions
         int hash1(string key);
