@@ -17,25 +17,19 @@ void llegir_fitxer (vector<string>& v, const string& path) {
 }
 
 //escriu la sopa al final del fitxer path
-void escriure_fitxer(Sopa& sopa, const string& path) {
-    ofstream fw(path, ofstream::out);
+void escriure_fitxer(Sopa& sopa, ofstream& fw) {
+    
+    int n = sopa.size();
 
-    if (fw.is_open()) {
-        int n = sopa.size();
+    fw << n << ' ';
 
-        fw << n << ' ';
-
-        for (int i = 0; i < n; ++i) {
-            for (int j = 0; j < n; ++j) {
-                fw << sopa[i][j];
-            }
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            fw << sopa[i][j];
         }
-
-        fw << '\n';
     }
-    else cout << "Problem with opening file";
 
-    fw.close();
+    fw << endl;     
 }
 
 int main () {
@@ -43,15 +37,31 @@ int main () {
     vector<string> diccionari;
     superSopa super_sopa;
 
-    llegir_fitxer(diccionari, path);    
+    ofstream fw(path, ofstream::out);
+
+    llegir_fitxer(diccionari, path);   
+
+    vector<string> p = {"abus", "era", "acer", "baba", "frare","reina", "abandonar",
+                        "aire", "malalt", "nemo", "seny", "severa", "guineu",
+                        "gust", "has", "haja", "conve", "entes", "idea", "hostal"}; 
     
     for (int n = 10; n <= 55; n += 5) {
         for (int j = 0; j < 10; ++j) {
             Sopa matriu = Sopa(n, vector<char>(n, '#'));
 
-            super_sopa.generarSopa(diccionari, matriu);
+            super_sopa.generarSopa(p, matriu);
 
-            escriure_fitxer(matriu, "path del fitxer on guardem les sopes");
+            escriure_fitxer(matriu, fw);
         }
     }   
+
+    fw.close();
+    /*int n = 5;
+    for (int i = 0; i < 100; ++i) {
+        Sopa matriu = Sopa(n, vector<char>(n, '#'));
+        super_sopa.generarSopa(p, matriu);
+        escriure_fitxer(matriu, fw);
+    }
+
+    fw.close();*/
 }

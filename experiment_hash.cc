@@ -28,7 +28,7 @@ void afegir_prefix(HashTableDictionary& d, string s) {
     for (int i = 0; i < n-1; ++i) {
         aux.push_back(s[i]);
         
-        if (i > 1 and not d.comprovar(aux)) {
+        if (not d.comprovar(aux)) {
             d.afegir(aux);
         }
     }
@@ -56,7 +56,7 @@ int main () {
     ofstream fp_out;
     superSopa super_sopa;
     string pathSopes = "sopes.txt";
-    string pathResultat = "resultatHash.txt";
+    string pathResultat = "./resultats/resultatHash.txt";
     string pathDiccionari = "./diccionaris/mare-balena-vocabulary-3.txt";
 
     vector<string> diccionari;
@@ -92,16 +92,18 @@ int main () {
 
         //resoldre-la 10 cops
         vector<double> execucions; //temps de cada execució
+        vector<int> nTrobades;
         for (int cops = 0; cops < 10; ++cops) {
-            map<string, int> resultatTrie;
+            map<string, int> resultatHashTable;
 
             auto begin = moment();
-            //super_sopa.resoldre(TrieDictionary, sopa, resultatTrie);
+            resultatHashTable = super_sopa.resoldre(hash_table, prefixos, sopa);
             auto end = moment();
 
             double t = chrono::duration_cast<chrono::microseconds>(end - begin).count();
 
             execucions.push_back(t);
+            nTrobades.push_back(resultatHashTable.size());
         }
 
         double t;
@@ -110,7 +112,10 @@ int main () {
 
         fp_out << "Sopa: " << nSopes+1 << endl;
         fp_out << "Mida:" << n << endl;
-        fp_out << "Temps: " << t << endl;
+        fp_out << "Temps: " << t << endl; //<< endl;
+
+        for (int i = 0;  i < nTrobades.size(); ++i) fp_out << nTrobades[i] << ' ';
+        fp_out << endl;
     }
 
     fp_in.close();    

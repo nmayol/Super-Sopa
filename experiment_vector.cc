@@ -20,7 +20,7 @@ void llegir_fitxer (vector<string>& v, const string& path) {
 auto moment () {
     return chrono::steady_clock::now();
 }
-
+/*
 void afegir_prefix(SortedVector& d, string s) {
     int n = s.size();
 
@@ -33,6 +33,7 @@ void afegir_prefix(SortedVector& d, string s) {
         }
     }
 }
+*/
 
 int abs (int x) {
     if (x > 0) return x;
@@ -56,20 +57,15 @@ int main () {
     ofstream fp_out;
     superSopa super_sopa;
     string pathSopes = "sopes.txt";
-    string pathResultat = "resultatVector.txt";
+    string pathResultat = "./resultats/resultatVector.txt";
     string pathDiccionari = "./diccionaris/mare-balena-vocabulary-3.txt";
 
     vector<string> diccionari;
 
     llegir_fitxer(diccionari, pathDiccionari);
 
-    SortedVector vector;
-    SortedVector prefixos;  
-
-    for (int i = 0; i < diccionari.size(); ++i) {
-        afegir_prefix(prefixos, diccionari[i]);
-        vector.afegir(diccionari[i]);
-    }
+    SortedVector sorted_vector;
+    sorted_vector.afegir(diccionari);  
 
     //EXPERIMENT COMPROVAR
     fp_in.open(pathSopes); 
@@ -92,16 +88,18 @@ int main () {
 
         //resoldre-la 10 cops
         vector<double> execucions; //temps de cada execució
+        vector<int> nTrobades;
         for (int cops = 0; cops < 10; ++cops) {
             map<string, int> resultatSortedVector;
 
             auto begin = moment();
-            //super_sopa.resoldre(SortedVectorDictionary, sopa, resultatSortedVector);
+            resultatSortedVector = super_sopa.resoldre(sorted_vector, sopa);
             auto end = moment();
 
             double t = chrono::duration_cast<chrono::microseconds>(end - begin).count();
 
             execucions.push_back(t);
+            nTrobades.push_back(resultatSortedVector.size());
         }
 
         double t;
@@ -110,7 +108,11 @@ int main () {
 
         fp_out << "Sopa: " << nSopes+1 << endl;
         fp_out << "Mida:" << n << endl;
-        fp_out << "Temps: " << t << endl;
+        fp_out << "Temps: " << t << endl; //<< endl;
+
+        for (int i = 0;  i < nTrobades.size(); ++i) fp_out << nTrobades[i] << ' ';
+        fp_out << endl;
+        
     }
 
     fp_in.close();    
