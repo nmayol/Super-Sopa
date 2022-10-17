@@ -20,20 +20,7 @@ void llegir_fitxer (vector<string>& v, const string& path) {
 auto moment () {
     return chrono::steady_clock::now();
 }
-/*
-void afegir_prefix(SortedVector& d, string s) {
-    int n = s.size();
 
-    string aux = "";
-    for (int i = 0; i < n-1; ++i) {
-        aux.push_back(s[i]);
-        
-        if (i > 1 and not d.comprovar(aux)) {
-            d.afegir(aux);
-        }
-    }
-}
-*/
 
 int abs (int x) {
     if (x > 0) return x;

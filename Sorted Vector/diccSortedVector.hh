@@ -77,14 +77,14 @@ class SortedVector {
            Pre: 0 <= iterador / els valors entre l i r tenen el mateix prefix de mida iterador-1.
            Post: Es retorna la primera ocurrencia de les paraules que tenen prefix iterador-1 i el caracter c a la posicio iterador
         */
-        int firstOcurrence(int l, int r, const char& c, int iterador);
+        int firstOcurrence(int l, int r, const char& c, int& iterador);
 
         /* Busca l'última ocurrència del caracter c en la posicio iterador d'una paraula,
            fent així més gran el prefix buscat 
            Pre: 0 <= iterador / els valors entre l i r tenen el mateix prefix de mida iterador-1.
            Post: Es retorna l'ultima ocurrencia de les paraules que tenen prefix iterador-1 i el caracter c a la posicio iterador
         */
-        int lastOcurrence(int l, int r, const char& c, int iterador);
+        int lastOcurrence(int l, int r, const char& c, int& iterador);
 
         /* Retorna cert si la posicio (i,j) es troba dins els limits de la sopa
            Pre: (i,j) pot ser o no posicio de la sopa s

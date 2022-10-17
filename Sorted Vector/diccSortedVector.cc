@@ -83,8 +83,8 @@ void SortedVector::merge(int l, int r, int m) {
 
 
 
-int SortedVector::firstOcurrence(int l, int r, const char& c, int iterador) {
-    // les lletres anteriors ja han complert la condició 
+int SortedVector::firstOcurrence(int l, int r, const char& c, int& iterador) {
+    // les lletres anteriors a iterador ja han complert la condició 
     if (l > r) return -1;
     int m = (l + r) / 2;
     
@@ -102,9 +102,8 @@ int SortedVector::firstOcurrence(int l, int r, const char& c, int iterador) {
 
 }
 
-int SortedVector::lastOcurrence(int l, int r, const char& c, int iterador) {
-    // les lletres anteriors ja han complert la condició 
-    
+int SortedVector::lastOcurrence(int l, int r, const char& c, int& iterador) {
+        
     if (l > r) return -1;
     int m = (l + r) / 2;
    
@@ -127,12 +126,8 @@ int SortedVector::lastOcurrence(int l, int r, const char& c, int iterador) {
 // (i,j) es una posicio valida a la sopa
 void SortedVector:: buscarParaula(int i , int j, vector<vector<bool>>& pos, int l, int r, int iterador, Sopa& s) {
     
-    
-
     int  nl = firstOcurrence(l,r,s[i][j],iterador);
-    int  nr = lastOcurrence(max(l,nl),r,s[i][j],iterador);
-
-    
+    int  nr = lastOcurrence(max(l,nl),r,s[i][j],iterador);  
         
     if ((nl <= nr and nl != -1 and nr != -1)) {
         ++iterador;
