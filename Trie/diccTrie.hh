@@ -135,13 +135,6 @@ class TrieDictionary {
         */
         void simplificaRec(node_trie* &n);
 
-        //void crear_arrel(const string& info);
-
-        /*  Consulta si el arbre es buit.
-            Retorna cert si es buit, fals altrament.
-        */
-        //bool esbuit() const;
-
         /*  Escriu pel canal estandard de sortida l'arbre del p.i.
             Pre: cert.
             Post: s'ha escrit l'arbre del p.i.
