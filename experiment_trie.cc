@@ -61,6 +61,7 @@ int main () {
     int n;
 
     for (int nSopes = 0; nSopes < 100; ++nSopes) {
+        
         //llegir sopa
         fp_in >> n;
         Sopa sopa = Sopa(n, vector<char>(n, '#'));
