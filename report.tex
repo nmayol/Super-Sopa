@@ -1,19 +1,359 @@
-\documentclass{article}
+\documentclass[titlepage]{article}
 \usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{mismath}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{float}
+\lstset{
+  basicstyle=\fontsize{11}\selectfont
+}
+
+% PACKAGES X DIBUIXAR ARBRES
+\usepackage[T1]{fontenc}
+\usepackage[linguistics]{forest}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \title{Anàlisi de quatre mètodes de resolució de la Super Sopa}
-\author{Aina Gómez, Paula Muñoz, Jordi Palomera, Neus Mayol}
-\date{Setembre 2022}
+\author{Aina Gomez, Paula Muñoz, Jordi Palomera, Neus Mayol}
+\date{Octubre 2022}
+
 
 \begin{document}
 
 \maketitle
+\clearpage
+\renewcommand{\contentsname}{Índex}
+\tableofcontents
+\clearpage
 
 \section{Introducció}
-Aquí podeu posar els paràgrafs de la secció Introducció. Per fer nous paràgrafs podeu fer:
-\newline \par
-Pels punts i a part només cal fer \newline
-Per fer més coses (\emph{bullet lists}, cites, posar codi), a internet està explicat \textbf{:D}.
+\par
+Moltes vegades relacionem els algorismes amb la modernitat, l'ús de les noves tecnologies o les xarxes socials. I sí, és veritat, l'algorismia juga un paper important en aquests camps, 
+però si retrocedim temporalment veurem que ja fa centenars i milers d'anys que fem servir aquests procediments. Podem dir que els algorismes sempre ens han donar el camí per trobar la solució a tot tipus de problemes quotidians d'ordenació, de càlcul, de lògica etc.\newline\par
+
+\par
+És més, independentment de la seva dificultat, cost temporal o de memòria, tots tenen una cosa en comú: mecanitzar i agilitzar tasques. És just en aquest moment —quan les tasques es poden mecanitzar— que podem deixar l'execució de l'algorisme a mans d'un ordinador, que resoldrà problemes com el que tracta aquest escrit de manera fàcil i ràpida.
+
+\section{Formulació del problema}
+El problema presenta una sopa de lletres de mida \begin{math}n\times n\end{math}, les paraules de la qual poden disposar-se en qualsevol de les vuit direccions. A més, una paraula pot tenir canvis de direcció entremig i solapar-se amb una altra paraula, però mai es sobreposarà amb ella mateixa.\newline\par
+Com el lector ja haurà pogut deduir, el principal problema plantejat és la cerca de paraules dins la sopa de lletres. Les paraules que s'han de buscar a la sopa venen determinades per un diccionari donat. Per assegurar-se que es trobaran paraules a la sopa, s'hi introduiran alguns mots del diccionari al moment de  crear-la. Ara bé, al moment de resoldre-la, s'hauran de trobar tots els mots que hi hagi al diccionari, no només els que s'han introduït expressament.\par
+
+
+\section{Metodologia}
+Per comoditat i adequació amb el  que es demana a l'enunciat, s'ha decidit programar els algorismes en C++. Durant el treball s'aniran ensenyant els algorismes segons aquest llenguatge, la resta del codi serà visible dins el repositori de \textit{GitHub} enllaçat al final de l'escrit.\newline\par
+Per tal de resoldre la sopa de lletres, l'enunciat planteja quatre maneres d'emmagatzemar el diccionari de paraules donat. Per tal d'organitzar millor les tasques a l'hora de programar, s'ha decidit crear una classe per a cada una de les maneres seguents i que podreu trobar explicades amb detall més endavant.
+\begin{itemize}
+  \item Amb un vector ordenat (\textit{Sorted Vector}).
+  \item Amb un \textit{trie}.
+  \item Amb un filtre de Bloom.
+  \item I amb una taula de hash amb \textit{double hashing}.
+\end{itemize}
+
+També, hem creat una cinquena classe, anomenada \textit{SuperSopa}, on hi guardem les funcions principals de la sopa de lletres. En aquesta classe, podem trobar diferents procediments i funcions com, per exemple, omplir la sopa o bé per resoldre-la.\par
+
+\subsection{Vector ordenat (o \textit{Sorted Vector})}
+L'estructura de dades més simple i coneguda. En aquest cas s'emmagatzemarà cada paraula dins una posició del vector. Per tant, i mirant-ho des de termes del llenguatge C++, sempre es parlarà d'un vector de paraules (o \textit{string}).\par
+El vector ha de ser ordenat, les paraules estaran organitzades alfabèticament tal i com els diccionaris. L'enunciat no garanteix que les paraules del diccionari donat estiguin en ordre alfabètic. És per això que, abans que res, s'haurà de proucurar que estiguin ben ordenades. D'aquesta manera, el vector s'estructurarà tal i com representa la \textit{Figure \ref{fig:sortedVector}}, on s'han fet servir paraules d'exemple ordenades alfabèticament.
+
+
+\begin{center}
+    \begin{figure}[h!]
+        \begin{center}
+            \begin{tabular}{ |c|c|c|c|c|c|c| } 
+             \hline
+                 ... & any & bou & plor & rosa & urna & ...\\ 
+             \hline
+            \end{tabular}
+        \end{center}
+            \caption{Exemple de vector ordenat}
+            \label{fig:sortedVector}
+    \end{figure}
+\end{center}
+
+I és que de fet, el vector és el principal atribut de la classe \textit{SortedVector}, definida al fitxer \textit{diccSortedVector.cc} i al seu fitxer de capçaleres corresponent: \textit{diccSortedVector.hh}. L'altre atribut de la classe és un \textit{map} anomenat \textit{trobades}, la clau és una paraula que és solució de la sopa i s'aparella amb un enter corresponent al nombre de vegades que hi apareix.
+\newline\par
+
+
+
+\subsection{\textit{Trie}}
+
+\textbf{He trobat una extensió per a representar arbres, per si la voleu fer servir, podeu fer arbres a partir del que he trobat d'exemple}
+\begin{center}
+    \begin{forest}
+        [TP
+            [DP [D\\the] [NP[N\\man] ] ]
+            [T’
+                [T\\will]
+                [VP
+                    [V\\eat]
+                    [DP [D\\a ] [NP [N\\burger] ] ]
+                ]
+            ]
+        ]
+    \end{forest}
+\end{center}
+
+\subsection{Doble Hash}
+
+
+
+
+\subsection{Filtre de Bloom}
+
+\subsection{Classe SuperSopa}
+
+
+\section{Implementació de les classes}
+\subsection{Vector ordenat}
+\subsection{Trie}
+\subsection{Filtre Bloom}
+\subsection{Taula Hash}
+
+\section{Funcionament del programa principal \textit{main.cc}}
+
+
+
+\section{Anàl·lisi d'agorismes}
+A continuació s'explicaran tots els algorismes que s'han inventat o fet servir dins de cadascún dels mètodes, i també per crear la sopa de lletres.
+\subsection{Creació de la sopa}
+
+\subsection{Vector ordenat  (o \textit{Sorted Vector})}
+Tal com s'ha explicat anteriorment, abans de començar a solucionar la sopa, hem de construir l'estructura de dades adequada per emmagatzemar el diccionari, en aquest cas un vector de paraules ordenades alfabèticament. Tenint l'estructura creada, ja es podrà procedir a la resolució de la sopa.
+
+\subsubsection{Construcció de l'estructura}
+En primer lloc i des de \textit{main.cc}, es crearà una instància de la classe \textit{SortedVector}. L'únic paràmetre de la funció creadora és el diccionari que, al ser també un vector de paraules, només caldrà ordenar i emmagatzemar a l'atribut \textit{v} de la classe. Per ordenar el vector s'han considerat diversos algorismes, finalment s'ha decidit utilitzar l'ordenació \textit{Mergesort}.
+
+\paragraph{\textit{Mergesort}} 
+Aquest procediment és un dels mètodes més eficients d'ordenació. Pertany al grup dels algorismes de dividir i vèncer (o \textit{divide and conquer}, en anglès), que agrupa tots aquelles funcions que divideixen el problema en subproblemes fàcils de resoldre per tal d'acabar resolent el problema en general. \newline\par
+
+És per això que el \textit{Mergesort} comença dividint el vector de string en dos subvectors, i així recursivament fins a obtenir  vectors de mida 1. Quan els subvectors tenen mida 1 es sap del cert que estaran ordenats, ja que són vectors d'un sol element. S'ha arribat a un problema fàcil de resoldre i per tant, l'algorisme podrà començar a solucionar la totalitat del problema.\newline
+Tot aquest procés es pot veure dins el procediment \textit{mergesort}, que pertany a la classe \textit{SortedVector}.\newline\par
+
+
+
+
+\begin{lstlisting}[language=C++]
+void SortedVector::mergesort(int l, int r) {
+    if (l < r) {
+        int m = (l + r) / 2;
+        mergesort(l,m);
+        mergesort(m+1,r);
+        merge(l,r,m);
+    }
+}
+\end{lstlisting}
+Tal com mostra el codi, les crides a \textit{mergesort} s'encarreguen de la divisió i la funció \textit{merge} s'ocupa de l'ordenació dels subvectors i la fusió d'aquests. La funció \textit{merge} sempre rebrà un vector on cada meitat està ordenada independentment de l'altra. Es pot assegurar que sempre serà així perquè la ordenació comença en subvectors de mida 1 —ordenats de per sí— i va fusionant subvectors ja ordenats i repetint el mateix procediment fins a obtenir el vector inicial ordenat.\newline
+El fragment de codi a continuació realitza la tasca comentada: En primer lloc es creen dos vectors corresponents als subvectors que s'han d'organitzar. Per ordenar el vector es recorren ambdós subvectors linealment amb dos iteradors, a cada iteració es compararen els valors dels subvectors en la posició de cada iterador i el més petit dels dos valors es guarda al vector \textit{v}, que contindrà el vector ja ordenat. Seguidament s'augmenta el valor de l'iterador del subvector que contenia el valor més petit i torna a començar el bucle.\newline\par
+Com que no podem assegurar que els dos subvectors tenen la mateixa mida, en acabar l'ordenació hi ha dos bucles que acaben de posar els valors del subvector de mida superior.
+
+\begin{lstlisting}[language=C++]
+void SortedVector::merge(int l, int r, int m) {
+    int n1 = m - l + 1, n2 = r - m;
+    
+    // Dos vectors amb els valors de cada subvector:
+    vector< string> v1(n1), v2(n2);
+    for (int i = 0; i < n1; i++)
+        v1[i] = v[l + i];
+    for (int j = 0; j < n2; j++)
+        v2[j] = v[m + 1 + j];
+
+    // Ordenacio:
+    int i = 0, j = 0, k = l;
+    while (i < n1 and j < n2) {
+        if (v1[i] <= v2[j]) {
+            v[k] = v1[i];
+            ++i;
+        } else {
+            v[k] = v2[j];
+            ++j;
+        }
+        ++k;
+    }
+
+    // Ordenacio de les parts restants
+    while (i < n1) {
+        v[k] = v1[i];
+        ++i; ++k;
+    }
+    while (j < n2) {
+        v[k] = v2[j];
+        ++j; ++k;
+    }
+
+}
+\end{lstlisting}
+
+Ja per acabar, és ben sabut que el cost de l'algorisme \textit{Mergesort} és $\Theta(n\log{}n)$ en tots els seus casos, ja que fa servir dues crides recursives que divideixen el vector per la meitat, i la part no recursiva té cost $\Theta(n)$.
+
+
+\subsubsection{Resolució de la sopa}
+Al tenir el vector ordenat alfabèticament, s'ha cregut que l'opció més eficient és utilitzar la cerca dicotòmica per resoldre la sopa. Tot i així s'ha decidit retocar la manera com s'implementa aquesta per adaptar-se al problema, i que no s'hagi de cercar dins de tot el diccionari cada vegada que es llegeix una nova lletra de la sopa. \newline
+Per començar es recorrerà tota la sopa posició per posició. A cada posició es buscarà totes les solucions que comencen des d'allà. Per fer-ho s'entrarà a l'algorisme \textit{buscarParaula}.
+\paragraph{\textit{buscarParaula}}
+La idea de l'algorisme \textit{buscarParaula} pot semblar complicada d'entrada, però s'ha considerat que és un mètode eficient
+
+
+
+S'ha vist que la cerca d'una paraula de la sopa al diccionari pot donar lloc a diferents casos:
+\begin{enumerate}
+  \item La paraula no és al diccionari.
+  \item La paraula és al diccionari
+    \begin{enumerate}
+    \item i és també prefix de la següent (o següents) paraules, que es poden trobar seguint la cerca des d'aquella posició.
+    \item i és també prefix de la següent (o següents) paraules, però cap de les paraules que la contenen de prefix es poden trobar en aquella posició.
+    \item i no és prefix de cap paraula.
+    \end{enumerate}
+\end{enumerate}
+Per tant, una vegada s'ha trobat una paraula que es prefix s'ha de continuar buscant per assegurar-se de trobar totes les paraules més llargues que la tenen com a prefix en cas que hi siguin. En altres paraules, la cerca començant per aquella posició acaba quan al diccionari no hi ha cap de les paraules que s'hi generen en qualsevol direcció i sentit, incloent canvis de direcció en el transcurs de la paraula.
+
+En C++, les cadenes de text o \textit{string}, són definides com a vectors de caràcters. Per tant, podem veure el vector ordenat com un vector de vectors de caràcters o en altres paraules: com una matriu de caràcters. A la \textit{Table \ref{fig:sortedVector1}} es mostra un exemple visual d'un possible fragment del vector. \newline
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{l|l|l|l|l|}
+\hline
+\multicolumn{1}{|l|}{a} & a & a & a & a \\
+\multicolumn{1}{|l|}{b} & c & c & i & i \\
+\multicolumn{1}{|l|}{u} & a & c & r & r \\
+\multicolumn{1}{|l|}{s} & b & i & e & e \\ \cline{1-1} \cline{4-4}
+                        & i & o &   & s \\ \cline{2-3} \cline{5-5} 
+\end{tabular}
+\caption{Vector vist com una matriu de caràcters}
+            \label{fig:sortedVector1}
+\end{center}
+\end{table}
+
+Per recórrer aquesta "matriu" de caràcters utilitzarem tres variables. Les dos primeres: \textit{l} i \textit{r}, serveixen per buscar la primera i l'última ocurrència al vector de les paraules amb el prefix llegit a la sopa. La tercera variable s'anomena \textit{iterador} i serveix per saber en quina posició s'ha de trobar cada nova lletra que llegim de la sopa. En cas que la paraula del \textit{Sorted Vector} tingui l'última lletra llegida de la sopa a la posició \textit{iterador}, aquesta paraula tindrà almenys un prefix de mida \textit{iterador} igual que una concatenació de lletres llegides de la sopa.\newline\par
+Aquesta explicació és molt més senzilla si l'acompanya l'exemple gràfic  \textit{Table \ref{fig:sortedVector2}}, que mostra com els valors de \textit{l} i \textit{r} es mantenen a l'inici i fi del vector, ja que totes les paraules compleixen el prefix llegit de la sopa. En canvi, quan es llegeix un nou caràcter de la sopa, només hi ha dos paraules que tinguin la lletra buscada (en aquest cas, una i) a la posició \textit{iterador}. Per això canvien els valors de \textit{l} i \textit{r}.\newline
+
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{lllllll}
+l                       &                        &                        &                        & r                      &          &                     \\ \cline{1-5}
+\multicolumn{1}{|l|}{a} & \multicolumn{1}{l|}{a} & \multicolumn{1}{l|}{a} & \multicolumn{1}{l|}{a} & \multicolumn{1}{l|}{a} & iterador = 1 &                     \\
+\multicolumn{1}{|l|}{b} & \multicolumn{1}{l|}{c} & \multicolumn{1}{l|}{c} & \multicolumn{1}{l|}{i} & \multicolumn{1}{l|}{i} &          &                     \\
+\multicolumn{1}{|l|}{u} & \multicolumn{1}{l|}{a} & \multicolumn{1}{l|}{c} & \multicolumn{1}{l|}{r} & \multicolumn{1}{l|}{r} &          &                     \\
+\multicolumn{1}{|l|}{s} & \multicolumn{1}{l|}{b} & \multicolumn{1}{l|}{i} & \multicolumn{1}{l|}{e} & \multicolumn{1}{l|}{e} &          &                     \\ \cline{1-1} \cline{4-4}
+\multicolumn{1}{l|}{}   & \multicolumn{1}{l|}{i} & \multicolumn{1}{l|}{o} & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{s} &          & \textbf{prefix: a} \\ \cline{2-3} \cline{5-5}
+\end{tabular}
+\end{center}
+\begin{center}
+\begin{tabular}{lllllll}
+                        &                        &                        & l                      & r                      &          &                      \\ \cline{1-5}
+\multicolumn{1}{|l|}{a} & \multicolumn{1}{l|}{a} & \multicolumn{1}{l|}{a} & \multicolumn{1}{l|}{a} & \multicolumn{1}{l|}{a} &          &                      \\
+\multicolumn{1}{|l|}{b} & \multicolumn{1}{l|}{c} & \multicolumn{1}{l|}{c} & \multicolumn{1}{l|}{i} & \multicolumn{1}{l|}{i} & iterador = 2 &                      \\
+\multicolumn{1}{|l|}{u} & \multicolumn{1}{l|}{a} & \multicolumn{1}{l|}{c} & \multicolumn{1}{l|}{r} & \multicolumn{1}{l|}{r} &          &                      \\
+\multicolumn{1}{|l|}{s} & \multicolumn{1}{l|}{b} & \multicolumn{1}{l|}{i} & \multicolumn{1}{l|}{e} & \multicolumn{1}{l|}{e} &          &                      \\ \cline{1-1} \cline{4-4}
+\multicolumn{1}{l|}{}   & \multicolumn{1}{l|}{i} & \multicolumn{1}{l|}{o} & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{s} &          & \textbf{prefix: ai} \\ \cline{2-3} \cline{5-5}
+\end{tabular}
+
+            \caption{\textit{l} i \textit{r} limiten les paraules del vector que tenen com a prefix la cadena de caràcters que es va llegint}
+            \label{fig:sortedVector2}
+\end{center}
+\end{table}
+
+El procediment segueix i es van llegint nous caràcters. Imaginem que en aquest cas els caràcters llegits ens porten a una paraula que és dins del diccionari. Aquest podria ser, per exemple, el cas de la \textit{Table \ref{fig:sortedVector3}}. Veiem llavors que una paraula serà solució del diccionari si i només si al moment que es troba a la posició \textit{l}, el valor de \textit{iterador} és igual a la seva mida.  
+
+\begin{table}[H]
+\begin{center}
+
+\begin{tabular}{lllllll}
+                        &                        &                        & l                      & r                      &          &                        \\ \cline{1-5}
+\multicolumn{1}{|l|}{a} & \multicolumn{1}{l|}{a} & \multicolumn{1}{l|}{a} & \multicolumn{1}{l|}{\textbf{a}} & \multicolumn{1}{l|}{a} &          &                        \\
+\multicolumn{1}{|l|}{b} & \multicolumn{1}{l|}{c} & \multicolumn{1}{l|}{c} & \multicolumn{1}{l|}{\textbf{i}} & \multicolumn{1}{l|}{i} &          &                        \\
+\multicolumn{1}{|l|}{u} & \multicolumn{1}{l|}{a} & \multicolumn{1}{l|}{c} & \multicolumn{1}{l|}{\textbf{r}} & \multicolumn{1}{l|}{r} &          &                        \\
+\multicolumn{1}{|l|}{s} & \multicolumn{1}{l|}{b} & \multicolumn{1}{l|}{i} & \multicolumn{1}{l|}{\textbf{e}} & \multicolumn{1}{l|}{e} & iterador = 4 &                        \\ \cline{1-1} \cline{4-4}
+\multicolumn{1}{l|}{}   & \multicolumn{1}{l|}{i} & \multicolumn{1}{l|}{o} & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{s} &          & \textbf{prefix: aire} \\ \cline{2-3} \cline{5-5}
+\end{tabular}
+    \caption{Hem arribat a una solució}
+            \label{fig:sortedVector3}
+\end{center}
+\end{table}
+
+De totes maneres, tot i haver arribat a una solució, encara tenim la paraula "aires" inclosa al segment del vector [\textit{l},\textit{r}]. Per tant, hem de continuar llegint caràcters de la sopa per veure si trobem la lletra que ens falta. En cas que la trobem, \textit{l} es mourà una posició. Així doncs, \textit{l} marca la posició de la paraula "aires", quan la variable \textit{iterador} és igual a la mida de la paraula.
+
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{lllllll}
+                        &                        &                        &                        & \begin{tabular}[c]{@{}l@{}}l\\ r\end{tabular} &              &                        \\ \cline{1-5}
+\multicolumn{1}{|l|}{a} & \multicolumn{1}{l|}{a} & \multicolumn{1}{l|}{a} & \multicolumn{1}{l|}{a} & \multicolumn{1}{l|}{\textbf{a}}                        &              &                        \\
+\multicolumn{1}{|l|}{b} & \multicolumn{1}{l|}{c} & \multicolumn{1}{l|}{c} & \multicolumn{1}{l|}{i} & \multicolumn{1}{l|}{\textbf{i}}                        &              &                        \\
+\multicolumn{1}{|l|}{u} & \multicolumn{1}{l|}{a} & \multicolumn{1}{l|}{c} & \multicolumn{1}{l|}{r} & \multicolumn{1}{l|}{\textbf{r}}                        &              &                        \\
+\multicolumn{1}{|l|}{s} & \multicolumn{1}{l|}{b} & \multicolumn{1}{l|}{i} & \multicolumn{1}{l|}{e} & \multicolumn{1}{l|}{\textbf{e}}                        &              &                        \\ \cline{1-1} \cline{4-4}
+\multicolumn{1}{l|}{}   & \multicolumn{1}{l|}{i} & \multicolumn{1}{l|}{o} & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{\textbf{s}}                        & iterador = 5 & \textbf{prefix: aires} \\ \cline{2-3} \cline{5-5}
+\end{tabular}
+    \caption{De nou, veiem que la condició per trobar una paraula es compleix.}
+            \label{fig:sortedVector4}
+\end{center}
+\end{table}
+
+Com que ja hem afegit l'única paraula que ens quedava dins el segment [\textit{l},\textit{r}], és hora de tirar enrere la cerca, llegir altres caràcters de la sopa, recuperar els prefixos anteriors, decrementar la variable \textit{iterador} i  \textit{l} i \textit{r} anteriors, i repetir el mateix procés fins no poder trobar més paraules.\newline
+
+Per tant, s'està encarant un problema de cerca exhaustiva, que hem de fer satisfent una restricció molt simple: que les paraules generades per la cerca pertanyin al diccionari o siguin prefix d'una o més paraules que hi pertanyin. Per aquesta raó s'ha decidit que el procediment \textit{buscarParaula} es programi amb un algorisme \textit{backtracking} recursiu, el codi del qual  es mostra al següent fragment.\newline
+
+\begin{lstlisting}[language=C++]
+void SortedVector:: buscarParaula(int i , int j, 
+                                  vector<vector<bool>>& pos,
+                                  int l, int r, int iterador,
+                                  Sopa& s) {
+    
+    // Busquem la primera i ultima ocurrencia
+    int  nl = firstOcurrence(l,r,s[i][j],iterador);
+    int  nr = lastOcurrence(max(l,nl),r,s[i][j],iterador);
+
+    // Cert si hem trobat paraules amb el prefix demanat
+    if ((nl <= nr and nl != -1 and nr != -1)) {
+        ++iterador;
+        
+        // Comprovem la condicio de solucio
+        if (iterador == v[nl].size()) { 
+            ++trobades[v[nl]]; // Afegim la paraula a la solucio
+            // Incrementem nl (no necessitarem mes la paraula)
+            ++nl; 
+        }
+
+        int direccions_provades = 0, ni, nj;
+        pos[i][j] = true;
+        while (direccions_provades < 8) {
+            ni = DIR[direccions_provades].first + i;
+            nj = DIR[direccions_provades].second + j; 
+            if (compleixLimits(s,ni,nj,s.size()) 
+                                and not pos[ni][nj]) {
+                buscarParaula(ni,nj,pos,nl,nr,iterador,s);
+            }
+                ++direccions_provades;
+            }
+        --iterador;
+        pos[i][j] = false;
+    }
+}    
+\end{lstlisting}
+
+
+On, abans que res, es fa la cerca de la primera i última ocurrència de les paraules del diccionari que compleixen la condició i s'emmagatzemen a les variables \textit{nl} i \textit{nr} respectivament. Si \textit{nl} i \textit{nr} formen un interval correcte dins el vector, es busquen noves lletres de la sopa i es fa el mateix procés de cerca dins el subvector [\textit{nl},\textit{nr}].\newline\par 
+En altres paraules, el principal avantatge d'aquest tipus de cerca és que, per cada lletra nova que llegim, no caldrà cercar dins de tot el vector ordenat: podrem partir d'un subvector que ja sabem que conté totes les paraules amb prefix igual a les lletres que hem llegit anteriorment. Des d'aquell punt, buscar l'interval que contingui les paraules el prefix de les quals són iguals a l'anterior, afegint-hi l'última lletra que hem llegit de la sopa.\newline\par
+Per acabar d'explicar bé l'algorisme, mirarem com funcionen les cerques de la primera i l'última ocurrència.
+\paragraph{\textit{firstOcurrence}} 
+
+
+\paragraph{\textit{lastOcurrence}}
+
+
+
+
+\subsection{Doble hash}
+\subsection{\textit{Trie}}
+\subsection{Filtre de Bloom}
+
+
+\section{Anàl·lisi dels resultats}
+
+
+
+
+
+
+\section{Conclusions}
 
 
 
