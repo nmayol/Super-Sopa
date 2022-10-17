@@ -51,8 +51,6 @@ class TrieDictionary {
         */
         bool comprovar(const string& c);
 
-        //void buscarParaules(const sopa& so, matbool& v);
-
         /*  Imprimeix una llista amb totes les paraules trobades.
             Pre: cert.
             Post: S'han escrit pel canal estandard de sortida una llista de 
@@ -112,7 +110,6 @@ class TrieDictionary {
             node_trie* dre;
             node_trie* cnt;
 
-            //int cerca;
             bool finalparaula;
         };
 
