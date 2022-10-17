@@ -14,29 +14,19 @@ class TrieDictionary {
 
     public:
 
+        /*  Constructora.
+            Pre: cert.
+            Post: s'ha creat un diccionari trie buit.
+        */
         TrieDictionary();
+
+        // MODIFICADORES.
 
         /*  Afegeix el string c al trie.
             Pre: cert.
             Post: s'ha afegit el string c al diccionari trie.
         */
         void afegir(const string& c);
-
-        /*  Es llegeix una cadena de strings que passaran a formar el trie.
-            Pre: hi ha preparats un enter n i n strings al canal estandard
-            d'entrada.
-            Post: s'ha guardat els n strings en forma de trie. Aquests es 
-            troben guardats de manera que cada node esta format per un char.
-        */
-        void llegirTrie();
-
-        /*  Escriu l'arbre.
-            Pre: cert.
-            Post: escriu pel canal estandard de sortida el contingut de cada
-            node, si aquest es buit imprimeix un 0. 
-            Imprimeix en el seguent ordre: (1) arrel (2) esquerre (3) dret.
-        */
-        void escriure() const;
 
         /*  Ajunta els prefixos, es a dir, ajunta aquells nodes que no tenen 
             fill dret ni esquerra amb el fill central que tampoc en te.
@@ -45,6 +35,14 @@ class TrieDictionary {
             la codicio explicada abans.
         */
         void simplificaArbre();
+
+        /*  Buida el map resultat.
+            Pre: cert.
+            Post: el map results passa a estar buit (si es que no ho estava).
+        */
+        void buidarResultats();
+
+        // CONSULTORES
 
         /*  Comprova si la paraula c existeix dintre del diccionari Trie.
             Pre: cert.
@@ -68,11 +66,23 @@ class TrieDictionary {
         */
         int midaMap() const;
 
-        /*  Buida el map resultat.
-            Pre: cert.
-            Post: el map results passa a estar buit (si es que no ho estava).
+        // LECTURA I ESCRIPTURA
+
+        /*  Es llegeix una cadena de strings que passaran a formar el trie.
+            Pre: hi ha preparats un enter n i n strings al canal estandard
+            d'entrada.
+            Post: s'ha guardat els n strings en forma de trie. Aquests es 
+            troben guardats de manera que cada node esta format per un char.
         */
-        void buidarResultats();
+        void llegirTrie();
+
+        /*  Escriu l'arbre.
+            Pre: cert.
+            Post: escriu pel canal estandard de sortida el contingut de cada
+            node, si aquest es buit imprimeix un 0. 
+            Imprimeix en el seguent ordre: (1) arrel (2) esquerre (3) dret.
+        */
+        void escriure() const;
         
     private:
 
@@ -85,6 +95,14 @@ class TrieDictionary {
                 - node arrel: el primer node del nostre arbre.
                 - map results: on hi guardarem les paraules que anem trobant a la
                   sopa i les vagades que hi apareixen.
+
+            Aquest arbe, esta pensat per fer cerques. Per tant, segueix la seguent
+            condicio:
+                - el fill dret es mes petit que el pare.
+                - el fill esquerre es mes gran que el pare.
+                - el fill central hi guardem el/s seguent/s caracters que formen
+                  una paraula seguida amb el pare.
+
         */
         struct node_trie {
 
@@ -110,6 +128,13 @@ class TrieDictionary {
         */
         void afegirRec(node_trie* &n, const string& info, int i);
 
+        /*  Ajunta aquells nodes que poden anar junts.
+            Pre: cert.
+            Post: s'han ajuntat els nodes que no presenten fills laterals en
+            un sol node.
+        */
+        void simplificaRec(node_trie* &n);
+
         //void crear_arrel(const string& info);
 
         /*  Consulta si el arbre es buit.
@@ -122,13 +147,6 @@ class TrieDictionary {
             Post: s'ha escrit l'arbre del p.i.
         */
         void escriureRec(node_trie* n) const;
-
-        /*  Ajunta aquells nodes que poden anar junts.
-            Pre: cert.
-            Post: s'han ajuntat els nodes que no presenten fills laterals en
-            un sol node.
-        */
-        void simplificaRec(node_trie* &n);
         
         /*  Mira si la paraula a es troba inclosa a b o al invers.
             Pre: 0 <= i < a.size().

@@ -1,11 +1,5 @@
 #include "diccTrie.hh"
 
-
-const vector<pair<int,int>> DIR = {make_pair( 1, 0), make_pair( 1, 1),
-                                   make_pair( 0, 1), make_pair(-1, 1),
-                                   make_pair(-1, 0), make_pair(-1,-1),
-                                   make_pair( 0,-1), make_pair( 1,-1)};
-
 TrieDictionary::TrieDictionary() {
     arrel = nullptr;
 }
@@ -13,58 +7,38 @@ TrieDictionary::TrieDictionary() {
 
 void TrieDictionary::afegirRec(node_trie* &n, const string& info, int i) {
 
-    // guardem el primer caracter a un string.
     string s(1, info[i]);
 
-    if (n == nullptr) {             /* arbre buit */
+    if (n == nullptr) {             
         node_trie* aux;
         aux = new node_trie;
 
-        aux->info = s;
+        aux->info = s;              
         aux->dre = nullptr;
         aux->esq = nullptr;
         aux->cnt = nullptr;
         aux->finalparaula = false;
-        //aux->cerca = 0;
         
         n = aux;
 
         ++i;
 
-        /* si es la ultima lletra, guardem com a final de paraula i
-           acabem amb recursivitat.
-        */
         if (i < info.size()) afegirRec(n->cnt, info, i);
         else n->finalparaula = true;
     }
-    else if (n->info == s) {            /* cas 1: mateix caracter */
+    else if (n->info == s) {            
         ++i;
         if (i < info.size()) afegirRec(n->cnt, info, i);
         else n->finalparaula = true;
     }
-    else if (n->info > s) afegirRec(n->dre, info, i);   /* cas 2: busquem dreta */
-    else if (n->info < s) afegirRec(n->esq, info, i);   /* cas 3: busquem esquerra*/
+    else if (n->info > s) afegirRec(n->dre, info, i);   
+    else if (n->info < s) afegirRec(n->esq, info, i);
     
 }
 
 void TrieDictionary::afegir(const string& p) {
 
     afegirRec(arrel, p, 0);
-}
-
-void TrieDictionary::llegirTrie() {
-
-    int mida;
-    cin >> mida;
-
-    for (int i = 0; i < mida; ++i) {
-
-        string p;
-        cin >> p;
-
-        afegir(p);    
-    }
-
 }
 
 void TrieDictionary::simplificaRec(node_trie* &n) {
@@ -88,6 +62,21 @@ void TrieDictionary::simplificaRec(node_trie* &n) {
 void TrieDictionary::simplificaArbre() {
 
     simplificaRec(arrel);
+}
+
+void TrieDictionary::llegirTrie() {
+
+    int mida;
+    cin >> mida;
+
+    for (int i = 0; i < mida; ++i) {
+
+        string p;
+        cin >> p;
+
+        afegir(p);    
+    }
+
 }
 
 void TrieDictionary::escriureRec(node_trie* n) const {
@@ -180,9 +169,13 @@ bool TrieDictionary::comprovar(const string& c) {
     return r;
 }
 
+void TrieDictionary::buidarResultats() {
+
+    results.clear();
+}
+
 void TrieDictionary::imprimirResultats() const {
 
-    // imrpimer tot el map.
     map<string,int>::const_iterator it = results.begin();
 
     while (it != results.end()) {
@@ -194,9 +187,4 @@ void TrieDictionary::imprimirResultats() const {
 int TrieDictionary::midaMap() const {
 
     return results.size();
-}
-
-void TrieDictionary::buidarResultats() {
-
-    results.clear();
 }
