@@ -16,23 +16,9 @@ void llegir_fitxer (vector<string>& v, const string& path) {
     fp_in.close(); 
 }
 
-//retorna el moment actual
 auto moment () {
     return chrono::steady_clock::now();
 }
-/*
-void afegir_prefix(TrieDictionary& d, string s) {
-    int n = s.size();
-
-    string aux = "";
-    for (int i = 0; i < n-1; ++i) {
-        aux.push_back(s[i]);
-        
-        if (i > 1 and not d.comprovar(aux)) {
-            d.afegir(aux);
-        }
-    }
-}*/
 
 int abs (int x) {
     if (x > 0) return x;
@@ -63,14 +49,9 @@ int main () {
 
     llegir_fitxer(diccionari, pathDiccionari);
 
-    TrieDictionary trie;
-    //TrieDictionary prefixos;  
+    TrieDictionary trie; 
 
-    for (int i = 0; i < diccionari.size(); ++i) {
-        
-        //afegir_prefix(prefixos, diccionari[i]);
-        trie.afegir(diccionari[i]);
-    }
+    for (int i = 0; i < diccionari.size(); ++i) trie.afegir(diccionari[i]);
 
     //EXPERIMENT COMPROVAR
     fp_in.open(pathSopes); 
@@ -117,7 +98,6 @@ int main () {
         fp_out << "Temps: " << t << endl;
         for (int i = 0;  i < nTrobades.size(); ++i) fp_out << nTrobades[i] << ' ';
         fp_out << endl;
-        //if (nSopes == 1) trie.imprimirResultats();
     }
 
     fp_in.close();    
