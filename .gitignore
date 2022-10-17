@@ -2,31 +2,6 @@
 .vscode/settings.json
 .vscode/tasks.json
 Sorted Vector/diccSortedVector.o
-Filtre Bloom/diccBloomFilter.o
-SuperSopa/superSopa.o
-Taula Hash/diccDHashing.o
-Trie/diccTrie.o
-main.o
-main.exe
-mare-balena-vocabulary-3.txt:Zone.Identifier
-
-Sorted Vector/solucio.txt
-Sorted Vector/sopa.txt
-Sorted Vector/out.txt
-
-program.exe
-Sorted Vector/mainSortedVector.o
-program.o
-
-Sorted Vector/out.txt
-Sorted Vector/sopa.inp
-Sorted Vector/out.txt
-diccBloomFilter.o
-diccDHashing.o
-diccSortedVector.o
-diccTrie.o
-program.o
-superSopa.o
-experiment_vector.exe
-experiment_hash.exe
-
+*.exe
+*.o
+*.out
