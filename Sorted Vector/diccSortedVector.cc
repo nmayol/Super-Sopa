@@ -83,7 +83,7 @@ void SortedVector::merge(int l, int r, int m) {
 
 
 
-int SortedVector::first_ocurrence(int l, int r, const char& c, int iterador) {
+int SortedVector::firstOcurrence(int l, int r, const char& c, int iterador) {
     // les lletres anteriors ja han complert la condició 
     if (l > r) return -1;
     int m = (l + r) / 2;
@@ -92,17 +92,17 @@ int SortedVector::first_ocurrence(int l, int r, const char& c, int iterador) {
     if (v[m].size() > iterador) { 
         if  (v[m][iterador] == c) {
             if (l != m and (m != 0 and v[m-1].size() > iterador and v[m-1][iterador] == c)) 
-                return first_ocurrence(l,m-1,c,iterador);
+                return firstOcurrence(l,m-1,c,iterador);
             else return m;
         }
-        else if  (v[m][iterador] < c) return first_ocurrence(m+1,r,c,iterador);
-        else return first_ocurrence(l,m-1,c,iterador);       
+        else if  (v[m][iterador] < c) return firstOcurrence(m+1,r,c,iterador);
+        else return firstOcurrence(l,m-1,c,iterador);       
     }
-    else return first_ocurrence(l,m-1,c,iterador);
+    else return firstOcurrence(l,m-1,c,iterador);
 
 }
 
-int SortedVector::last_ocurrence(int l, int r, const char& c, int iterador) {
+int SortedVector::lastOcurrence(int l, int r, const char& c, int iterador) {
     // les lletres anteriors ja han complert la condició 
     
     if (l > r) return -1;
@@ -111,12 +111,12 @@ int SortedVector::last_ocurrence(int l, int r, const char& c, int iterador) {
     if (v[m].size() > iterador) {
         if (v[m][iterador] == c) {
             if (r == m or (m == (v.size() - 1) ) or (c != v[m+1][iterador]) ) return m;
-            else return last_ocurrence(m+1,r,c,iterador);
+            else return lastOcurrence(m+1,r,c,iterador);
         }
-        else if (v[m][iterador] < c) return last_ocurrence(m+1,r,c,iterador);
-        else return last_ocurrence(l,m-1,c,iterador);
+        else if (v[m][iterador] < c) return lastOcurrence(m+1,r,c,iterador);
+        else return lastOcurrence(l,m-1,c,iterador);
     }
-    else return last_ocurrence(l,m-1,c,iterador);   
+    else return lastOcurrence(l,m-1,c,iterador);   
 
 }
 
@@ -129,8 +129,8 @@ void SortedVector:: buscarParaula(int i , int j, vector<vector<bool>>& pos, int 
     
     
 
-    int  nl = first_ocurrence(l,r,s[i][j],iterador);
-    int  nr = last_ocurrence(max(l,nl),r,s[i][j],iterador);
+    int  nl = firstOcurrence(l,r,s[i][j],iterador);
+    int  nr = lastOcurrence(max(l,nl),r,s[i][j],iterador);
 
     
         
@@ -159,13 +159,11 @@ void SortedVector:: buscarParaula(int i , int j, vector<vector<bool>>& pos, int 
                 }
                 ++direccions_provades;
             }
+        pos[i][j] = false;
         --iterador;
     }
     
     
-
-    pos[i][j] = false;
-    //cout << endl;
 
 }
 
