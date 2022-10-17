@@ -136,8 +136,7 @@ void TrieDictionary::existeixParaula(const string& par, node_trie* n, int i, boo
     else if (n->info.size() == par.size() and n->info == par) {
         existeixParaula(par, n->cnt, i+1, r);
     }
-    // act - aca
-    else if (inclouParaula(par, n->info, i, j)) {
+    else if (n->info[0] == par[i] and inclouParaula(par, n->info, i, j)) {
         
         if (j == 0) {
             i += n->info.size();
