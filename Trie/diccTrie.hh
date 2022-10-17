@@ -117,6 +117,7 @@ class TrieDictionary {
         map<string,int> results;
 
         /*  Especificacio operacions privades.
+        
         */
 
         /*  Afegeix una paraula al arbre tire.

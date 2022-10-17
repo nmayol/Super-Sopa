@@ -20,7 +20,6 @@ void TrieDictionary::afegirRec(node_trie* &n, const string& info, int i) {
         aux->finalparaula = false;
         
         n = aux;
-
         ++i;
 
         if (i < info.size()) afegirRec(n->cnt, info, i);
