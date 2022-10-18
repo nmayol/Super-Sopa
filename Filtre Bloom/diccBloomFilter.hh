@@ -2,18 +2,14 @@
 #define BLOOM_FILTER
 
 #include <string>
-#include <cmath>
-//esborrar
-#include <iostream>
 #include <vector>
-//#include <fstream>
 #include <cmath>
 
 using namespace std;
 
 class BloomFilterDictionary {
     public:
-        //Constructor
+        //Constructors
         BloomFilterDictionary ();
 
         BloomFilterDictionary (int m);

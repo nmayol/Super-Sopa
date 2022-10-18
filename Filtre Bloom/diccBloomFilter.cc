@@ -1,12 +1,8 @@
-
 #include "diccBloomFilter.hh"
 
 BloomFilterDictionary::BloomFilterDictionary () {
     mida = 47925;
-    BloomFilter = vector<bool>(mida, false);  
-    /*for (int i = 0; i < mida; ++i) {
-        BloomFilter[i] = false;
-    }*/
+    BloomFilter = vector<bool>(mida, false);   
 }
 
 BloomFilterDictionary::BloomFilterDictionary (int n) {
@@ -135,50 +131,3 @@ int BloomFilterDictionary::h7 (const string& s) {
 
     return abs(hash % mida);
 }
-
-/*
-int main () {
-    vector<string> paths = {"../diccionaris/mare-balena-vocabulary-3.txt",
-                            "../diccionaris/dracula-vocabulary-4.txt",
-                            "../diccionaris/quijote-vocabulary-3.txt"};
-
-    for (string path : paths) {
-        cout << "Fitxer: " << path << endl;
-
-        BloomFilterDictionary b;
-        vector<string> totes;  
-
-        ifstream fp_in;
-        string a;
-        fp_in.open(path);
-        while (fp_in >> a) {
-            totes.push_back(a);
-        }
-        fp_in.close(); 
-
-        cout << "Mida: " << totes.size() << endl;
-
-        int errors = 0, encerts = 0, comprovacions = 0;
-        for (int i = 0; i < totes.size(); ++i) {
-            string w = totes[i];
-            b.afegir(w);
-
-            for (int j = 0; j < i+1; ++j) {
-                ++comprovacions;
-                if (not b.comprovar(totes[j])) ++errors;
-                else ++encerts;
-            }
-
-            for (int j = i+1; j < totes.size(); ++j) {
-                ++comprovacions;
-                if (b.comprovar(totes[j])) ++errors;
-                else ++encerts;
-            }
-        }
-
-        cout << "Errors totals: " << errors << endl;
-        cout << "Encerts totals: " << encerts << endl;
-        cout << "Comprovacions: " << comprovacions << endl;
-    }    
-}
-*/
