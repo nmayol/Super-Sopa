@@ -132,7 +132,7 @@ void superSopa::omplebuits(Sopa& sopa) {
         for (int j = 0; j < n; ++j) {
             if (sopa[i][j] == '#') {
                 std::shuffle(std::begin(letters), std::end(letters), rng);
-                sopa[i][j] = letters[(randomInferiorA(27))];
+                sopa[i][j] = letters[(randomInferiorA(25))];
             }
         }
     }
