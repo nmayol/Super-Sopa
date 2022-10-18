@@ -124,6 +124,7 @@ int main () {
             super_sopa.resoldre(resultatFiltre, bloom_filter, prefixos, sopa);
             auto end = moment();           
             
+            sorted_vector.netejaTrobades();
             super_sopa.resoldre(resultatVector, sorted_vector, sopa);
             
             double t = chrono::duration_cast<chrono::microseconds>(end - begin).count();
