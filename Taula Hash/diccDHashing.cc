@@ -1,7 +1,6 @@
 #include "diccDHashing.hh"
 
-
-HashTableDictionary::HashTableDictionary(int mida) {
+HashTableDictionary::HashTableDictionary (int mida) {
     tableSize = mida;
     hashTable = new string[tableSize];
     curr_size = 0;
@@ -10,7 +9,7 @@ HashTableDictionary::HashTableDictionary(int mida) {
         hashTable[i] = "nnnn";
 }
 
-HashTableDictionary::HashTableDictionary() {
+HashTableDictionary::HashTableDictionary () {
     tableSize = 100;
     hashTable = new string[tableSize];
     curr_size = 0;
@@ -19,7 +18,7 @@ HashTableDictionary::HashTableDictionary() {
         hashTable[i] = "nnnn";
 }
 
-int HashTableDictionary::hash1(string key) {
+int HashTableDictionary::hash1 (string key) {
     int length = key.length();
     int sum = 0;
     for(int i = 0; i < length; i++) {
@@ -28,18 +27,16 @@ int HashTableDictionary::hash1(string key) {
     return (sum % tableSize);
 }
 
-
-int HashTableDictionary::hash2(string key) {
+int HashTableDictionary::hash2 (string key) {
     int length = key.length();
     int sum = 0;
     for(int i = 0; i < length; i++) {
         sum += (int)key[i];
     }
     return (7 - (sum % 7));
-}
- 
+} 
 
-void HashTableDictionary::afegir(string key) { 
+void HashTableDictionary::afegir (string key) { 
     int index = hash1(key);
     // si hi ha colisio
     if (hashTable[index] != "nnnn") {
@@ -60,10 +57,9 @@ void HashTableDictionary::afegir(string key) {
     }
     else hashTable[index] = key;
     curr_size++;
- }
+}
 
-
-bool HashTableDictionary::comprovar(string s) {
+bool HashTableDictionary::comprovar (string s) {
     int index = hash1(s);
     if (hashTable[index] != s) {
         int index2 = hash2(s);
@@ -77,12 +73,3 @@ bool HashTableDictionary::comprovar(string s) {
     }
     return true;  
 }
-
-/*
-void HashTableDictionary::imprimir() {
-    ofstream fp_out;
-    fp_out.open("./DHashing/out.txt");
-    for(int i = 0; i < tableSize; i++) fp_out << hashTable[i] << endl;
-    fp_out.close();
-}
-*/
