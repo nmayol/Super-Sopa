@@ -215,7 +215,7 @@ void superSopa::resoldre (map<string, int>& res, SortedVector& d, Sopa& sopa) {
 }
 
 void superSopa::resoldre (map<string, int>& res, BloomFilterDictionary& d, BloomFilterDictionary& pre, Sopa& so) {
-    n = sopa.size();
+    n = so.size();
     sopa = so;
     d_filtre = d;
     pre_filtre = pre;
