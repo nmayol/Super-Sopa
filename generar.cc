@@ -34,12 +34,13 @@ void escriure_fitxer(Sopa& sopa, ofstream& fw) {
 
 int main () {
     string path = "sopes.txt";
+    string pathDiccionari = "./diccionaris/mare-balena-vocabulary-3.txt";
     vector<string> diccionari;
     superSopa super_sopa;
 
     ofstream fw(path, ofstream::out);
 
-    llegir_fitxer(diccionari, path);   
+    llegir_fitxer(diccionari, pathDiccionari);   
 
     vector<string> p;    
     int a;
