@@ -45,9 +45,12 @@ int main () {
     llegir_fitxer(diccionari, pathDiccionari);
 
     TrieDictionary trie; 
+    sort(diccionari.begin(), diccionari.end());
 
-    for (int i = 0; i < diccionari.size(); ++i) trie.afegir(diccionari[i]);
-
+    int meitat = diccionari.size()/2;
+    for (int i = meitat; i < diccionari.size(); ++i) trie.afegir(diccionari[i]);
+    for (int j = meitat - 1; j >= 0; --j) trie.afegir(diccionari[j]);
+    
     //EXPERIMENT COMPROVAR
     fp_in.open(pathSopes); 
     fp_out.open(pathResultat);
