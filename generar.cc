@@ -18,8 +18,7 @@ void llegir_fitxer (vector<string>& v, const string& path) {
 }
 
 //escriu la sopa al final del fitxer path
-void escriure_fitxer(Sopa& sopa, ofstream& fw) {
-    
+void escriure_fitxer(Sopa& sopa, ofstream& fw) {    
     int n = sopa.size();
 
     fw << n << ' ';
@@ -42,16 +41,14 @@ int main () {
 
     llegir_fitxer(diccionari, path);   
 
-    vector<string> p;/* = {"abus", "era", "acer", "baba", "frare","reina", "abandonar",
-                        "aire", "malalt", "nemo", "seny", "severa", "guineu",
-                        "gust", "has", "haja", "conve", "entes", "idea", "hostal"}; */
+    vector<string> p;    
     int a;
+
     srand(time(NULL));
     for(int i = 0; i < 20; ++i) {
         a = rand() % diccionari.size();
         p.push_back(diccionari[a]);
-    }
-    
+    }    
     
     for (int n = 10; n <= 55; n += 5) {
         for (int j = 0; j < 10; ++j) {

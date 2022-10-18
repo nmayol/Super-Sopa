@@ -34,11 +34,6 @@ void afegir_prefix (HashTableDictionary& d, string s) {
     }
 }
 
-int abs (int x) {
-    if (x > 0) return x;
-    return x*-1;
-}
-
 void mitjana (vector<double>& execucions, double& temps) {
     int n = execucions.size();
 
@@ -92,7 +87,6 @@ int main () {
 
         //resoldre-la 10 cops
         vector<double> execucions; //temps de cada execució
-        vector<int> nTrobades;
         for (int cops = 0; cops < 10; ++cops) {
             map<string, int> resultatHashTable;
 
@@ -103,19 +97,13 @@ int main () {
             double t = chrono::duration_cast<chrono::microseconds>(end - begin).count();
 
             execucions.push_back(t);
-            //nTrobades.push_back(resultatHashTable.size());
         }
 
         double t;
  
         mitjana(execucions, t);
 
-        fp_out << "Sopa: " << nSopes+1 << endl;
-        fp_out << "Mida:" << n << endl;
-        fp_out << "Temps: " << t << endl; //<< endl;
-
-        for (int i = 0;  i < nTrobades.size(); ++i) fp_out << nTrobades[i] << ' ';
-        fp_out << endl;
+        fp_out << nSopes+1 << ' ' << n << ' ' << t << endl;        
     }
 
     fp_in.close();    

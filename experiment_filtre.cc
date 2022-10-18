@@ -35,11 +35,6 @@ void afegir_prefix (BloomFilterDictionary& d, string s) {
     }
 }
 
-int abs (int x) {
-    if (x > 0) return x;
-    return x*-1;
-}
-
 int calcularFalsosPositius (map<string, int>& mapVector, map<string, int>& mapFiltre) {
     int errors = 0;
 
@@ -53,46 +48,10 @@ int calcularFalsosPositius (map<string, int>& mapVector, map<string, int>& mapFi
         } else {
             int q2 = aux->second;
             errors += (q-q2);
-
-            //esborrar
-            if (q2 > q) cout << "error" << endl;
         }
     }
 
-    return errors;   
-    
-    
-    /*map<string,int>::iterator it, aux;
-    int errors = 0;
-
-    cout << "Falsos positius: " << endl;
-    for (it = mapVector.begin(); it != mapVector.end(); ++it) {
-        string p = it->first;
-        cout << p << endl;
-        int q1 = it->second;
-        //mapVector.erase(it);
-        mapVector.erase(p);
-
-        int q2 = 0;
-        aux = mapFiltre.find(p);
-        if (aux != mapFiltre.end()) {
-            cout << "si" << endl;
-            q2 = aux->second;
-            //mapFiltre.erase(aux);
-            mapFiltre.erase(p);
-        }
-        
-        errors += abs(q2-q1);
-    }
-    cout << "mapFiltre: " << endl;
-    for (it = mapFiltre.begin(); it != mapFiltre.end(); it++) {
-        cout << it->first << endl;
-        int e = it->second;
-        cout << 'e' << endl;
-        errors += e;
-    }
-    cout << "Comptat" << endl;
-    return errors;*/
+    return errors; 
 }
 
 void mitjana (vector<pair<double, int>>& execucions, double& temps, int& errors) {
@@ -126,6 +85,7 @@ int main () {
     BloomFilterDictionary bloom_filter(diccionari.size());
     BloomFilterDictionary prefixos(diccionari.size()*10);
     SortedVector sorted_vector;
+
     sorted_vector.afegir(diccionari);    
 
     for (int i = 0; i < diccionari.size(); ++i) {
@@ -160,35 +120,23 @@ int main () {
             map<string, int> resultatFiltre;
             map<string, int> resultatVector;
 
-            //cout << "ep" << endl;
-
             auto begin = moment();
             super_sopa.resoldre(resultatFiltre, bloom_filter, prefixos, sopa);
-            auto end = moment();
+            auto end = moment();           
 
-            //cout << "haha" << endl;
+            super_sopa.resoldre(resultatVector, sorted_vector, sopa);
 
             double t = chrono::duration_cast<chrono::microseconds>(end - begin).count();
-
-            resultatVector = super_sopa.resoldre(sorted_vector, sopa);
-
-            //cout << "hola" << endl;
-
             int e = calcularFalsosPositius(resultatFiltre, resultatVector);
-            //cout << "e" << endl;
+            
             execucions.push_back({t, e});
-
-            //cout << "fi" << endl;
         }
 
         double t;
         int e;
         mitjana(execucions, t, e);
 
-        fp_out << "Sopa: " << nSopes+1 << endl;
-        fp_out << "Mida:" << n << endl;
-        fp_out << "Temps: " << t << endl;
-        fp_out << "Errors: " << e << endl << endl;
+        fp_out << nSopes+1 << ' ' << n << ' ' << t << ' ' << e << endl;
     }
 
     fp_in.close();    
