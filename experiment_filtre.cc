@@ -83,7 +83,7 @@ int main () {
     llegir_fitxer(diccionari, pathDiccionari);
     
     BloomFilterDictionary bloom_filter(diccionari.size());
-    BloomFilterDictionary prefixos(diccionari.size()*10);
+    BloomFilterDictionary prefixos(diccionari.size()*2);
     SortedVector sorted_vector;
 
     sorted_vector.afegir(diccionari);    
@@ -92,7 +92,7 @@ int main () {
         afegir_prefix(prefixos, diccionari[i]);
         bloom_filter.afegir(diccionari[i]);
     } 
-
+    
     //EXPERIMENT COMPROVAR
     fp_in.open(pathSopes); 
     fp_out.open(pathResultat);
@@ -101,9 +101,9 @@ int main () {
     int n;
 
     for (int nSopes = 0; nSopes < 100; ++nSopes) {
-        cout << "Sopa: " << nSopes << endl;
         //llegir sopa
-        fp_in >> n;
+        fp_in >> n;        
+        
         Sopa sopa = Sopa(n, vector<char>(n, '#'));
 
         for (int i = 0; i < n; ++i) {
@@ -117,23 +117,24 @@ int main () {
         vector<pair<double, int>> execucions; //temps i errors de cada execució
         double nv = 0, nf = 0;
         for (int cops = 0; cops < 10; ++cops) {
-            cout << cops << endl;
             map<string, int> resultatFiltre;
-            map<string, int> resultatVector;
-
+            map<string, int> resultatVector; 
+            
             auto begin = moment();
             super_sopa.resoldre(resultatFiltre, bloom_filter, prefixos, sopa);
             auto end = moment();           
-
+            
             super_sopa.resoldre(resultatVector, sorted_vector, sopa);
-
+            
             double t = chrono::duration_cast<chrono::microseconds>(end - begin).count();
+            
             int e = calcularFalsosPositius(resultatFiltre, resultatVector);
             
             execucions.push_back({t, e});
+            
             nv += resultatVector.size();
-            nf = resultatFiltre.size();
-        }
+            nf += resultatFiltre.size();            
+        }        
 
         double t;
         int e;

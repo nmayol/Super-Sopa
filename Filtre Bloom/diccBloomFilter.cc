@@ -7,7 +7,7 @@ BloomFilterDictionary::BloomFilterDictionary () {
 
 BloomFilterDictionary::BloomFilterDictionary (int n) {
     double p = 0.01; //ratio d'errors
-    int mida = ceil((-n * log(p))/(log(2)*log(2)));
+    mida = ceil((-n * log(p))/(log(2)*log(2)));
     BloomFilter = vector<bool>(mida, false);
 }
 
