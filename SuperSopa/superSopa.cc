@@ -153,7 +153,7 @@ bool posok2(int i, int j, int n, const vector<vector<bool>>& v) {
 }   
 
 void superSopa::resoldre (map<string, int>& res, HashTableDictionary& d, HashTableDictionary& pre, Sopa& so) {
-    n = sopa.size();
+    n = so.size();
     sopa = so;
     d_hash = d;
     pre_hash = pre;
@@ -188,14 +188,11 @@ void superSopa::resoldreRecursiuHash (matbool& v, string paraula, int i, int j) 
             paraula2.push_back(sopa[i2][j2]);
 
             if (d_hash.comprovar(paraula2)) {
-                itResultat = resultat.find(paraula2);
-                if (itResultat != resultat.end()) {
-                    itResultat->second++;
-                } else {
-                    resultat.insert({paraula2, 1});
-                }
+                //cout << "comprova hash true " << paraula2 << endl;
+                resultat[paraula2]++;
             }
             if (pre_hash.comprovar(paraula2)) {
+                //cout << "comprova hash pre true " << paraula2 << endl;
                 v[i2][j2] = true;
                 resoldreRecursiuHash(v, paraula2, i2, j2);            
                 v[i2][j2] = false;
