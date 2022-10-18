@@ -89,7 +89,7 @@ int main () {
  
         mitjana(execucions, t);        
 
-        fp_out << nSopes+1 << ' ' << n << ' ' << t << endl;
+        fp_out << nSopes+1 << ' ' << n << ' ' << t << ' ' << trie.midaMap() << endl;
     }
 
     fp_in.close();    
