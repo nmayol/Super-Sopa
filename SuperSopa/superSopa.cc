@@ -273,11 +273,7 @@ void superSopa::resoldreRecursiuHash (matbool& v, string paraula, int i, int j) 
             }
         }
     }
-}   
-
-/*map<string, int> superSopa::resoldre (SortedVector& d, Sopa& sopa) {
-       
-}*/
+} 
 
 map<string,int> superSopa::resoldre (SortedVector& d, Sopa& sopa) {
     d.netejaTrobades();
@@ -294,8 +290,51 @@ map<string,int> superSopa::resoldre (SortedVector& d, Sopa& sopa) {
     
 }
 
-map<string, int> superSopa::resoldre (BloomFilterDictionary& d, Sopa& sopa) {
+void superSopa::resoldre (map<string, int>& res, BloomFilterDictionary& d, BloomFilterDictionary& pre, Sopa& so) {
+    n = sopa.size();
+    sopa = so;
+    d_filtre = d;
+    pre_filtre = pre;
+    vector<vector<bool>> visitats;
+    resultat.clear();    
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            string p = "";
+            p.push_back(sopa[i][j]);
+            visitats = vector<vector<bool>>(n, vector<bool>(n, false));
+            visitats[i][j] = true;
+            //cout << i << ' ' << j << endl;
+            resoldreRecursiuFiltre(visitats, p, i, j);            
+        }
+    }
+    
+    res = resultat;
+}
 
+void superSopa::resoldreRecursiuFiltre (matbool& v, string paraula, int i, int j) {
+    for (auto dir : DIR) {
+        int i2 = i + dir.first;
+        int j2 = j + dir.second;
+
+        if (comprovarPosicio(i2, j2, v)) {           
+            string paraula2 = paraula;
+            paraula2.push_back(sopa[i2][j2]);
+
+            if (d_filtre.comprovar(paraula2)) {
+                itResultat = resultat.find(paraula2);
+                if (itResultat != resultat.end()) {
+                    itResultat->second++;
+                } else {
+                    resultat.insert({paraula2, 1});
+                }
+            }
+            if (pre_filtre.comprovar(paraula2)) {
+                v[i2][j2] = true;
+                resoldreRecursiuFiltre(v, paraula2, i2, j2);            
+                v[i2][j2] = false;
+            }
+        }
+    }
 }
 
 void superSopa::calculaDireccions(TrieDictionary& d, const Sopa& so, matbool& v, const string& par, int i, int j) {

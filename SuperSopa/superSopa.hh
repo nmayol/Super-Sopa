@@ -30,20 +30,21 @@ class superSopa {
         // Metodes per resoldre-la de cadascuna de les maneres       
         map<string, int> resoldre (SortedVector& d, Sopa& sopa); 
         void resoldre (TrieDictionary& d, Sopa& sopa);
-        void resoldre (map<string, int>& resultat, HashTableDictionary& d, HashTableDictionary& pre, Sopa& sopa);
-        map<string, int> resoldre (BloomFilterDictionary& d, Sopa& sopa);
-
+        void resoldre (map<string, int>& res, HashTableDictionary& d, HashTableDictionary& pre, Sopa& sopa);
+        void resoldre (map<string, int>& res, BloomFilterDictionary& d, BloomFilterDictionary& pre, Sopa& sopa);
                
         bool comprovarPosicio (int i, int j, matbool& v);
         void resoldreRecursiuHash (matbool& v, string paraula, int i, int j);
+        void resoldreRecursiuFiltre (matbool& v, string paraula, int i, int j);
  
     private:        
         //vector<vector<bool>> visitats;
-        vector<vector<bool>> visitat ;
+        vector<vector<bool>> visitat;
         map<string, int> resultat;
         map<string, int>::iterator itResultat;
 
         HashTableDictionary pre_hash, d_hash;
+        BloomFilterDictionary pre_filtre, d_filtre;
         Sopa sopa;
         int n;
 

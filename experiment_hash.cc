@@ -21,7 +21,7 @@ auto moment () {
     return chrono::steady_clock::now();
 }
 
-void afegir_prefix(HashTableDictionary& d, string s) {
+void afegir_prefix (HashTableDictionary& d, string s) {
     int n = s.size();
 
     string aux = "";
@@ -103,7 +103,7 @@ int main () {
             double t = chrono::duration_cast<chrono::microseconds>(end - begin).count();
 
             execucions.push_back(t);
-            nTrobades.push_back(resultatHashTable.size());
+            //nTrobades.push_back(resultatHashTable.size());
         }
 
         double t;
