@@ -4,8 +4,6 @@ const vector<pair<int,int>> DIR = {{-1, -1}, {-1, 0}, {-1, 1},
                                    {0, -1}, {0, 1},
                                    {1, -1}, {1, 0}, {1, 1}};
 
-const vector<int> SENTIT = {-1,1};
-
 vector<char> letters = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
                          'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
                          's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
@@ -90,7 +88,6 @@ bool superSopa::colocarParaulaRec(const string& p, int l, int i, int j, Sopa& so
         int i2, j2;
 
         do {
-
             i2 = i + DIR[newdir].first;
             j2 = j + DIR[newdir].second;
 
@@ -118,14 +115,12 @@ bool superSopa::colocarParaulaRec(const string& p, int l, int i, int j, Sopa& so
                 colocarParaulaRec(p, l, i2, j2, sopa);
             }
             else {
-                //cout << "error de trobada " << p << endl;
                 return false;
             }
         }   
         else {
-            //cout << "error de dir " << p << endl;
             return false;
-            }
+        }
     }
 }
 
@@ -152,76 +147,9 @@ int superSopa::randomInferiorA(int x) {
     return r;
 }
 
-/*void superSopa::resoldre (map<string, int>& res, HashTableDictionary& d, HashTableDictionary& pre, Sopa& so) {
-    n = sopa.size();
-    sopa = so;
-    d_hash = d;
-    pre_hash = pre;
-    resultat.clear();
-    vector<vector<bool>> v = vector<vector<bool>>(n, vector<bool>(n, false));
-    
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j) {
-            //cout << i << ' ' << j << endl;
-            string primer(1, sopa[i][j]);
-            bool existeix = false;
-
-            //existeix = pre.comprovar(primer);
-            //existeixParaula(primer, arrel, 0, existeix);
-            //cout << existeix << endl;
-
-            //if (existeix) {
-                //calculaDireccions(d, pre, sopa, v, primer, i,j);
-            //}
-            calculaDireccions(v, primer, i, j);
-            //cout << "fi" << endl;
-        }
-    }
-
-    res = resultat;
-}*/
-
 bool posok2(int i, int j, int n, const vector<vector<bool>>& v) {
     return (i >= 0 and i < n and j >= 0 and j < n and not v[i][j]);
-}
-/*
-void superSopa::calculaDireccions(matbool& v, const string& par, int i, int j) {
-
-    v[i][j] = true;
-    //string par(1, so[i][j]);
-
-    for (int k = 0; k < DIR.size(); ++k) {
-
-        int di = i + DIR[k].first;
-        int dj = j + DIR[k].second;
-
-        if (posok2(di, dj, sopa.size(), v)) {
-            //cout << "v " << di << ' ' << dj << endl;
-            string seg(1, sopa[di][dj]);
-            string suma = par + seg;
-            //cout << '1';
-            if (d_hash.comprovar(suma)) {
-                itResultat = resultat.find(suma);
-                if (itResultat != resultat.end()) {
-                    itResultat->second++;
-                } else {
-                    resultat.insert({suma, 1});
-                }
-                //cout << "Trobat: " << suma << endl;
-            }
-            //cout << '2';
-            bool existeix = false;
-            //existeixParaula(suma, arrel, 0, existeix);
-            existeix = pre_hash.comprovar(suma);
-            //cout << '3';
-            if (existeix) {
-                calculaDireccions(v, suma, di, dj);
-            }
-            //cout << '4';
-        }
-    }
-    v[i][j] = false;
-}*/
+}   
 
 void superSopa::resoldre (map<string, int>& res, HashTableDictionary& d, HashTableDictionary& pre, Sopa& so) {
     n = sopa.size();
@@ -275,7 +203,7 @@ void superSopa::resoldreRecursiuHash (matbool& v, string paraula, int i, int j) 
     }
 } 
 
-map<string,int> superSopa::resoldre (SortedVector& d, Sopa& sopa) {
+void superSopa::resoldre (map<string, int>& res, SortedVector& d, Sopa& sopa) {
     d.netejaTrobades();
     int l = 0 , r = d.getSize() - 1;
     int n = sopa.size();
@@ -286,8 +214,7 @@ map<string,int> superSopa::resoldre (SortedVector& d, Sopa& sopa) {
             d.buscarParaula(i,j,pos,l,r,iterador,sopa);            
         }
     }
-    return d.getTrobades();
-    
+    res = d.getTrobades();    
 }
 
 void superSopa::resoldre (map<string, int>& res, BloomFilterDictionary& d, BloomFilterDictionary& pre, Sopa& so) {

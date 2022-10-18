@@ -1,7 +1,6 @@
 #ifndef SORTEDVECTOR_HH
 #define SORTEDVECTOR_HH
 
-
 #include <string>
 #include <vector>
 #include <algorithm>
@@ -12,8 +11,6 @@
 using namespace std;
 
 typedef vector<vector<char >> Sopa;
-
-
 
 class SortedVector {
     public:
@@ -58,12 +55,10 @@ class SortedVector {
 
 
     private:
-
         ////// Atributs //////
         vector < string> v;
         map <string,int> trobades;
-        ///////////////////////
-    
+        ///////////////////////    
         
         /*  Ordena el diccionari d'entrada
             Pre: El vector pot estar o no ordenat.
@@ -90,9 +85,7 @@ class SortedVector {
            Pre: (i,j) pot ser o no posicio de la sopa s
            Post: cert si (i,j) es posicio de la sopa s
         */
-        bool compleixLimits(Sopa& s, const int& i,const int& j,const int& n);
-        
-        
+        bool compleixLimits(Sopa& s, const int& i,const int& j,const int& n);          
 };
 
 #endif

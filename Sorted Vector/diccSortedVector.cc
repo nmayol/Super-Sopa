@@ -13,15 +13,12 @@ void SortedVector::afegir(vector<string>& dicc) {
     mergesort(0,getSize()-1);
 }
 
-
-
 void SortedVector::imprimirTrobades() {
     ofstream fp_out;
     fp_out.open("./out.txt");
     for (std::map<string,int>::iterator it = trobades.begin(); it != trobades.end(); ++it) fp_out << it->first << ' ' << it->second << endl;
     fp_out.close();
 }
-
 
 void SortedVector::netejaTrobades() {
     trobades.clear();
@@ -30,8 +27,6 @@ void SortedVector::netejaTrobades() {
 map<string,int> SortedVector::getTrobades() {
     return trobades;
 }
-
-
 
 void SortedVector::mergesort(int l, int r) {
     if (l < r) {
@@ -52,8 +47,6 @@ void SortedVector::merge(int l, int r, int m) {
         v2[j] = v[m + 1 + j];
 
     int i = 0, j = 0, k = l;
-
-
 
     while (i < n1 and j < n2) {
         if (v1[i] <= v2[j]) {
@@ -77,11 +70,6 @@ void SortedVector::merge(int l, int r, int m) {
     }
 
 }
-
-
-
-
-
 
 int SortedVector::firstOcurrence(int l, int r, const char& c, int& iterador) {
     // les lletres anteriors a iterador ja han complert la condició 
@@ -119,13 +107,8 @@ int SortedVector::lastOcurrence(int l, int r, const char& c, int& iterador) {
 
 }
 
-
-
-
-
 // (i,j) es una posicio valida a la sopa
 void SortedVector:: buscarParaula(int i , int j, vector<vector<bool>>& pos, int l, int r, int iterador, Sopa& s) {
-    
     int  nl = firstOcurrence(l,r,s[i][j],iterador);
     int  nr = lastOcurrence(max(l,nl),r,s[i][j],iterador);  
         
@@ -157,13 +140,7 @@ void SortedVector:: buscarParaula(int i , int j, vector<vector<bool>>& pos, int 
         pos[i][j] = false;
         --iterador;
     }
-    
-    
-
 }
-
-
-
 
 const int SortedVector::getSize() {
     return v.size();
@@ -173,7 +150,3 @@ const int SortedVector::getSize() {
 bool SortedVector::compleixLimits(Sopa& s, const int& i,const int& j,const int& n) {
     return(i >= 0 and j >= 0 and i < n and j < n);
 }
-
-
-
-
