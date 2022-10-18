@@ -11,6 +11,7 @@ vector<char> letters = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
 //constructor buit
 superSopa::superSopa() {    
     resultat = map<string, int>();
+    srand(time(NULL));
 };
 
 void superSopa::generarSopa (const vector<string>& dicc, Sopa& sopa) {
@@ -19,7 +20,7 @@ void superSopa::generarSopa (const vector<string>& dicc, Sopa& sopa) {
     int paraules = dicc.size();     // paraules dintre diccionari
     int parSopa = 0;                // paraules dintre la SOPA
 
-    srand(time(NULL));
+    //srand(time(NULL));
 
     for(int k = 0; k < 20; ++k) {
         string p = dicc[k]; // paraula a colocar
@@ -28,7 +29,7 @@ void superSopa::generarSopa (const vector<string>& dicc, Sopa& sopa) {
         int provades = 0;
         bool ja = false;
         // generem rand posicio inicial
-        srand(time(NULL)); 
+        //srand(time(NULL)); 
         int i = rand() % n;
         int j = rand() % n;
         int i1 = i;
@@ -82,7 +83,7 @@ bool superSopa::colocarParaulaRec(const string& p, int l, int i, int j, Sopa& so
         // calculem una direccio aleatoria.
         bool trobada = false;
 
-        srand(time(NULL));      //random direccio
+        //srand(time(NULL));      //random direccio
         int dir = rand() % 8;
         int newdir = dir;       //dir original per saber si ja hem provat totes
         int i2, j2;
@@ -142,7 +143,7 @@ bool superSopa::posok(int n, int i, int j) {
 }
 
 int superSopa::randomInferiorA(int x) {
-    srand(time(NULL));
+    //srand(time(NULL));
     int r = abs(rand()) % x;
     return r;
 }
