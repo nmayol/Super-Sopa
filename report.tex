@@ -507,8 +507,18 @@ De manera que la funció per afegir una paraula al diccionari queda de la següe
 
 \end{lstlisting}
 \clearpage
-\paragraph{Correctesa i cost}
-h
+\paragraph{Correctesa.} La justificació informal d'aquesta funció recursiva és la següent.
+\begin{itemize}
+    \item \textbf{Cas base.} \par
+    Si tenim que \textit{i} és igual al nombre de lletres que conté \textit{p}, significa que ja hem colocat totes les lletres dintre l'arbre. Per tant, hem acabat.
+    \item \textbf{Cas recursiu.}\par
+    Si l'arbre és buit o el node en que treballem és buit, l'inicialitzarem amb la lletra \textit{i} de la paraula \textit{p}. Llavors, com ja no serà buit, podrem accedir sense error als seus subarbres. \par
+    Si el node en que treballem no és buit, compararem la lletra que volem afegir amb el valor del node i, segons el seu valor, ens mourem cap a la dreta o esquerra.
+    \item \textbf{Decreixament.}\par
+    Si ens fixem en el codi, només incrementem la \textit{i} en aquelles crides que es desplacem al subarbre central. Això és perquè en aquests casos disminueix el nombre de lletres a afegir.\par
+    També, a cada crida recursiva l'arbre es fa cada vegada més petit.
+\end{itemize}
+
 \subsubsection{Funcionalitat \textit{simplificar}}
 r
 \subsubsection{Funcionalitat \textit{comprovar}}
@@ -571,18 +581,21 @@ explicar com hem dissenyat els experiments (generar.cc i experiment\_vector.cc .
 \clearpage
 \section{Bibliografia}
 \begin{enumerate}
-    \item Campos, Javier (s.f.) \textit{2.4 Arboles digitales, tries y Patricia} [Diapositivas].\url{http://webdiis.unizar.es/asignaturas/TAP/material/2.4.digitales.pdf }
-    \item \textit{Implementación Trie en C - Insertar, Buscar y Eliminar.} (s. f.). Recuperado 12 de octubre de 2022, de \url{https://www.techiedelight.com/es/trie-implementation-insert-search-delete/}
-    \item \textit{Implementación en C++ de la estructura de datos Trie.} (s. f.). Recuperado 12 de octubre de 2022, de \url{https://www.techiedelight.com/es/cpp-implementation-trie-data-structure/}
-    \item \textit{10 formas de convertir un carácter en una cadena en C++.} (s. f.). Recuperado 13 de octubre de 2022, de \url{https://www.techiedelight.com/es/convert-char-to-string-cpp/}
-    \item \textit{Ternary Search Trees.} (s. f.). Dr. Dobb's. Recuperado 10 de octubre de 2022, de \url{https://www.drdobbs.com/database/ternary-search-trees/184410528#}
+    \item Campos, Javier (s.f.) \textit{2.4 Arboles digitales, tries y Patricia} [Diapositives].\url{http://webdiis.unizar.es/asignaturas/TAP/material/2.4.digitales.pdf }
+    \item \textit{Implementación Trie en C - Insertar, Buscar y Eliminar.} (s. f.). Recuperat 12 d'octubre de 2022, de \url{https://www.techiedelight.com/es/trie-implementation-insert-search-delete/}
+    \item \textit{Implementación en C++ de la estructura de datos Trie.} (s. f.). Recuperat 12 d'octubre de 2022, de \url{https://www.techiedelight.com/es/cpp-implementation-trie-data-structure/}
+    \item \textit{10 formas de convertir un carácter en una cadena en C++.} (s. f.). Recuperat 13 d'octubre de 2022, de \url{https://www.techiedelight.com/es/convert-char-to-string-cpp/}
+    \item \textit{Ternary Search Trees.} (s. f.). Dr. Dobb's. Recuperat 10 d'octubre de 2022, de \url{https://www.drdobbs.com/database/ternary-search-trees/184410528#}
     \item Wikipedia contributors. (2022, 12 septiembre). \textit{Trie}. Wikipedia. Recuperado 15 de octubre de 2022, de \url{https://en.wikipedia.org/wiki/Trie}
-    \item \textit{Merge Sort (With Code in Python/C++/Java/C).} (s. f.). Recuperado 13 de octubre de 2022, de \url{https://www.programiz.com/dsa/merge-sort}
+    \item \textit{Merge Sort (With Code in Python/C++/Java/C).} (s. f.). Recuperat 13 d'octubre de 2022, de \url{https://www.programiz.com/dsa/merge-sort}
     \item \textit{std::map - cppreference.com}. (s. f.). Recuperado 15 de octubre de 2022, de
     \url{https://en.cppreference.com/w/cpp/container/map}
-    \item \textit{Create LaTeX tables online – TablesGenerator.com}. (s. f.). Recuperado 17 de octubre de 2022, de \url{https://www.tablesgenerator.com/}
+    \item \textit{Create LaTeX tables online – TablesGenerator.com}. (s. f.). Recuperat 17 d'octubre de 2022, de \url{https://www.tablesgenerator.com/}
 
-    \item \textit{Jutge.org - P84219\_en - First occurrence}. (s. f.). Recuperado 17 de octubre de 2022, de \url{https://jutge.org/problems/P84219_en}
+    \item \textit{Jutge.org - P84219\_en - First occurrence}. (s. f.). Recuperat 17 d'octubre de 2022, de \url{https://jutge.org/problems/P84219_en}
+
+    \item Departament de Ciències de la Computació. (2017, octubre). \textit{Correctesa de Programes Iteratius i Programació Recursiva.} [Document]. \url{https://www.cs.upc.edu/pro2/data/uploads/it_rec_corr.pdf}
+    
 \end{enumerate}
 
 Us deixo aquest enllaç per fer la bibliografia, \url{https://www.scribbr.es/citar/generador/apa/}.
