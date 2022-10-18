@@ -53,11 +53,12 @@ Per tal de resoldre la sopa de lletres, l'enunciat planteja quatre maneres d'emm
   \item Amb un vector ordenat (\textit{Sorted Vector}).
   \item Amb un \textit{trie}.
   \item Amb un filtre de Bloom.
-  \item I amb una taula de hash amb \textit{double hashing}.
+  \item I amb una taula de \textit{hash} amb \textit{double hashing}.
 \end{itemize}
 
-També, hem creat una cinquena classe, anomenada \textit{SuperSopa}, on hi guardem les funcions principals de la sopa de lletres. En aquesta classe, podem trobar diferents procediments i funcions com, per exemple, omplir la sopa o bé per resoldre-la.\par
+També, hem creat una cinquena classe anomenada \textit{SuperSopa}, on hi guardem les funcions principals de la sopa de lletres. Dins d'aquesta classe, podem trobar diferents procediments i funcions com, per exemple, omplir la sopa o bé per resoldre-la.\par
 
+\clearpage
 \section{Vector ordenat (o \textit{Sorted Vector})}
 L'estructura de dades més simple i coneguda. En aquest cas s'emmagatzemarà cada paraula dins una posició del vector. Per tant, i mirant-ho des de termes del llenguatge C++, sempre es parlarà d'un vector de paraules (o \textit{string}).\newline\par
 
@@ -78,17 +79,15 @@ El vector ha de ser ordenat, les paraules estaran organitzades alfabèticament t
     \end{figure}
 \end{center}
 
-I és que de fet, el vector és el principal atribut de la classe \textit{SortedVector}, definida al fitxer \textit{diccSortedVector.cc} i al seu fitxer de capçaleres corresponent: \textit{diccSortedVector.hh}. L'altre atribut de la classe és un \textit{map} anomenat \textit{trobades}, la clau és una paraula que és solució de la sopa i s'aparella amb un enter corresponent al nombre de vegades que hi apareix.
+I és que de fet, el vector és el principal atribut de la classe \textit{SortedVector}, definida al fitxer \textit{diccSortedVector.cc} i al seu fitxer de capçaleres corresponent: \textit{diccSortedVector.hh}. L'altre atribut de la classe és un \textit{map} anomenat \textit{trobades}, la clau del qual és una paraula que és solució de la sopa i s'aparella amb un enter corresponent al nombre de vegades que hi apareix.
 \newline\par
 
-\subsection{Funcionament de la classe i anàl·lisi del seu cost}
-
-A continuació s'explicaran tots els algorismes que s'han inventat o fet servir dins de cadascún dels mètodes, i també per crear la sopa de lletres.\newline
+\subsection{Funcionament de la classe i anàlisi del seu cost}
 
 Tal com s'ha explicat anteriorment, abans de començar a solucionar la sopa, hem de construir l'estructura de dades adequada per emmagatzemar el diccionari, en aquest cas un vector de paraules ordenades alfabèticament. Tenint l'estructura creada, ja es podrà procedir a la resolució de la sopa.
 
 \subsubsection{Construcció de l'estructura}
-En primer lloc i des de \textit{main.cc}, es crearà una instància de la classe \textit{SortedVector}. L'únic paràmetre de la funció creadora és el diccionari que, al ser també un vector de paraules, només caldrà ordenar i emmagatzemar a l'atribut \textit{v} de la classe. Per ordenar el vector s'han considerat diversos algorismes, finalment s'ha decidit utilitzar l'ordenació \textit{Mergesort}.
+En primer lloc i des del fitxer \textit{experiment\_vector.cc}, es crearà una instància de la classe \textit{SortedVector}. Seguidament s'afegirà el diccionari de paraules al vector cridant la funció \textit{afegir} de la classe \textit{SortedVector}. L'únic paràmetre de la funció \textit{afegir} és el diccionari que, al ser també un vector de paraules, només caldrà ordenar i emmagatzemar a l'atribut de la classe. Per ordenar el vector s'han considerat diversos algorismes, finalment s'ha decidit utilitzar l'ordenació \textit{Mergesort}.
 
 \paragraph{\textit{Mergesort}} 
 Aquest procediment és un dels mètodes més eficients d'ordenació. Pertany al grup dels algorismes de dividir i vèncer (o \textit{divide and conquer}, en anglès), que agrupa tots aquelles funcions que divideixen el problema en subproblemes fàcils de resoldre per tal d'acabar resolent el problema en general. \newline\par
@@ -155,17 +154,13 @@ Ja per acabar, és ben sabut que el cost de l'algorisme \textit{Mergesort} és $
 Al tenir el vector ordenat alfabèticament, s'ha cregut que l'opció més eficient és utilitzar la cerca dicotòmica per resoldre la sopa. Tot i així s'ha decidit retocar la manera com s'implementa aquesta per adaptar-se al problema, i que no s'hagi de cercar dins de tot el diccionari cada vegada que es llegeix una nova lletra de la sopa. \newline\par
 Per començar es recorrerà tota la sopa posició per posició. A cada posició es buscarà totes les solucions que comencen des d'allà. Per fer-ho s'entrarà a l'algorisme \textit{buscarParaula}.
 \paragraph{\textit{buscarParaula}}
-La idea de l'algorisme \textit{buscarParaula} pot semblar complicada d'entrada, però s'ha considerat que és un mètode eficient
-
-
-
-S'ha vist que la cerca d'una paraula de la sopa al diccionari pot donar lloc a diferents casos:
+La idea de l'algorisme \textit{buscarParaula} pot semblar complicada d'entrada, però s'ha considerat que és un mètode eficient. S'ha vist que la cerca d'una paraula de la sopa al diccionari pot donar lloc a diferents casos:
 \begin{enumerate}
   \item La paraula no és al diccionari.
   \item La paraula és al diccionari
     \begin{enumerate}
-    \item i és també prefix de la següent (o següents) paraules, que es poden trobar seguint la cerca des d'aquella posició.
-    \item i és també prefix de la següent (o següents) paraules, però cap de les paraules que la contenen de prefix es poden trobar en aquella posició.
+    \item i és també prefix de la següent (o següents) paraules, i podem trobar una d'aquestes paraules seguint la cerca des d'aquella posició.
+    \item i és també prefix de la següent (o següents) paraules, però cap de les paraules que la contenen de prefix es poden trobar començant per aquella posició.
     \item i no és prefix de cap paraula.
     \end{enumerate}
 \end{enumerate}
@@ -187,8 +182,8 @@ En C++, les cadenes de text o \textit{string}, són definides com a vectors de c
 \end{center}
 \end{table}
 
-Per recórrer aquesta "matriu" de caràcters utilitzarem tres variables. Les dos primeres: \textit{l} i \textit{r}, serveixen per buscar la primera i l'última ocurrència al vector de les paraules amb el prefix llegit a la sopa. La tercera variable s'anomena \textit{iterador} i serveix per saber en quina posició s'ha de trobar cada nova lletra que llegim de la sopa. En cas que la paraula del \textit{Sorted Vector} tingui l'última lletra llegida de la sopa a la posició \textit{iterador}, aquesta paraula tindrà almenys un prefix de mida \textit{iterador} igual que una concatenació de lletres llegides de la sopa.\newline\par
-Aquesta explicació és molt més senzilla si l'acompanya l'exemple gràfic  \textit{Table \ref{fig:sortedVector2}}, que mostra com els valors de \textit{l} i \textit{r} es mantenen a l'inici i fi del vector, ja que totes les paraules compleixen el prefix llegit de la sopa. En canvi, quan es llegeix un nou caràcter de la sopa, només hi ha dos paraules que tinguin la lletra buscada (en aquest cas, una i) a la posició \textit{iterador}. Per això canvien els valors de \textit{l} i \textit{r}.\newline
+Per recórrer aquesta "matriu" de caràcters utilitzarem tres variables. Les dos primeres: \textit{l} i \textit{r}, serveixen per buscar la primera i l'última ocurrència al vector de les paraules amb el prefix llegit a la sopa. La tercera variable s'anomena \textit{iterador} i serveix per saber en quina posició de la paraula s'ha de trobar cada nova lletra que llegim de la sopa. En cas que la paraula del \textit{Sorted Vector} tingui l'última lletra llegida de la sopa a la posició \textit{iterador}, podrem dir que la paraula tindrà almenys un prefix de mida \textit{iterador} igual que la concatenació de lletres llegides de la sopa. Aquestes són les paraules que haurem de procurar incloure dins el subvector [\textit{nl},\textit{nr}]. \newline\par
+Aquesta explicació és molt més senzilla si l'acompanya l'exemple gràfic \textit{Table \ref{fig:sortedVector2}}, que mostra com els valors de \textit{l} i \textit{r} es mantenen a l'inici i fi del vector, ja que totes les paraules compleixen el prefix llegit de la sopa. En canvi, quan es llegeix un nou caràcter de la sopa, només hi ha dos paraules que tinguin la lletra buscada (en aquest cas, una i) a la posició \textit{iterador}. Per això canvien els valors de \textit{l} i \textit{r}.\newline
 
 \begin{table}[H]
 \begin{center}
@@ -234,7 +229,7 @@ El procediment segueix i es van llegint nous caràcters. Imaginem que en aquest 
 \end{center}
 \end{table}
 
-De totes maneres, tot i haver arribat a una solució, encara tenim la paraula "aires" inclosa al segment del vector [\textit{l},\textit{r}]. Per tant, hem de continuar llegint caràcters de la sopa per veure si trobem la lletra que ens falta. En cas que la trobem, \textit{l} es mourà una posició. Així doncs, \textit{l} marca la posició de la paraula "aires", quan la variable \textit{iterador} és igual a la mida de la paraula.
+De totes maneres, tot i haver arribat a una solució, encara tenim la paraula "aires" inclosa al segment del vector [\textit{l},\textit{r}]. Per tant, hem de continuar llegint caràcters de la sopa per veure si trobem la lletra que ens falta. En cas que la trobem, \textit{l} es mourà una posició. Així doncs, \textit{l} marca la posició de la paraula "aires" quan la variable \textit{iterador} és igual a la mida de la paraula.
 
 \begin{table}[H]
 \begin{center}
@@ -251,9 +246,9 @@ De totes maneres, tot i haver arribat a una solució, encara tenim la paraula "a
 \end{center}
 \end{table}
 
-Com que ja hem afegit l'única paraula que ens quedava dins el segment [\textit{l},\textit{r}], és hora de tirar enrere la cerca, llegir altres caràcters de la sopa, recuperar els prefixos anteriors, decrementar la variable \textit{iterador} i  \textit{l} i \textit{r} anteriors, i repetir el mateix procés fins no poder trobar més paraules.\newline
+Com que ja hem afegit l'única paraula que ens quedava dins el segment [\textit{l},\textit{r}], és hora de tirar enrere la cerca, llegir altres caràcters de la sopa, recuperar el prefix i les variables \textit{l} i \textit{r} anteriors. També s'ha de decrementar la variable \textit{iterador}. Una vegada s'ha retrocedit, ja podrem repetir el mateix procés cap a altres direccions fins no poder trobar més paraules.\newline
 
-Per tant, s'està encarant un problema de cerca exhaustiva, que hem de fer satisfent una restricció molt simple: que les paraules generades per la cerca pertanyin al diccionari o siguin prefix d'una o més paraules que hi pertanyin. Per aquesta raó s'ha decidit que el procediment \textit{buscarParaula} es programi amb un algorisme \textit{backtracking} recursiu, el codi del qual  es mostra al següent fragment.\newline
+Per tant, s'està encarant un problema de cerca exhaustiva que hem de fer satisfent una restricció molt simple: que les paraules generades per la cerca pertanyin al diccionari o siguin prefix d'una o més paraules que hi pertanyin. Per aquesta raó s'ha decidit que el procediment \textit{buscarParaula} es programi amb un algorisme \textit{backtracking} recursiu, el codi del qual  es mostra al següent fragment.\newline
 
 \begin{lstlisting}[language=C++]
 void SortedVector:: buscarParaula(int i , int j, 
@@ -275,7 +270,7 @@ void SortedVector:: buscarParaula(int i , int j,
             // Incrementem nl (no necessitarem mes la paraula)
             ++nl; 
         }
-
+        // Extenem la cerca cap a totes les direccions.
         int direccions_provades = 0, ni, nj;
         pos[i][j] = true;
         while (direccions_provades < 8) {
@@ -286,7 +281,7 @@ void SortedVector:: buscarParaula(int i , int j,
                 buscarParaula(ni,nj,pos,nl,nr,iterador,s);
             }
                 ++direccions_provades;
-            }
+        }
         --iterador;
         pos[i][j] = false;
     }
@@ -295,18 +290,18 @@ void SortedVector:: buscarParaula(int i , int j,
 
 
 On, abans que res, es fa la cerca de la primera i última ocurrència de les paraules del diccionari que compleixen la condició i s'emmagatzemen a les variables \textit{nl} i \textit{nr} respectivament. Si \textit{nl} i \textit{nr} formen un interval correcte dins el vector, es busquen noves lletres de la sopa i es fa el mateix procés de cerca dins el subvector [\textit{nl},\textit{nr}].\newline\par 
-En altres paraules, el principal avantatge d'aquest tipus de cerca és que, per cada lletra nova que llegim, no caldrà cercar dins de tot el vector ordenat: podrem partir d'un subvector que ja sabem que conté totes les paraules amb prefix igual a les lletres que hem llegit anteriorment. Des d'aquell punt, buscar l'interval que contingui les paraules el prefix de les quals són iguals a l'anterior, afegint-hi l'última lletra que hem llegit de la sopa.\newline\par
+El principal avantatge d'aquest tipus de cerca és que, per cada lletra nova que llegim, no caldrà cercar dins de tot el vector ordenat: podrem partir d'un subvector que ja sabem que conté totes les paraules amb prefix igual a les lletres que hem llegit anteriorment i des d'aquell punt, buscar l'interval que contingui les paraules el prefix de les quals són iguals a l'anterior, afegint-hi l'última lletra que hem llegit de la sopa.\newline\par
 Per acabar d'entendre bé l'algorisme, mirarem com funcionen les cerques de la primera i l'última ocurrència.
 
 \paragraph{\textit{firstOcurrence}} Com el lector ja haurà pogut deduir, es farà servir la cerca dicotòmica per dissenyar aquests algorismes. Cal entendre però, que una cerca dicotòmica normal busca només si l'element donat existeix al vector. En aquest cas però, volem cercar la primera ocurrència de l'element —un prefix— dins la sopa.
-Recordem que la cerca dicotòmica descarta un segment del vector a través del càlcul del punt mig entre el  principi i el final del vector. En aquest problema ens trobarem en els següents casos.
+Recordem que la cerca dicotòmica descarta un segment del vector a través del càlcul del punt mig entre el  principi i el final del mateix. En aquest problema però, ens trobarem en els següents casos.
 \begin{enumerate}
   \item No hi ha cap paraula amb el prefix demanat: S'acabarà la funció sense èxit.
   \item El punt mig conté el prefix buscat, però no és la primera ocurrència: Es tornarà a cridar la funció perquè cerqui la primera ocurrència dins el subvector que comença l'inici del vector i acaba a la posició anterior al punt mig.
   \item El punt mig conté el prefix buscat i és la primera ocurrència: Es retorna el punt mig.
   \item El punt mig conté un prefix posterior al buscat: Es repeteix la cerca descartant la segona meitat del vector.
   \item El punt mig conté un prefix anterior al buscat: Es repeteix la cerca descartant la primera  meitat.
-  \item El punt mig conté una paraula de mida més petita que el prefix: Significa que la paraula no existeix o bé que està abans del punt mig. No pot estar situada posteriorment perquè les paraules després d'una paraula de mida inferior tindran un prefix diferent.
+  \item El punt mig conté una paraula de mida més petita que el prefix: Significa que la paraula no existeix o bé que està abans del punt mig. No pot estar situada posteriorment perquè les paraules després d'una paraula de mida inferior tindran un prefix diferent. Per tant la resolució del cas serà igual a la de l'apartat 2.
 \end{enumerate}
 També ens podem trobar als casos 4 i 5, i que finalment el prefix buscat no existeixi. Això no és problema ja que programem l'algorisme recursivament, i repetirem la cerca fins a veure que el prefix demanat no existeix. Això és el que podem veure reflectit al codi en C++ de la funció \textit{firstOcurrence}.\newline
 
@@ -375,7 +370,6 @@ int SortedVector::lastOcurrence(int l, int r, const char& c,
     }
     else // Cas 6
         return lastOcurrence(l,m-1,c,iterador);   
-
 }
 \end{lstlisting}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -402,7 +396,7 @@ Ara estem en el node 't', farem el mateix procediment: observem el tercer caràc
 \newline\par
 Anem ara amb la última paraula "nau". Si ens fixem, seguirà el mateix procediment que la paraula anterior, excepte que al arribar al node 't' ens trobem en que 'u' < 't'. Per tant, anirem cap al fill dret i escriurem allà l'últim caràcter.
 \newline\par
-Obtindrem un arbre com el següent.
+De manera que obtindríem un arbre com el de la figura.
 
 \begin{center}
     \begin{forest}
@@ -412,20 +406,169 @@ Obtindrem un arbre com el següent.
     \end{forest}
 \end{center}
 
-\subsection{Funcionament de la classe}
+En conclusió, aquest tipus d'estructura segueix un ordre amb l'objectiu de facilitar la cerca de paraules. Aquest ordre és (1) el fill esquerre ha de ser més petit que el pare (2) el fill dret ha de ser més gran que el pare i (3) el fill central ha de ser la continuació del pare.
 
+\subsection{Especificació de la classe \textit{diccTrie}}
+
+Per fer la implementació d'un diccionari en forma de \textit{trie}, hem dissenyat una serie de funcions i procediments que es poden trobar a la classe \textit{diccTrie.hh}. A continuació comentarem els atributs d'aquesta i les tres funcions que utilitzarem tant per emmagatzemar les paraules com per resoldre la sopa de lletres.
+
+\subsubsection{Atributs privats}
+
+Abans de començar amb la explicació de les funcionalitats, és important conèixer de dintre l'estructura amb la que estem treballant.
+
+\begin{lstlisting}[language=C++]
+
+    struct node_trie {
+        string info;
+
+        node_trie* esq;
+        node_trie* dre;
+        node_trie* cnt;
+
+        bool finalparaula;
+        
+    };
+\end{lstlisting}
+
+Com hem comentat abans, cada node té tres fills, per tant, tindrem tres nodes que corresponen a cadascun d'ells. A més, també hi tenim un \textit{string} on hi gaurdarem un troç de paraula i un \textit{bool} que ens indicarà si aquest és l'últim troç que forma una paraula. 
+\newline\par
+Per acabar, també guardarem el primer node de l'arbre, l'anomenarem \textit{arrel}, i un \textit{map} per mantenir un registre de les paraules trobades i les vegades que hi apareixen a la sopa. Aquest \textit{map}, l'anomenarem \textit{results}.
+
+\subsubsection{Funcionalitat \textit{afegir}}
+
+Abans, quan hem explicat en que consistia un \textit{ternary search tree}, hem vist un exemple d'inserció, per lo que hem vist quina és la idea a seguir. Com treballem amb punters, la funció afegir cridara a una altra funció privada que recorrera l'arbre de forma rescursiva.
+
+\begin{lstlisting}[language=C++]
+
+    void afegirRec(node_trie* &n, const string& p, int i); 
+
+    void TrieDictionary::afegir(const string& p) {
+        afegirRec(arrel, p, 0)
+    }
+\end{lstlisting}
+
+A la funció recursiva li passarem tres parametres: la paraula que volem afegir al diccionari, el primer node i un enter \textit{i} que ens indicarà quin caràcter falta colocar, és a dir, totes les lletres de la paraula \textit{p} que és trobin per davant de \textit{i}, hauran estat afegides a l'arbre.
+\newline\par
+Quan tractem amb funcions recursives hem de tenir clar quins casos ens podem trobar i, sobretot, quins d'ells finalitzen amb la recursivitat. Estudiem aquests casos:
+
+\begin{itemize}
+    \item \textbf{Cas base.} 
+    \begin{enumerate}
+        \item Es compleix que \textit{i == p.mida()}. \par
+    Quan es comleix que \textit{i == p.mida()} significa que hem pogut col·locar totes les lletres que formen part de la paraula \textit{p}, per tant, hem acabat.
+    \newline\par
+    \end{enumerate}
+
+    \item \textbf{Casos recursius.} 
+    \begin{enumerate}
+        \item L'element del node és més gran que el caracter \textit{i} de la paraula \textit{p}. \par
+        Per tant, seguirem amb la crida recursiva passant com a node \textit{n->dre} i amb el mateix valor \textit{i} (ja que no hem col·locat cap lletra).
+        \item L'element del node és més petit que el caràcter \textit{i} de la paraula \textit{p}. \par
+        Molt semblant al punt 1. Seguirem amb la crida recursiva passant com a node \textit{n->esq} i amb el mateix valor \textit{i}.
+        \item L'element del node és igual al caràcter \textit{i} de la paraula \textit{p}. \par
+        En aquest cas, seguirem amb la crida recursiva passant com a node \textit{n->cnt}, però incrementarem una posició el nombre \textit{i}, ja que, encara que aquest caracter no l'haguem afegit, el reutilitzarem per la nova paraula.
+        \item El node \textit{n} és \textit{null}. \par
+        Aquest cas és molt semblant al cas base, però encara ens faltan més d'un caracter per afegir, és per això que la crida recursiva haurà de seguir, fins arribar a \textit{i == p.mida}, és a dir, el cas base. Farem la cirda recursiva passant el node \textit{n->cnt} i incrementant una posició \textit{i}.
+    \end{enumerate}
+\end{itemize}
+
+De manera que la funció per afegir una paraula al diccionari queda de la següent manera:
+
+\begin{lstlisting}[language=C++]
+
+    void afegirRec(node_trie* &n, const string& p, int i) {
+    
+        string s(1, p[i]);
+
+        if (n == nullptr) {
+            node_trie* aux;
+            aux = new node_trie;
+
+            aux->info = s;
+            aux->dre = nullptr;
+            aux->esq = nullptr;
+            aux->cnt = nullptr;
+            aux->finalparaula = false;
+
+            n = aux;
+            ++i;
+
+            if (i < p.size()) afegirRec(n->cnt, p, i);    // cas 4
+            else n->finalparaula = true;                  // cas base
+        }
+        else if (n->info == s) {
+            ++i;
+            if (i < p.size()) afegirRec(n->cnt, p, i);    // cas 3
+            else finalparaula = true;                     // cas base
+        }
+        else if (n->info > s) afegirRec(n->dre, p, i);    // cas 1
+        else if (n->info < s) afegirRec(n->esq, p, i);    // cas 2
+    }
+
+\end{lstlisting}
+\clearpage
+\paragraph{Correctesa i cost}
+h
+\subsubsection{Funcionalitat \textit{simplificar}}
+r
+\subsubsection{Funcionalitat \textit{comprovar}}
+c
+
+\clearpage
 \section{Filtre de Bloom}
-\subsection{Funcionament de la classe}
+\subsection{Introducció}
+Un filtre de Bloom és una estructura de dades eficient en l'espai que permet comprovar si un element forma part d'un conjunt. No emmagatzema els elements en sí, només si en formen part, i no se'n poden eliminar elements.
 
+Està compost per un vector d'\textit{m} bits, posats a 0, i una sèrie de \textit{k} funcions de \textit{hash} que generin distribucions aleatòries uniformes.
+
+Per afegir-hi un element, es passa per les funcions de \textit{hash}, que retornen una sèrie d'índexs del vector. Els bits d'aquestes posicions del vector s'han d'activar (posar a 1).
+
+Per comprovar si un element en forma part, també es passa per les funcions de \textit{hash}, es comproven els bits dels índexs obtinguts i, si tots estan activats, l'element forma part del conjunt.
+
+Com a desavantatge, no es poden produir falsos positius. Si, per casualitat, els bits d'un element han estat activats per altres elements, el resultat serà que aquest element forma part del conjunt, cosa que no és certa. En un filtre de Bloom simple, com el que hem implementat, no es poden detectar, tot i que es pot dissenyar perquè el percentatge en sigui molt reduït. 
+
+\subsection{Característiques}
+El nombre de bits del vector i la quantitat de funcions de \textit{hash} necessàries es pot calcular amb dues senzilles fórmules matemàtiques.
+
+Suposant que volem que funcioni correctament per un diccionari de 5000 elements (n = 5000) i tingui una ràtio de falsos positius de l'1\% (p = 0.01), tenim que:
+
+\[m = \frac{-n * \ln(p)}{\ln(2)}\]
+
+Així doncs, tindríem un vector de 47926 bits i 7 funcions de \textit{hash} diferents.
+
+\subsection{Funcionament de la classe \textit{BloomFilterDictionary}}
+El filtre de Bloom està implementat dins de la classe \textit{BloomFilterDictionary}, al fitxer \textit{diccBloomFilter.cc}.
+
+La classe té dos atributs públics, un vector de booleans i la seva mida, un enter.
+
+Tenim 7 funcions de \textit{hash} privades, de les quals 4 estan basades en un polinomi (en varia el coeficient), i 3 estan basades en una funció \textit{hash} d'enllaçament de fitxers objecte força comuna en C++.
+
+En algun cas, degut a l'\textit{overflow}, el resultat de les funcions és negatiu. Això provocaria un error, car els índexs dels vectors no poden ser negatius. Per solucionar-ho, l'hem passat per la funció de valor absolut.
+
+A més a més, disposem de dues funcions públiques per interactura amb el filtre de Bloom des de l'exterior de la classe: \textit{afegir} i \textit{comprovar}. 
+
+Finalment, disposem de dos constructors. El constructor per defecte crea un filtre per un diccionari d'unes 5000 paraules. L'altre constructor rep per paràmetre la quantitat d'elements a guardar-hi, i calcula la mida del vector necessària. 
+\subsection{Anàlisi del ràtio de falsos positius}
+
+\clearpage
 \section{Taula Hash}
 \subsection{Funcionament de la classe}
 
+\clearpage
 \section{Classe \textit{SuperSopa}}
 
-\section{Resultats}
+\clearpage
+\section{Experimentació}
+explicar com hem dissenyat els experiments (generar.cc i experiment\_vector.cc ...)
 
+\clearpage
+\section{Resultats}
+\subsection{Filtre de Bloom: Falsos positius}
+
+\clearpage
 \section{Conclusions}
 
+\clearpage
 \section{Bibliografia}
 \begin{enumerate}
     \item Campos, Javier (s.f.) \textit{2.4 Arboles digitales, tries y Patricia} [Diapositivas].\url{http://webdiis.unizar.es/asignaturas/TAP/material/2.4.digitales.pdf }
@@ -434,8 +577,14 @@ Obtindrem un arbre com el següent.
     \item \textit{10 formas de convertir un carácter en una cadena en C++.} (s. f.). Recuperado 13 de octubre de 2022, de \url{https://www.techiedelight.com/es/convert-char-to-string-cpp/}
     \item \textit{Ternary Search Trees.} (s. f.). Dr. Dobb's. Recuperado 10 de octubre de 2022, de \url{https://www.drdobbs.com/database/ternary-search-trees/184410528#}
     \item Wikipedia contributors. (2022, 12 septiembre). \textit{Trie}. Wikipedia. Recuperado 15 de octubre de 2022, de \url{https://en.wikipedia.org/wiki/Trie}
+    \item \textit{Merge Sort (With Code in Python/C++/Java/C).} (s. f.). Recuperado 13 de octubre de 2022, de \url{https://www.programiz.com/dsa/merge-sort}
+    \item \textit{std::map - cppreference.com}. (s. f.). Recuperado 15 de octubre de 2022, de
+    \url{https://en.cppreference.com/w/cpp/container/map}
+    \item \textit{Create LaTeX tables online – TablesGenerator.com}. (s. f.). Recuperado 17 de octubre de 2022, de \url{https://www.tablesgenerator.com/}
+
+    \item \textit{Jutge.org - P84219\_en - First occurrence}. (s. f.). Recuperado 17 de octubre de 2022, de \url{https://jutge.org/problems/P84219_en}
 \end{enumerate}
 
-Us deixo aques enllaç per fer la bibliografia, \url{https://www.scribbr.es/citar/generador/apa/}.
+Us deixo aquest enllaç per fer la bibliografia, \url{https://www.scribbr.es/citar/generador/apa/}.
 
 \end{document}
