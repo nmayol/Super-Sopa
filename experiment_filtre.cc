@@ -2,7 +2,6 @@
 #include <fstream>
 #include <chrono>
 #include <map>
-//#include <vector>
 
 #include "./SuperSopa/superSopa.hh"
 
@@ -42,30 +41,58 @@ int abs (int x) {
 }
 
 int calcularFalsosPositius (map<string, int>& mapVector, map<string, int>& mapFiltre) {
-    map<string,int>::iterator it, aux;
     int errors = 0;
 
+    for (auto it = mapFiltre.begin(); it != mapFiltre.end(); it++) {
+        string p = it->first;
+        int q = it->second;
 
+        auto aux = mapVector.find(p);
+        if (aux == mapVector.end()) {
+            errors += q;
+        } else {
+            int q2 = aux->second;
+            errors += (q-q2);
+
+            //esborrar
+            if (q2 > q) cout << "error" << endl;
+        }
+    }
+
+    return errors;   
+    
+    
+    /*map<string,int>::iterator it, aux;
+    int errors = 0;
+
+    cout << "Falsos positius: " << endl;
     for (it = mapVector.begin(); it != mapVector.end(); ++it) {
         string p = it->first;
+        cout << p << endl;
         int q1 = it->second;
-        mapVector.erase(it);
+        //mapVector.erase(it);
+        mapVector.erase(p);
 
         int q2 = 0;
         aux = mapFiltre.find(p);
         if (aux != mapFiltre.end()) {
+            cout << "si" << endl;
             q2 = aux->second;
-            mapFiltre.erase(aux);
+            //mapFiltre.erase(aux);
+            mapFiltre.erase(p);
         }
         
         errors += abs(q2-q1);
     }
-
-    for (it = mapFiltre.begin(); it != mapFiltre.end(); ++it) {
-        errors += it->second;
+    cout << "mapFiltre: " << endl;
+    for (it = mapFiltre.begin(); it != mapFiltre.end(); it++) {
+        cout << it->first << endl;
+        int e = it->second;
+        cout << 'e' << endl;
+        errors += e;
     }
-
-    return errors;
+    cout << "Comptat" << endl;
+    return errors;*/
 }
 
 void mitjana (vector<pair<double, int>>& execucions, double& temps, int& errors) {
@@ -133,25 +160,25 @@ int main () {
             map<string, int> resultatFiltre;
             map<string, int> resultatVector;
 
-            cout << "ep" << endl;
+            //cout << "ep" << endl;
 
             auto begin = moment();
             super_sopa.resoldre(resultatFiltre, bloom_filter, prefixos, sopa);
             auto end = moment();
 
-            cout << "haha" << endl;
+            //cout << "haha" << endl;
 
             double t = chrono::duration_cast<chrono::microseconds>(end - begin).count();
 
             resultatVector = super_sopa.resoldre(sorted_vector, sopa);
 
-            cout << "hola" << endl;
+            //cout << "hola" << endl;
 
             int e = calcularFalsosPositius(resultatFiltre, resultatVector);
-            cout << "e" << endl;
+            //cout << "e" << endl;
             execucions.push_back({t, e});
 
-            cout << "fi" << endl;
+            //cout << "fi" << endl;
         }
 
         double t;

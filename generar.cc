@@ -63,13 +63,5 @@ int main () {
         }
     }   
 
-    fw.close();
-    /*int n = 5;
-    for (int i = 0; i < 100; ++i) {
-        Sopa matriu = Sopa(n, vector<char>(n, '#'));
-        super_sopa.generarSopa(p, matriu);
-        escriure_fitxer(matriu, fw);
-    }
-
-    fw.close();*/
+    fw.close();    
 }

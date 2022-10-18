@@ -1,0 +1,10 @@
+Sopa: 1
+Mida:10
+Temps: 951657
+Errors: 35
+
+Sopa: 2
+Mida:10
+Temps: 1.5681e+06
+Errors: 0
+
