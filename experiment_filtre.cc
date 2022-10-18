@@ -115,6 +115,7 @@ int main () {
 
         //resoldre-la 10 cops
         vector<pair<double, int>> execucions; //temps i errors de cada execució
+        double nv = 0, nf = 0;
         for (int cops = 0; cops < 10; ++cops) {
             cout << cops << endl;
             map<string, int> resultatFiltre;
@@ -130,13 +131,18 @@ int main () {
             int e = calcularFalsosPositius(resultatFiltre, resultatVector);
             
             execucions.push_back({t, e});
+            nv += resultatVector.size();
+            nf = resultatFiltre.size();
         }
 
         double t;
         int e;
         mitjana(execucions, t, e);
 
-        fp_out << nSopes+1 << ' ' << n << ' ' << t << ' ' << e << endl;
+        //nombre de la sopa, mida, temps, paraules vector, paraules filtre, falsos positius
+        nv /= 10;
+        nf /= 10;
+        fp_out << nSopes+1 << ' ' << n << ' ' << t << ' ' << nv << ' ' << nf << ' ' << e << endl;
     }
 
     fp_in.close();    
