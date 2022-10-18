@@ -17,7 +17,6 @@ superSopa::superSopa() {
 
 void superSopa::generarSopa (const vector<string>& dicc, Sopa& sopa) {
     int n = sopa.size();
-    //cout << "posem paraules:" << endl;
     visitat = vector<vector<bool>> (n, vector<bool>(n, false));
     int paraules = dicc.size();     // paraules dintre diccionari
     int parSopa = 0;                // paraules dintre la SOPA
@@ -26,43 +25,52 @@ void superSopa::generarSopa (const vector<string>& dicc, Sopa& sopa) {
 
     for(int k = 0; k < 20; ++k) {
         string p = dicc[k]; // paraula a colocar
-        //cout << p << endl;
-        // calculem la posicio on comencem.
-        bool start = false;
+        bool colocada = false;
         bool end = false;
+        int provades = 0;
+        bool ja = false;
         // generem rand posicio inicial
         srand(time(NULL)); 
         int i = rand() % n;
         int j = rand() % n;
-        int io = i, jo = j;                                                                                                                                                   
-
-        while (not start and not end) {            
-            if (sopa[i][j] == '#' or sopa[i][j] == p[0]) {  // comprovem si es una posicio valida, 
-                sopa[i][j] = p[0];                          // buida o amb la mateixa lletra q volem posar(la primera)
-                visitat[i][j] = true;                       // marquem com a visitada
-                //cout << " colocada " << p[0] <<  endl;
-                start = true;                               // podem començar a colocar la resta de lletres
+        int i1 = i;
+        int j1 = j;
+        while(!colocada and provades < (n*n) ) {
+            // calculem la posicio on comencem.
+            bool start = false;
+            ++j;
+            if(j == n) {
+                j = 0;
+                ++i;
             }
-            else {
-                ++j;                                        // anem a la seguent pos de la dreta(columna++)
-                if (j == n) {j = 0; ++i;}                   // arribem a lultima columna, anem a la seguent fila primera columna
-                if (i == n) {i = 0;}                        // areibem a lultima fila, tornem a la primera fila
-                if (i == io and j == jo) end = true;        // arribem a la primera pos q haviem comprovat, no hiha mes pos valides
+            if(i == n) i = 0;
+            //if(i == i1 and j == j1) ja = true;
+            int io = i, jo = j;
+             
+            while (not start and not end) {            
+                if (sopa[i][j] == '#' or (sopa[i][j] == p[0] and n < 6)) {  // comprovem si es una posicio valida, 
+                    sopa[i][j] = p[0];                          // buida o amb la mateixa lletra q volem posar(la primera)
+                    visitat[i][j] = true;                       // marquem com a visitada
+                    start = true;                               // podem començar a colocar la resta de lletres
+                }
+                else {
+                    ++j;                                        // anem a la seguent pos de la dreta(columna++)
+                    if (j == n) {j = 0; ++i;}                   // arribem a lultima columna, anem a la seguent fila primera columna
+                    if (i == n) {i = 0;}                        // areibem a lultima fila, tornem a la primera fila
+                    if (i == io and j == jo) end = true;        // arribem a la primera pos q haviem comprovat, no hiha mes pos valides
+                }
             }
-            //cout << i << ' ' << j << endl;
-        }
-        if (start) { // si trobem posicio valida per começar a colocar
-            //visitat = vector<vector<bool>> (n, vector<bool>(n, false));
-            if (colocarParaulaRec(p, 1, i, j, sopa)) { // coloquem lletres restants
-                ++parSopa;
-                //cout << p << " SHA POSAT A: " << i << ' ' << j << endl;
-                //cout << " ----------------------- " << endl;
+            if (start) { // si trobem posicio valida per começar a colocar
+                if (colocarParaulaRec(p, 1, i, j, sopa)) { // coloquem lletres restants
+                    colocada =  true;
+                    ++parSopa;
+                }
             }
-            else cout << "error colocar paraula " << p << endl;
-        }
-        if (end) cout << "No s'ha pogut colocar la paraula: " << p << endl;
-    }    
-    
+            ++provades;
+        } 
+        if (!colocada) cout << "No s'ha pogut colocar la paraula: " << p << endl;
+           
+    }
     cout << "Total paraules: " << parSopa << endl;
 
     // acabem de fer la sopa.
@@ -79,40 +87,27 @@ bool superSopa::colocarParaulaRec(const string& p, int l, int i, int j, Sopa& so
         srand(time(NULL));      //random direccio
         int dir = rand() % 8;
         int newdir = dir;       //dir original per saber si ja hem provat totes
-
         int i2, j2;
-        //cout << i << ' ' << j << endl;
-        //visitat[i][j] = true;
+
         do {
 
             i2 = i + DIR[newdir].first;
             j2 = j + DIR[newdir].second;
 
-            if (posok(n, i2, j2) and !visitat[i2][j2]) { 
-                //cout << "pos ok " <<i2 << j2 << endl;
+            if (posok(n, i2, j2) and (sopa[i2][j2] == '#' or not visitat[i2][j2] or sopa[i2][j2] == p[l])) { 
                 trobada = true;
                 visitat[i2][j2] = true;
             }
             else {  // provem una nova direccio
-                //srand(time(NULL));
-                //newdir = rand() % 8;
-                //cout << newdir << endl;
                 ++newdir;   
                 if(newdir == 8) newdir = 0;
             }
             
-        } 
-        
+        }  
         while (not trobada and newdir != dir);
-
-        // cout << "posicio trobada: " << i2 << ' ' << j2 << ' ' << p[l] << endl;
-        //if(newdir == dir) cout << "error a la pos " << i << ' ' << j << endl;
-        //if (dir == newdir) 
         if (trobada) {
-            
             if (sopa[i2][j2] == '#') {
                 sopa[i2][j2] = p[l];
-                //cout << " colocada " << p[l] <<  endl;
                 ++l;
                 visitat[i2][j2] = true;
                 colocarParaulaRec(p, l, i2, j2, sopa);
@@ -123,12 +118,12 @@ bool superSopa::colocarParaulaRec(const string& p, int l, int i, int j, Sopa& so
                 colocarParaulaRec(p, l, i2, j2, sopa);
             }
             else {
-                cout << "error de trobada " << p << endl;
+                //cout << "error de trobada " << p << endl;
                 return false;
             }
         }   
         else {
-            cout << "error de dir " << p << endl;
+            //cout << "error de dir " << p << endl;
             return false;
             }
     }
@@ -148,7 +143,7 @@ void superSopa::omplebuits(Sopa& sopa) {
 }
 
 bool superSopa::posok(int n, int i, int j) {
-    return (i < n and i >= 0 and j < n and j >= 0 and visitat[i][j] == false);
+    return (i < n and i >= 0 and j < n and j >= 0 /*and visitat[i][j] == false*/);
 }
 
 int superSopa::randomInferiorA(int x) {

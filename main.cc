@@ -95,7 +95,7 @@ int main () {
         hash_table.afegir(diccionari[i]);
     }
 
-    int n = 4;
+    int n = 20;
     Sopa matriu = Sopa(n, vector<char>(n, '#'));
 
     vector<string> p = {"abus", "era", "acer", "baba", "frare","reina", "abandonar",
