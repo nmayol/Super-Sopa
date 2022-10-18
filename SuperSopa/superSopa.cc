@@ -205,7 +205,6 @@ void superSopa::resoldreRecursiuHash (matbool& v, string paraula, int i, int j) 
 } 
 
 void superSopa::resoldre (map<string, int>& res, SortedVector& d, Sopa& sopa) {
-    d.netejaTrobades();
     int l = 0 , r = d.getSize() - 1;
     int n = sopa.size();
     vector<vector<bool>> pos(n, vector<bool>(n,false));
