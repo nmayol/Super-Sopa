@@ -519,6 +519,13 @@ De manera que la funció per afegir una paraula al diccionari queda de la següe
     També, a cada crida recursiva l'arbre es fa cada vegada més petit.
 \end{itemize}
 
+\paragraph{Cost.} Afegir una paraula de longitud \textit{k} en un \textit{ternary search tree} té un cost promig de \begin{math}
+    \textit{O}(\log{n + k})
+\end{math}.
+Això depèn de si l'arbre es troba del tot equilibrat. És a dir, que té un nombre de nodes semblant al subarbre dret respecte al subarbre esquerra. Si no és així, el cas pitjor ens trobem amb un cost de \begin{math}
+    \textit{O}(n + k)
+\end{math}
+
 \subsubsection{Funcionalitat \textit{simplificar}}
 r
 \subsubsection{Funcionalitat \textit{comprovar}}
@@ -595,6 +602,10 @@ explicar com hem dissenyat els experiments (generar.cc i experiment\_vector.cc .
     \item \textit{Jutge.org - P84219\_en - First occurrence}. (s. f.). Recuperat 17 d'octubre de 2022, de \url{https://jutge.org/problems/P84219_en}
 
     \item Departament de Ciències de la Computació. (2017, octubre). \textit{Correctesa de Programes Iteratius i Programació Recursiva.} [Document]. \url{https://www.cs.upc.edu/pro2/data/uploads/it_rec_corr.pdf}
+
+    \item Roura, Salvador (s. f.). \textit{Eficiència d'algorismes.} [Document]. \url{https://www.cs.upc.edu/eda/data/uploads/eficiencia.pdf}
+
+    \item Rodrígez, Enric (s. f.). \textit{Correctesa i Anàlisi del Cost de l'Algorisme d'Euclides.} [Document]. \url{https://www.cs.upc.edu/eda/data/uploads/gcd.cat.pdf}
     
 \end{enumerate}
 

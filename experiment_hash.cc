@@ -75,6 +75,7 @@ int main () {
 
     for (int nSopes = 0; nSopes < 100; ++nSopes) {
         //llegir sopa
+        cout << "sopa " << nSopes + 1 << endl;
         fp_in >> n;
         Sopa sopa = Sopa(n, vector<char>(n, '#'));
 
@@ -90,9 +91,12 @@ int main () {
         for (int cops = 0; cops < 10; ++cops) {
             map<string, int> resultatHashTable;
 
+            cout << "cop " << cops << endl;
+
             auto begin = moment();
             super_sopa.resoldre(resultatHashTable, hash_table, prefixos, sopa);
             auto end = moment();
+            cout << "s'ha resolt" << endl;
 
             double t = chrono::duration_cast<chrono::microseconds>(end - begin).count();
 
