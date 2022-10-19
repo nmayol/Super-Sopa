@@ -9,7 +9,7 @@ using namespace std;
 class HashTableDictionary {
     public:
         //Constructora
-        HashTableDictionary();
+        HashTableDictionary ();
         HashTableDictionary (int mida);
 
         //hashFunctions
@@ -24,9 +24,13 @@ class HashTableDictionary {
         
     private:
         int tableSize;
+        int primerPetit;
         string *hashTable;
         int curr_size;
-        int maxcolision;      
+        int maxcolision;  
+        bool esPrimer (int n);
+        int seguentPrimer(int n);
+        int abansPrimer (int n);
 };
 
 #endif

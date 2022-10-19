@@ -59,7 +59,7 @@ int main () {
     llegir_fitxer(diccionari, pathDiccionari);
 
     HashTableDictionary hash_table(diccionari.size());
-    HashTableDictionary prefixos(diccionari.size()*10);  
+    HashTableDictionary prefixos(diccionari.size()*3);  
 
     for (int i = 0; i < diccionari.size(); ++i) {
         afegir_prefix(prefixos, diccionari[i]);
@@ -74,6 +74,7 @@ int main () {
     int n;
 
     for (int nSopes = 0; nSopes < 100; ++nSopes) {
+        cout << nSopes << endl;
         //llegir sopa
         fp_in >> n;
         Sopa sopa = Sopa(n, vector<char>(n, '#'));

@@ -1,7 +1,8 @@
 #include "diccDHashing.hh"
 
 HashTableDictionary::HashTableDictionary (int mida) {
-    tableSize = mida;
+    tableSize = seguentPrimer(mida*2);
+    primerPetit = abansPrimer(mida*2);
     hashTable = new string[tableSize];
     curr_size = 0;
     maxcolision = 0;
@@ -11,11 +12,38 @@ HashTableDictionary::HashTableDictionary (int mida) {
 
 HashTableDictionary::HashTableDictionary () {
     tableSize = 100;
+    primerPetit = 91;
     hashTable = new string[tableSize];
     curr_size = 0;
     maxcolision = 0;
     for (int i=0; i<tableSize; i++)
         hashTable[i] = "nnnn";
+}
+
+bool HashTableDictionary::esPrimer(int n) {
+  bool is_prime = true;
+
+  if (n < 2) return false;
+
+  for (int i = 2; i*i <= n; ++i) {
+    if (n % i == 0) {
+      return false;
+    }
+  }
+
+ return true;
+}
+
+int HashTableDictionary::seguentPrimer (int n) {
+    for (int i = n;;++i) {
+        if (esPrimer(i)) return i;
+    }
+}
+
+int HashTableDictionary::abansPrimer (int n) {
+    for (int i = n-1; i > 0; --i) {
+        if (esPrimer(i)) return i;
+    }
 }
 
 int HashTableDictionary::hash1 (string key) {
@@ -33,7 +61,7 @@ int HashTableDictionary::hash2 (string key) {
     for(int i = 0; i < length; i++) {
         sum += (int)key[i];
     }
-    return (7 - (sum % 7));
+    return (primerPetit - (sum % primerPetit));
 } 
 
 void HashTableDictionary::afegir (string key) { 
