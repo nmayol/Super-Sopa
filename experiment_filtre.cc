@@ -56,7 +56,7 @@ int main () {
     superSopa super_sopa;
     string pathSopes = "sopes.txt";
     string pathResultat = "./resultats/resultatFiltre.txt";
-    string pathDiccionari = "./diccionaris/mare-balena-vocabulary-3.txt";
+    string pathDiccionari = "./diccionaris/quijote-vocabulary-3.txt";
 
     //llegir diccionari    
     vector<string> diccionari;
@@ -112,7 +112,6 @@ int main () {
             double t = chrono::duration_cast<chrono::microseconds>(end - begin).count();
             
             int e = trobadesFiltre - trie.paraulesTotals();
-            cout << e << endl;
             
             execucions.push_back({t, e});           
         }        

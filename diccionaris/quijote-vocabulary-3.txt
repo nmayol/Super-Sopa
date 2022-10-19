@@ -18,7 +18,6 @@ abatido
 abatiendo
 abatieres
 abatieron
-abatieron
 abc
 abecedario
 abejas
@@ -1078,7 +1077,6 @@ agujero
 agujeros
 aguo
 aguzan
-ah
 ahechaba
 ahechado
 ahechando
@@ -1157,7 +1155,6 @@ ajustandola
 ajustar
 ajustara
 ajusto
-al
 ala
 alababa
 alababan
@@ -4225,7 +4222,6 @@ cantase
 cantasen
 cante
 canten
-canterà
 cantes
 cantia
 cantidad
@@ -6697,7 +6693,6 @@ cuyo
 cuyo
 cuyos
 cuyos
-da
 daba
 daba
 dabale
@@ -6839,7 +6834,6 @@ datil
 datilados
 datiles
 david
-de
 deba
 debajo
 debajo
@@ -8270,7 +8264,6 @@ devotas
 devoto
 devotos
 dezmar
-di
 dia
 dia
 diablo
@@ -9077,7 +9070,6 @@ ejercitarse
 ejercitastes
 ejercito
 ejercitos
-el
 elches
 eleccion
 elecion
@@ -9250,7 +9242,6 @@ empunnara
 empunno
 emula
 emulo
-en
 enajenado
 enalbardado
 enalbardando
@@ -10155,7 +10146,6 @@ erudito
 eruditos
 erutaciones
 erutar
-es
 esa
 esa
 esaminadores
@@ -11250,7 +11240,6 @@ favoridos
 faz
 fazanna
 fazannas
-fe
 fea
 fealdad
 feas
@@ -12006,7 +11995,6 @@ giralda
 girifalte
 girifaltes
 gitano
-giù
 globo
 gloria
 glorias
@@ -12373,7 +12361,6 @@ gutierrez
 guy
 guzman
 guzmanes
-ha
 habas
 habedes
 habedes
@@ -12776,7 +12763,6 @@ hazannas
 hazannas
 hazannosos
 hazlo
-he
 hebras
 hebreo
 hecha
@@ -13515,7 +13501,6 @@ impulso
 impura
 impuse
 impusiere
-in
 inacabable
 inacabables
 inacesible
@@ -13893,7 +13878,6 @@ invocan
 invocando
 invocar
 invoco
-ir
 ira
 ira
 iran
@@ -14135,7 +14119,6 @@ juzgo
 juzgo
 juzgue
 juzguenlo
-la
 laberinto
 laberintos
 labio
@@ -14310,7 +14293,6 @@ lazari
 lazarillo
 lazo
 lazos
-le
 lea
 leal
 leal
@@ -14964,7 +14946,6 @@ llueva
 lluevan
 llueve
 lluvia
-lo
 loa
 loable
 loables
@@ -15651,7 +15632,6 @@ mazo
 mazorca
 mazorcas
 mazos
-me
 meaja
 meca
 mecina
@@ -15972,7 +15952,6 @@ mezclose
 mezquina
 mezquino
 mezquitas
-mi
 mia
 mia
 mias
@@ -16782,7 +16761,6 @@ nervosa
 nervuda
 nestor
 netezuelos
-ni
 niarros
 nicolao
 nicolas
@@ -16825,7 +16803,6 @@ nisperos
 nivelado
 nizarani
 nnudos
-no
 nobis
 noble
 noble
@@ -17148,7 +17125,6 @@ ofrezcais
 ofrezcan
 ofrezco
 ofuscan
-oh
 oia
 oian
 oian
@@ -17369,7 +17345,6 @@ oro
 orondas
 oropel
 orza
-os
 osa
 osa
 osaba
@@ -21927,7 +21902,6 @@ sazones
 scilas
 scitas
 scripserunt
-se
 sea
 sea
 seais
@@ -22279,7 +22253,6 @@ severa
 severo
 sevilla
 sevillano
-si
 sicilia
 sicut
 sicut
@@ -22764,7 +22737,6 @@ soy
 spero
 stultorum
 stupendo
-su
 suadente
 suave
 suavemente
@@ -23207,7 +23179,6 @@ tase
 tate
 taza
 tazas
-te
 teatro
 teatros
 techado
@@ -23486,7 +23457,6 @@ testimonios
 tetuan
 texto
 tez
-ti
 tia
 tibar
 tibia
@@ -24258,7 +24228,6 @@ trujiste
 trujo
 trujo
 trujole
-tu
 tudesco
 tudesqui
 tueras
@@ -24373,7 +24342,6 @@ ultimos
 ultraja
 ultramarino
 umbrales
-un
 una
 una
 unas
@@ -24449,7 +24417,6 @@ utilidad
 utrique
 uva
 uvas
-va
 vaca
 vacada
 vacase
@@ -24975,7 +24942,6 @@ vetas
 vete
 vez
 vez
-vi
 via
 via
 viaje
@@ -25462,7 +25428,6 @@ xxxv
 xxxvi
 xxxvii
 xxxviii
-ya
 yace
 yacen
 yacer
@@ -25503,7 +25468,6 @@ yerres
 yerro
 yerros
 yeso
-yo
 yogar
 yogase
 yogasemos

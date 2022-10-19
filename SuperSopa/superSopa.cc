@@ -245,7 +245,7 @@ void superSopa::resoldreRecursiuFiltre (matbool& v, string paraula, int i, int j
 
             if (d_filtre.comprovar(paraula2)) {
                 ++nTrobades;
-                cout << nTrobades << ": " << paraula2 << endl;
+                //cout << nTrobades << ": " << paraula2 << endl;
             }
             if (pre_filtre.comprovar(paraula2)) {
                 v[i2][j2] = true;

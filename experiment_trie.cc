@@ -38,7 +38,7 @@ int main () {
     superSopa super_sopa;
     string pathSopes = "sopes.txt";
     string pathResultat = "./resultats/resultatTrie.txt";
-    string pathDiccionari = "./diccionaris/mare-balena-vocabulary-3.txt";
+    string pathDiccionari = "./diccionaris/quijote-vocabulary-3.txt";
 
     vector<string> diccionari;
 
@@ -50,6 +50,7 @@ int main () {
     int meitat = diccionari.size()/2;
     for (int i = meitat; i < diccionari.size(); ++i) trie.afegir(diccionari[i]);
     for (int j = meitat - 1; j >= 0; --j) trie.afegir(diccionari[j]);
+    trie.simplificaArbre();
     
     //EXPERIMENT COMPROVAR
     fp_in.open(pathSopes); 
@@ -90,7 +91,7 @@ int main () {
  
         mitjana(execucions, t);      
 
-        fp_out << nSopes+1 << ' ' << n << ' ' << t << ' ' << trie.midaMap() << ' ' << trie.paraulesTotals() << endl;
+        fp_out << nSopes+1 << ' ' << n << ' ' << t << ' ' << ' ' << trie.paraulesTotals() << endl;
     }
 
     fp_in.close();    
