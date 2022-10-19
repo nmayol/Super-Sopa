@@ -112,7 +112,6 @@ int main () {
             double t = chrono::duration_cast<chrono::microseconds>(end - begin).count();
             
             int e = trobadesFiltre - trie.paraulesTotals();
-            cout << e << endl;
             
             execucions.push_back({t, e});           
         }        
