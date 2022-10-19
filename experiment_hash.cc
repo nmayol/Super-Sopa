@@ -87,11 +87,11 @@ int main () {
 
         //resoldre-la 10 cops
         vector<double> execucions; //temps de cada execució
-        map<string, int> resultatHashTable;
+        int result = 0;
         for (int cops = 0; cops < 10; ++cops) {
 
             auto begin = moment();
-            super_sopa.resoldre(resultatHashTable, hash_table, prefixos, sopa);
+            result += super_sopa.resoldre(hash_table, prefixos, sopa);
             auto end = moment();
 
             double t = chrono::duration_cast<chrono::microseconds>(end - begin).count();
@@ -102,8 +102,9 @@ int main () {
         double t;
  
         mitjana(execucions, t);
+        result /= 10;
 
-        fp_out << nSopes+1 << ' ' << n << ' ' << t << ' ' << resultatHashTable.size() << endl;        
+        fp_out << nSopes+1 << ' ' << n << ' ' << t << ' ' <<  result << endl;        
     }
 
     fp_in.close();    
