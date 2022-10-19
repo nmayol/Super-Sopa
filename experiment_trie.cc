@@ -38,7 +38,7 @@ int main () {
     superSopa super_sopa;
     string pathSopes = "sopes.txt";
     string pathResultat = "./resultats/resultatTrie.txt";
-    string pathDiccionari = "./diccionaris/quijote-vocabulary-3.txt";
+    string pathDiccionari = "./diccionaris/mare-balena-vocabulary-3.txt";
 
     vector<string> diccionari;
 
@@ -47,14 +47,20 @@ int main () {
     TrieDictionary trie; 
     sort(diccionari.begin(), diccionari.end());
 
+    auto begin = moment();
     int meitat = diccionari.size()/2;
     for (int i = meitat; i < diccionari.size(); ++i) trie.afegir(diccionari[i]);
     for (int j = meitat - 1; j >= 0; --j) trie.afegir(diccionari[j]);
     trie.simplificaArbre();
+    auto end = moment();
+
+    double ta = chrono::duration_cast<chrono::microseconds>(end - begin).count();
     
     //EXPERIMENT COMPROVAR
     fp_in.open(pathSopes); 
     fp_out.open(pathResultat);
+
+    fp_out << ta << endl;
 
     char s;
     int n;
@@ -73,12 +79,14 @@ int main () {
         
         //resoldre-la 10 cops
         vector<double> execucions; //temps de cada execució
+        trie.buidarResultats();
+        
         for (int cops = 0; cops < 10; ++cops) {
             map<string, int> resultatTrieDictionary;
 
-            auto begin = moment();
-            trie.buidarResultats();
             trie.iniciarResultat();
+            
+            auto begin = moment();
             super_sopa.resoldre(trie, sopa);
             auto end = moment();
 

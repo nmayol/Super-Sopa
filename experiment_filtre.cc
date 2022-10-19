@@ -56,7 +56,7 @@ int main () {
     superSopa super_sopa;
     string pathSopes = "sopes.txt";
     string pathResultat = "./resultats/resultatFiltre.txt";
-    string pathDiccionari = "./diccionaris/quijote-vocabulary-3.txt";
+    string pathDiccionari = "./diccionaris/mare-balena-vocabulary-3.txt";
 
     //llegir diccionari    
     vector<string> diccionari;
@@ -73,14 +73,20 @@ int main () {
     for (int i = meitat; i < diccionari.size(); ++i) trie.afegir(diccionari[i]);
     for (int j = meitat - 1; j >= 0; --j) trie.afegir(diccionari[j]);
 
+    auto begin = moment();
     for (int i = 0; i < diccionari.size(); ++i) {
         afegir_prefix(prefixos, diccionari[i]);
         bloom_filter.afegir(diccionari[i]);
     } 
+    auto end = moment(); 
+
+    double ta = chrono::duration_cast<chrono::microseconds>(end - begin).count();
     
     //EXPERIMENT COMPROVAR
     fp_in.open(pathSopes); 
     fp_out.open(pathResultat);
+
+    fp_out << ta << endl;
 
     char s;
     int n;

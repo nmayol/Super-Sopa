@@ -39,18 +39,25 @@ int main () {
     superSopa super_sopa;
     string pathSopes = "sopes.txt";
     string pathResultat = "./resultats/resultatVector.txt";
-    string pathDiccionari = "./diccionaris/quijote-vocabulary-3.txt";
+    string pathDiccionari = "./diccionaris/mare-balena-vocabulary-3.txt";
 
     vector<string> diccionari;
 
     llegir_fitxer(diccionari, pathDiccionari);
 
     SortedVector sorted_vector;
+
+    auto begin = moment();
     sorted_vector.afegir(diccionari);  
+    auto end = moment();
+
+    double ta = chrono::duration_cast<chrono::microseconds>(end - begin).count();    
 
     //EXPERIMENT COMPROVAR
     fp_in.open(pathSopes); 
     fp_out.open(pathResultat);
+
+    fp_out << ta << endl;
 
     char s;
     int n;

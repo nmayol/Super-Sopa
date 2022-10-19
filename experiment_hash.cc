@@ -61,14 +61,20 @@ int main () {
     HashTableDictionary hash_table(diccionari.size());
     HashTableDictionary prefixos(diccionari.size()*3);  
 
+    auto begin = moment();
     for (int i = 0; i < diccionari.size(); ++i) {
         afegir_prefix(prefixos, diccionari[i]);
         hash_table.afegir(diccionari[i]);
     }
+    auto end = moment();
+
+    double ta = chrono::duration_cast<chrono::microseconds>(end - begin).count();
 
     //EXPERIMENT COMPROVAR
     fp_in.open(pathSopes); 
     fp_out.open(pathResultat);
+
+    fp_out << ta << endl;
 
     char s;
     int n;
