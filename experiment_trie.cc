@@ -77,6 +77,7 @@ int main () {
 
             auto begin = moment();
             trie.buidarResultats();
+            trie.iniciarResultat();
             super_sopa.resoldre(trie, sopa);
             auto end = moment();
 
@@ -89,7 +90,7 @@ int main () {
  
         mitjana(execucions, t);      
 
-        fp_out << nSopes+1 << ' ' << n << ' ' << t << ' ' << trie.midaMap() << endl;
+        fp_out << nSopes+1 << ' ' << n << ' ' << t << ' ' << trie.midaMap() << ' ' << trie.paraulesTotals() << endl;
     }
 
     fp_in.close();    

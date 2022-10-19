@@ -2,6 +2,7 @@
 
 TrieDictionary::TrieDictionary() {
     arrel = nullptr;
+    totalTrobat = 0;
 }
 
 
@@ -142,6 +143,7 @@ void TrieDictionary::existeixParaula(const string& par, node_trie* n, int i, boo
             r = true;
             if (n->finalparaula and i == par.size()) {
                 results[par]++;
+                ++totalTrobat;
             }
             return;
         }
@@ -185,4 +187,12 @@ void TrieDictionary::imprimirResultats() const {
 int TrieDictionary::midaMap() const {
 
     return results.size();
+}
+
+int TrieDictionary::paraulesTotals() const {
+    return totalTrobat;
+}
+
+void TrieDictionary::iniciarResultat() {
+    totalTrobat = 0;
 }

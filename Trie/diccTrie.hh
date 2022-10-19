@@ -42,6 +42,10 @@ class TrieDictionary {
         */
         void buidarResultats();
 
+        int paraulesTotals() const;
+
+        void iniciarResultat();
+
         // CONSULTORES
 
         /*  Comprova si la paraula c existeix dintre del diccionari Trie.
@@ -115,6 +119,7 @@ class TrieDictionary {
 
         node_trie* arrel;
         map<string,int> results;
+        int totalTrobat;
 
         /*  Especificacio operacions privades.
         
