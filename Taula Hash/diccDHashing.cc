@@ -49,8 +49,8 @@ int HashTableDictionary::abansPrimer (int n) {
 int HashTableDictionary::hash1 (string key) {
     int length = key.length();
     int sum = 0;
-    for(int i = 0; i < length; i++) {
-        sum += (int)key[i];
+    for(int i = 1; i <= length; i++) {
+        sum += (i*(int)key[i]);
     }
     return (sum % tableSize);
 }
