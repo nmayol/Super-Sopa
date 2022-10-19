@@ -75,7 +75,6 @@ int main () {
 
     for (int nSopes = 0; nSopes < 100; ++nSopes) {
         //llegir sopa
-        cout << "sopa " << nSopes + 1 << endl;
         fp_in >> n;
         Sopa sopa = Sopa(n, vector<char>(n, '#'));
 
@@ -88,15 +87,12 @@ int main () {
 
         //resoldre-la 10 cops
         vector<double> execucions; //temps de cada execució
+        map<string, int> resultatHashTable;
         for (int cops = 0; cops < 10; ++cops) {
-            map<string, int> resultatHashTable;
-
-            cout << "cop " << cops << endl;
 
             auto begin = moment();
             super_sopa.resoldre(resultatHashTable, hash_table, prefixos, sopa);
             auto end = moment();
-            cout << "s'ha resolt" << endl;
 
             double t = chrono::duration_cast<chrono::microseconds>(end - begin).count();
 
@@ -107,7 +103,7 @@ int main () {
  
         mitjana(execucions, t);
 
-        fp_out << nSopes+1 << ' ' << n << ' ' << t << endl;        
+        fp_out << nSopes+1 << ' ' << n << ' ' << t << ' ' << resultatHashTable.size() << endl;        
     }
 
     fp_in.close();    
