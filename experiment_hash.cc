@@ -52,7 +52,7 @@ int main () {
     superSopa super_sopa;
     string pathSopes = "sopes.txt";
     string pathResultat = "./resultats/resultatHash.txt";
-    string pathDiccionari = "./diccionaris/mare-balena-vocabulary-3.txt";
+    string pathDiccionari = "./diccionaris/dracula-vocabulary-4.txt";
 
     vector<string> diccionari;
 
@@ -80,7 +80,7 @@ int main () {
     int n;
 
     for (int nSopes = 0; nSopes < 100; ++nSopes) {
-        cout << nSopes << endl;
+        //cout << nSopes << endl;
         //llegir sopa
         fp_in >> n;
         Sopa sopa = Sopa(n, vector<char>(n, '#'));

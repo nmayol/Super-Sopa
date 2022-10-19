@@ -39,7 +39,7 @@ int main () {
     superSopa super_sopa;
     string pathSopes = "sopes.txt";
     string pathResultat = "./resultats/resultatVector.txt";
-    string pathDiccionari = "./diccionaris/mare-balena-vocabulary-3.txt";
+    string pathDiccionari = "./diccionaris/dracula-vocabulary-4.txt";
 
     vector<string> diccionari;
 
@@ -90,7 +90,7 @@ int main () {
 
             execucions.push_back(t);
         }
-        
+        //if (nSopes == 0) sorted_vector.imprimirTrobades();
         double t; 
         mitjana(execucions, t);
 

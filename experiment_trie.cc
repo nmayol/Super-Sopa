@@ -38,7 +38,7 @@ int main () {
     superSopa super_sopa;
     string pathSopes = "sopes.txt";
     string pathResultat = "./resultats/resultatTrie.txt";
-    string pathDiccionari = "./diccionaris/mare-balena-vocabulary-3.txt";
+    string pathDiccionari = "./diccionaris/dracula-vocabulary-4.txt";
 
     vector<string> diccionari;
 
@@ -79,13 +79,14 @@ int main () {
         
         //resoldre-la 10 cops
         vector<double> execucions; //temps de cada execució
-        trie.buidarResultats();
+        
         
         for (int cops = 0; cops < 10; ++cops) {
             map<string, int> resultatTrieDictionary;
 
             trie.iniciarResultat();
-            
+            trie.buidarResultats();
+
             auto begin = moment();
             super_sopa.resoldre(trie, sopa);
             auto end = moment();
@@ -94,7 +95,7 @@ int main () {
 
             execucions.push_back(t);
         }
-        
+        //if (nSopes == 0) trie.imprimirResultats();
         double t;
  
         mitjana(execucions, t);      
