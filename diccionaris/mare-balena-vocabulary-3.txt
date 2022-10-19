@@ -2441,7 +2441,6 @@ greixos
 greu
 grifolar
 grill
-grillâ
 grillara
 grillat
 groc
@@ -3535,7 +3534,6 @@ perpetua
 perpetuava
 perplex
 perque
-perseguidô
 perseguint
 persiana
 persigni
@@ -4153,7 +4151,7 @@ rialleta
 rialletes
 ric
 ricardet
-ridìculament
+ridiculament
 ridiculitzadores
 rient
 riera
