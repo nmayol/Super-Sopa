@@ -35,25 +35,6 @@ void afegir_prefix (BloomFilterDictionary& d, string s) {
     }
 }
 
-int calcularFalsosPositius (map<string, int>& mapVector, map<string, int>& mapFiltre) {
-    int errors = 0;
-
-    for (auto it = mapFiltre.begin(); it != mapFiltre.end(); it++) {
-        string p = it->first;
-        int q = it->second;
-
-        auto aux = mapVector.find(p);
-        if (aux == mapVector.end()) {
-            errors += q;
-        } else {
-            int q2 = aux->second;
-            errors += (q-q2);
-        }
-    }
-
-    return errors; 
-}
-
 void mitjana (vector<pair<double, int>>& execucions, double& temps, int& errors) {
     int n = execucions.size();
 
@@ -103,7 +84,7 @@ int main () {
     for (int nSopes = 0; nSopes < 100; ++nSopes) {
         //llegir sopa
         fp_in >> n;        
-        
+        if (nSopes > 0) continue;
         Sopa sopa = Sopa(n, vector<char>(n, '#'));
 
         for (int i = 0; i < n; ++i) {
@@ -115,26 +96,21 @@ int main () {
 
         //resoldre-la 10 cops
         vector<pair<double, int>> execucions; //temps i errors de cada execució
-        double nv = 0, nf = 0;
-        for (int cops = 0; cops < 10; ++cops) {
-            map<string, int> resultatFiltre;
-            map<string, int> resultatVector; 
-            
+        int trobadesFiltre = 0, trobadesVector = 0;
+        for (int cops = 0; cops < 10; ++cops) {            
             auto begin = moment();
-            super_sopa.resoldre(resultatFiltre, bloom_filter, prefixos, sopa);
+            trobadesFiltre += super_sopa.resoldre(bloom_filter, prefixos, sopa);
             auto end = moment();           
             
             sorted_vector.netejaTrobades();
-            super_sopa.resoldre(resultatVector, sorted_vector, sopa);
+            trobadesVector += super_sopa.resoldre(sorted_vector, sopa);
             
             double t = chrono::duration_cast<chrono::microseconds>(end - begin).count();
             
-            int e = calcularFalsosPositius(resultatFiltre, resultatVector);
+            int e = trobadesFiltre - trobadesVector;
+            cout << e << endl;
             
-            execucions.push_back({t, e});
-            
-            nv += resultatVector.size();
-            nf += resultatFiltre.size();            
+            execucions.push_back({t, e});           
         }        
 
         double t;
@@ -142,9 +118,9 @@ int main () {
         mitjana(execucions, t, e);
 
         //nombre de la sopa, mida, temps, paraules vector, paraules filtre, falsos positius
-        nv /= 10;
-        nf /= 10;
-        fp_out << nSopes+1 << ' ' << n << ' ' << t << ' ' << nv << ' ' << nf << ' ' << e << endl;
+        trobadesFiltre /= 10;
+        trobadesVector /= 10;
+        fp_out << nSopes+1 << ' ' << n << ' ' << t << ' ' << trobadesVector << ' ' << trobadesFiltre << ' ' << e << endl;
     }
 
     fp_in.close();    

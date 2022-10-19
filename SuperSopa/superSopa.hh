@@ -28,10 +28,10 @@ class superSopa {
         void generarSopa(const vector<string>& dicc, Sopa& sopa);
 
         // Metodes per resoldre-la de cadascuna de les maneres       
-        void resoldre (map<string, int>& res, SortedVector& d, Sopa& sopa); 
+        int resoldre (SortedVector& d, Sopa& sopa); 
         void resoldre (TrieDictionary& d, Sopa& sopa);
-        void resoldre (map<string, int>& res, HashTableDictionary& d, HashTableDictionary& pre, Sopa& sopa);
-        void resoldre (map<string, int>& res, BloomFilterDictionary& d, BloomFilterDictionary& pre, Sopa& sopa);
+        int resoldre (HashTableDictionary& d, HashTableDictionary& pre, Sopa& sopa);
+        int resoldre (BloomFilterDictionary& d, BloomFilterDictionary& pre, Sopa& sopa);
                
         
  
@@ -39,8 +39,7 @@ class superSopa {
         int n;
         Sopa sopa;        
         matbool visitat;
-        map<string, int> resultat;
-        map<string, int>::iterator itResultat;
+        int nTrobades;
 
         HashTableDictionary pre_hash, d_hash;
         BloomFilterDictionary pre_filtre, d_filtre;        

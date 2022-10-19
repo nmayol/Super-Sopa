@@ -10,8 +10,8 @@ vector<char> letters = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
 
 //constructor buit
 superSopa::superSopa() {    
-    resultat = map<string, int>();
     srand(time(NULL));
+    nTrobades = 0;
 };
 
 void superSopa::generarSopa (const vector<string>& dicc, Sopa& sopa) {
@@ -152,33 +152,32 @@ bool posok2(int i, int j, int n, const vector<vector<bool>>& v) {
     return (i >= 0 and i < n and j >= 0 and j < n and not v[i][j]);
 }   
 
-void superSopa::resoldre (map<string, int>& res, HashTableDictionary& d, HashTableDictionary& pre, Sopa& so) {
+int superSopa::resoldre (HashTableDictionary& d, HashTableDictionary& pre, Sopa& so) {
+    nTrobades = 0;
     n = so.size();
     sopa = so;
     d_hash = d;
     pre_hash = pre;
-    vector<vector<bool>> visitats;
-    resultat.clear();    
+    matbool visitats;
+
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < n; ++j) {
             string p = "";
             p.push_back(sopa[i][j]);
             visitats = vector<vector<bool>>(n, vector<bool>(n, false));
             visitats[i][j] = true;
-            //cout << i << ' ' << j << endl;
+
             resoldreRecursiuHash(visitats, p, i, j);            
         }
     }
     
-    res = resultat;
+    return nTrobades;
 }
 bool superSopa::comprovarPosicio (int i, int j, matbool& v) {
     return i >= 0 and i < sopa.size() and j >= 0 and j < sopa.size() and not v[i][j];
 }
 
-void superSopa::resoldreRecursiuHash (matbool& v, string paraula, int i, int j) {
-    //cout << paraula << endl;    
-    
+void superSopa::resoldreRecursiuHash (matbool& v, string paraula, int i, int j) {   
     for (auto dir : DIR) {
         int i2 = i + dir.first;
         int j2 = j + dir.second;
@@ -188,11 +187,9 @@ void superSopa::resoldreRecursiuHash (matbool& v, string paraula, int i, int j) 
             paraula2.push_back(sopa[i2][j2]);
 
             if (d_hash.comprovar(paraula2)) {
-                //cout << "comprova hash true " << paraula2 << endl;
-                resultat[paraula2]++;
+                ++nTrobades;
             }
             if (pre_hash.comprovar(paraula2)) {
-                //cout << "comprova hash pre true " << paraula2 << endl;
                 v[i2][j2] = true;
                 resoldreRecursiuHash(v, paraula2, i2, j2);            
                 v[i2][j2] = false;
@@ -201,7 +198,8 @@ void superSopa::resoldreRecursiuHash (matbool& v, string paraula, int i, int j) 
     }
 } 
 
-void superSopa::resoldre (map<string, int>& res, SortedVector& d, Sopa& sopa) {
+int superSopa::resoldre (SortedVector& d, Sopa& sopa) {
+    nTrobades = 0;
     int l = 0 , r = d.getSize() - 1;
     int n = sopa.size();
     vector<vector<bool>> pos(n, vector<bool>(n,false));
@@ -211,16 +209,17 @@ void superSopa::resoldre (map<string, int>& res, SortedVector& d, Sopa& sopa) {
             d.buscarParaula(i,j,pos,l,r,iterador,sopa);            
         }
     }
-    res = d.getTrobades();    
+    return d.getTrobades().size();    
 }
 
-void superSopa::resoldre (map<string, int>& res, BloomFilterDictionary& d, BloomFilterDictionary& pre, Sopa& so) {
+int superSopa::resoldre (BloomFilterDictionary& d, BloomFilterDictionary& pre, Sopa& so) {
+    nTrobades = 0;
     n = so.size();
     sopa = so;
     d_filtre = d;
     pre_filtre = pre;
     vector<vector<bool>> visitats;
-    resultat.clear();    
+
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < n; ++j) {
             string p = "";
@@ -232,7 +231,7 @@ void superSopa::resoldre (map<string, int>& res, BloomFilterDictionary& d, Bloom
         }
     }
     
-    res = resultat;
+    return nTrobades;
 }
 
 void superSopa::resoldreRecursiuFiltre (matbool& v, string paraula, int i, int j) {
@@ -245,12 +244,8 @@ void superSopa::resoldreRecursiuFiltre (matbool& v, string paraula, int i, int j
             paraula2.push_back(sopa[i2][j2]);
 
             if (d_filtre.comprovar(paraula2)) {
-                itResultat = resultat.find(paraula2);
-                if (itResultat != resultat.end()) {
-                    itResultat->second++;
-                } else {
-                    resultat.insert({paraula2, 1});
-                }
+                ++nTrobades;
+                cout << nTrobades << ": " << paraula2 << endl;
             }
             if (pre_filtre.comprovar(paraula2)) {
                 v[i2][j2] = true;
@@ -262,8 +257,6 @@ void superSopa::resoldreRecursiuFiltre (matbool& v, string paraula, int i, int j
 }
 
 void superSopa::calculaDireccions(TrieDictionary& d, const Sopa& so, matbool& v, const string& par, int i, int j) {
-
-
     v[i][j] = true;
     //string par(1, so[i][j]);
 
