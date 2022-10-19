@@ -198,8 +198,9 @@ void superSopa::resoldreRecursiuHash (matbool& v, string paraula, int i, int j) 
     }
 } 
 
-int superSopa::resoldre (SortedVector& d, Sopa& sopa) {
+void superSopa::resoldre (SortedVector& d, Sopa& sopa) {
     nTrobades = 0;
+    d.iniciarResults();
     int l = 0 , r = d.getSize() - 1;
     int n = sopa.size();
     vector<vector<bool>> pos(n, vector<bool>(n,false));
@@ -208,8 +209,7 @@ int superSopa::resoldre (SortedVector& d, Sopa& sopa) {
             int l = 0, r = d.getSize()-1, iterador = 0;
             d.buscarParaula(i,j,pos,l,r,iterador,sopa);            
         }
-    }
-    return d.getTrobades().size();    
+    } 
 }
 
 int superSopa::resoldre (BloomFilterDictionary& d, BloomFilterDictionary& pre, Sopa& so) {

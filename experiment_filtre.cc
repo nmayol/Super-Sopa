@@ -65,9 +65,13 @@ int main () {
     
     BloomFilterDictionary bloom_filter(diccionari.size());
     BloomFilterDictionary prefixos(diccionari.size()*2);
-    SortedVector sorted_vector;
 
-    sorted_vector.afegir(diccionari);    
+    TrieDictionary trie; 
+    sort(diccionari.begin(), diccionari.end());
+
+    int meitat = diccionari.size()/2;
+    for (int i = meitat; i < diccionari.size(); ++i) trie.afegir(diccionari[i]);
+    for (int j = meitat - 1; j >= 0; --j) trie.afegir(diccionari[j]);
 
     for (int i = 0; i < diccionari.size(); ++i) {
         afegir_prefix(prefixos, diccionari[i]);
@@ -84,7 +88,7 @@ int main () {
     for (int nSopes = 0; nSopes < 100; ++nSopes) {
         //llegir sopa
         fp_in >> n;        
-        if (nSopes > 0) continue;
+        
         Sopa sopa = Sopa(n, vector<char>(n, '#'));
 
         for (int i = 0; i < n; ++i) {
@@ -99,15 +103,15 @@ int main () {
         int trobadesFiltre = 0, trobadesVector = 0;
         for (int cops = 0; cops < 10; ++cops) {            
             auto begin = moment();
-            trobadesFiltre += super_sopa.resoldre(bloom_filter, prefixos, sopa);
-            auto end = moment();           
-            
-            sorted_vector.netejaTrobades();
-            trobadesVector += super_sopa.resoldre(sorted_vector, sopa);
+            trobadesFiltre = super_sopa.resoldre(bloom_filter, prefixos, sopa);
+            auto end = moment();       
+
+            trie.iniciarResultat();
+            super_sopa.resoldre(trie, sopa);
             
             double t = chrono::duration_cast<chrono::microseconds>(end - begin).count();
             
-            int e = trobadesFiltre - trobadesVector;
+            int e = trobadesFiltre - trie.paraulesTotals();
             cout << e << endl;
             
             execucions.push_back({t, e});           
@@ -118,9 +122,7 @@ int main () {
         mitjana(execucions, t, e);
 
         //nombre de la sopa, mida, temps, paraules vector, paraules filtre, falsos positius
-        trobadesFiltre /= 10;
-        trobadesVector /= 10;
-        fp_out << nSopes+1 << ' ' << n << ' ' << t << ' ' << trobadesVector << ' ' << trobadesFiltre << ' ' << e << endl;
+        fp_out << nSopes+1 << ' ' << n << ' ' << t << ' ' << trie.paraulesTotals() << ' ' << trobadesFiltre << ' ' << e << endl;
     }
 
     fp_in.close();    

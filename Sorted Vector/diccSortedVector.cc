@@ -117,6 +117,7 @@ void SortedVector:: buscarParaula(int i , int j, vector<vector<bool>>& pos, int 
         
         if (iterador == v[nl].size() and s[i][j] == v[nl][v[nl].size()-1]) { 
             ++trobades[v[nl]]; 
+            ++totalTrobades;
             ++nl; 
         }
 
@@ -149,4 +150,12 @@ const int SortedVector::getSize() {
 // Retorna true si la posició (i,j) és una posició de la Sopa.
 bool SortedVector::compleixLimits(Sopa& s, const int& i,const int& j,const int& n) {
     return(i >= 0 and j >= 0 and i < n and j < n);
+}
+
+void SortedVector::iniciarResults() {
+    totalTrobades = 0;
+}
+
+int SortedVector::consultarResults() const {
+    return totalTrobades;
 }

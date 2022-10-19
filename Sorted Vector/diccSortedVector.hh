@@ -53,11 +53,14 @@ class SortedVector {
         */
         void buscarParaula(int i , int j, vector<vector<bool>>& pos, int l, int r, int iterador, Sopa& s);
 
+         void iniciarResults();
+         int consultarResults() const;
 
     private:
         ////// Atributs //////
         vector < string> v;
         map <string,int> trobades;
+        int totalTrobades;
         ///////////////////////    
         
         /*  Ordena el diccionari d'entrada

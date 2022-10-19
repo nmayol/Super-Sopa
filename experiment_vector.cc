@@ -69,16 +69,17 @@ int main () {
 
         
         //resoldre-la 10 cops
-        map<string, int> resultatSortedVector;
+        int result = 0;
         vector<double> execucions; //temps de cada execució
         for (int cops = 0; cops < 10; ++cops) {
             sorted_vector.netejaTrobades();
 
             auto begin = moment();
-            super_sopa.resoldre(resultatSortedVector, sorted_vector, sopa);
+            super_sopa.resoldre(sorted_vector, sopa);
             auto end = moment();
 
             double t = chrono::duration_cast<chrono::microseconds>(end - begin).count();
+            result += sorted_vector.consultarResults();
 
             execucions.push_back(t);
         }
@@ -86,6 +87,8 @@ int main () {
         double t; 
         mitjana(execucions, t);
 
-        fp_out << nSopes+1 << ' ' << n << ' ' << t << ' ' << resultatSortedVector.size() << endl;
+        result /= 10;
+
+        fp_out << nSopes+1 << ' ' << n << ' ' << t << ' ' << result << endl;
     } 
 }

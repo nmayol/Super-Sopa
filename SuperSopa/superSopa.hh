@@ -28,7 +28,7 @@ class superSopa {
         void generarSopa(const vector<string>& dicc, Sopa& sopa);
 
         // Metodes per resoldre-la de cadascuna de les maneres       
-        int resoldre (SortedVector& d, Sopa& sopa); 
+        void resoldre (SortedVector& d, Sopa& sopa); 
         void resoldre (TrieDictionary& d, Sopa& sopa);
         int resoldre (HashTableDictionary& d, HashTableDictionary& pre, Sopa& sopa);
         int resoldre (BloomFilterDictionary& d, BloomFilterDictionary& pre, Sopa& sopa);
