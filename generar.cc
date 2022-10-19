@@ -34,7 +34,7 @@ void escriure_fitxer(Sopa& sopa, ofstream& fw) {
 
 int main () {
     string path = "sopes.txt";
-    string pathDiccionari = "./diccionaris/quijote-vocabulary-4.txt";
+    string pathDiccionari = "./diccionaris/quijote-vocabulary-6.txt";
     vector<string> diccionari;
     superSopa super_sopa;
 

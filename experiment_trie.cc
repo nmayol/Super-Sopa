@@ -38,7 +38,7 @@ int main () {
     superSopa super_sopa;
     string pathSopes = "sopes.txt";
     string pathResultat = "./resultats/resultatTrie.txt";
-    string pathDiccionari = "./diccionaris/dracula-vocabulary-4.txt";
+    string pathDiccionari = "./diccionaris/quijote-vocabulary-6.txt";
 
     vector<string> diccionari;
 
