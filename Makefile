@@ -30,6 +30,13 @@ experiment_filtre.exe:  experiment_filtre.o superSopa.o diccDHashing.o diccBloom
 	g++ -o experiment_filtre.exe experiment_filtre.o superSopa.o diccDHashing.o diccBloomFilter.o diccTrie.o diccSortedVector.o
 	rm *.o
 
+experiment_falsos_positius.o: superSopa.o diccDHashing.o diccBloomFilter.o diccTrie.o diccSortedVector.o
+	g++ -c experiment_falsos_positius.cc
+
+experiment_falsos_positius.exe:  experiment_falsos_positius.o superSopa.o diccDHashing.o diccBloomFilter.o diccTrie.o diccSortedVector.o
+	g++ -o experiment_falsos_positius.exe experiment_falsos_positius.o superSopa.o diccDHashing.o diccBloomFilter.o diccTrie.o diccSortedVector.o
+	rm *.o
+
 experiment_filtre.o: superSopa.o diccDHashing.o diccBloomFilter.o diccTrie.o diccSortedVector.o
 	g++ -c experiment_filtre.cc
 
