@@ -4,7 +4,6 @@ HashTableDictionary::HashTableDictionary (int mida) {
     tableSize = seguentPrimer(mida*2);
     primerPetit = abansPrimer(mida*2);
     hashTable = new string[tableSize];
-    //curr_size = 0;
     maxcolision = 0;
     for (int i=0; i<tableSize; i++)
         hashTable[i] = "nnnn";
@@ -14,7 +13,6 @@ HashTableDictionary::HashTableDictionary () {
     tableSize = 100;
     primerPetit = 91;
     hashTable = new string[tableSize];
-    //curr_size = 0;
     maxcolision = 0;
     for (int i=0; i<tableSize; i++)
         hashTable[i] = "nnnn";
@@ -84,7 +82,6 @@ void HashTableDictionary::afegir (string key) {
          }
     }
     else hashTable[index] = key;
-    //curr_size++;
 }
 
 bool HashTableDictionary::comprovar (string s) {

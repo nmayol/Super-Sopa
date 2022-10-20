@@ -24,12 +24,11 @@ class HashTableDictionary {
         int tableSize;
         int primerPetit;
         string *hashTable;
-        //int curr_size;
         int maxcolision;  
         bool esPrimer (int n);
         int seguentPrimer(int n);
         int abansPrimer (int n);
-                //hashFunctions
+        //hashFunctions
         int hash1(string key);
         int hash2(string key);
 };
