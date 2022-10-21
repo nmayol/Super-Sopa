@@ -129,7 +129,7 @@ void TrieDictionary::existeixParaula(const string& par, node_trie* n, int i, boo
         return;
     }
     else if (i == par.size()) {
-        if (n->finalparaula) results[par]++;
+        if (n->finalparaula) ++totalTrobat;
         r = true;
         return;
     }
@@ -139,7 +139,6 @@ void TrieDictionary::existeixParaula(const string& par, node_trie* n, int i, boo
             i += n->info.size();
             r = true;
             if (n->finalparaula and i == par.size()) {
-                results[par]++;
                 ++totalTrobat;
             }
             return;
@@ -164,26 +163,6 @@ bool TrieDictionary::comprovar(const string& c) {
     bool r = false;
     existeixParaula(c, arrel, 0, r);
     return r;
-}
-
-void TrieDictionary::buidarResultats() {
-
-    results.clear();
-}
-
-void TrieDictionary::imprimirResultats() const {
-
-    map<string,int>::const_iterator it = results.begin();
-
-    while (it != results.end()) {
-        cout << it->first << ' ' << it->second << endl;
-        ++it;
-    }
-}
-
-int TrieDictionary::midaMap() const {
-
-    return results.size();
 }
 
 int TrieDictionary::paraulesTotals() const {

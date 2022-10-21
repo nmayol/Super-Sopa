@@ -36,14 +36,10 @@ class TrieDictionary {
         */
         void simplificaArbre();
 
-        /*  Buida el map resultat.
+        /*  Inicia les paraules trobades a 0.
             Pre: cert.
-            Post: el map results passa a estar buit (si es que no ho estava).
+            Post: l'atribut totalTrobades és 0.
         */
-        void buidarResultats();
-
-        int paraulesTotals() const;
-
         void iniciarResultat();
 
         // CONSULTORES
@@ -55,18 +51,11 @@ class TrieDictionary {
         */
         bool comprovar(const string& c);
 
-        /*  Imprimeix una llista amb totes les paraules trobades.
+        /*  Consulta el nombre de paraules trobades.
             Pre: cert.
-            Post: S'han escrit pel canal estandard de sortida una llista de 
-            paraules amb el nombre de vegades trobada a la sopa.
+            Post: el resultat es el nombre de paraules trobades.
         */
-        void imprimirResultats() const;
-
-        /*  Retorna el nombre de paraules trobades a la SuperSopa.
-            Pre: cert.
-            Post: retorna un nombre natural.
-        */
-        int midaMap() const;
+        int paraulesTotals() const;
 
         // LECTURA I ESCRIPTURA
 
@@ -118,7 +107,6 @@ class TrieDictionary {
         };
 
         node_trie* arrel;
-        map<string,int> results;
         int totalTrobat;
 
         /*  Especificacio operacions privades.

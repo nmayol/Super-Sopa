@@ -85,7 +85,6 @@ int main () {
             map<string, int> resultatTrieDictionary;
 
             trie.iniciarResultat();
-            trie.buidarResultats();
 
             auto begin = moment();
             super_sopa.resoldre(trie, sopa);
@@ -95,7 +94,7 @@ int main () {
 
             execucions.push_back(t);
         }
-        //if (nSopes == 0) trie.imprimirResultats();
+
         double t;
  
         mitjana(execucions, t);      
