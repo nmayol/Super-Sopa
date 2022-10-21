@@ -1,6 +1,7 @@
 \documentclass[titlepage]{article}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
+\usepackage{amssymb}
 \usepackage{mismath}
 \usepackage{graphicx}
 \usepackage{listings}
@@ -15,6 +16,9 @@
   basicstyle=\fontsize{11}\selectfont
 }
 
+\renewcommand{\baselinestretch}{1.20}
+\graphicspath{ {imatges/} }
+
 % PACKAGES X DIBUIXAR ARBRES
 \usepackage[T1]{fontenc}
 \usepackage[linguistics]{forest}
@@ -26,6 +30,7 @@
 
 
 \begin{document}
+
 
 \maketitle
 \clearpage
@@ -151,8 +156,8 @@ Ja per acabar, és ben sabut que el cost de l'algorisme \textit{Mergesort} és $
 
 
 \subsubsection{Resolució de la sopa}
-Al tenir el vector ordenat alfabèticament, s'ha cregut que l'opció més eficient és utilitzar la cerca dicotòmica per resoldre la sopa. Tot i així s'ha decidit retocar la manera com s'implementa aquesta per adaptar-se al problema, i que no s'hagi de cercar dins de tot el diccionari cada vegada que es llegeix una nova lletra de la sopa. \newline\par
-Per començar es recorrerà tota la sopa posició per posició. A cada posició es buscarà totes les solucions que comencen des d'allà. Per fer-ho s'entrarà a l'algorisme \textit{buscarParaula}.
+Al tenir el vector ordenat alfabèticament, s'ha cregut que l'opció més eficient és utilitzar la cerca dicotòmica per resoldre la sopa. Tot i així s'ha decidit retocar la manera com s'implementa aquesta per adaptar-se al problema, i que no s'hagi de cercar dins de tot el diccionari cada vegada que es llegeix una nova lletra de la sopa.\par
+Per començar la resolució, el procediment \textit{resoldre} de la classe \textit{SuperSopa} recorrerà tota la sopa posició per posició. A cada posició es buscarà totes les solucions que comencen des d'allà. Per fer-ho s'entrarà a l'algorisme \textit{buscarParaula}.
 \paragraph{\textit{buscarParaula}}
 La idea de l'algorisme \textit{buscarParaula} pot semblar complicada d'entrada, però s'ha considerat que és un mètode eficient. S'ha vist que la cerca d'una paraula de la sopa al diccionari pot donar lloc a diferents casos:
 \begin{enumerate}
@@ -164,7 +169,7 @@ La idea de l'algorisme \textit{buscarParaula} pot semblar complicada d'entrada, 
     \item i no és prefix de cap paraula.
     \end{enumerate}
 \end{enumerate}
-Per tant, una vegada s'ha trobat una paraula que es prefix s'ha de continuar buscant per assegurar-se de trobar totes les paraules més llargues que la tenen com a prefix en cas que hi siguin. En altres paraules, la cerca començant per aquella posició acaba quan al diccionari no hi ha cap de les paraules que s'hi generen en qualsevol direcció i sentit, incloent canvis de direcció en el transcurs de la paraula.\newline\par
+Per tant, una vegada s'ha trobat una paraula que es prefix s'ha de continuar buscant per assegurar-se de trobar totes les paraules més llargues que la tenen com a prefix en cas que hi siguin. En altres paraules, la cerca començant per aquella posició acaba quan al diccionari no hi ha cap de les paraules que s'hi generen en qualsevol direcció i sentit, i incloent canvis de direcció en el transcurs de la paraula.\newline\par
 
 En C++, les cadenes de text o \textit{string}, són definides com a vectors de caràcters. Per tant, podem veure el vector ordenat com un vector de vectors de caràcters o en altres paraules: com una matriu de caràcters. A la \textit{Table \ref{fig:sortedVector1}} es mostra un exemple visual d'un possible fragment del vector. \newline
 \begin{table}[H]
@@ -289,8 +294,11 @@ void SortedVector:: buscarParaula(int i , int j,
 \end{lstlisting}
 
 
-On, abans que res, es fa la cerca de la primera i última ocurrència de les paraules del diccionari que compleixen la condició i s'emmagatzemen a les variables \textit{nl} i \textit{nr} respectivament. Si \textit{nl} i \textit{nr} formen un interval correcte dins el vector, es busquen noves lletres de la sopa i es fa el mateix procés de cerca dins el subvector [\textit{nl},\textit{nr}].\newline\par 
+On, abans que res, es fa la cerca de la primera i última ocurrència de les paraules del diccionari que compleixen la condició i s'emmagatzemen a les variables \textit{nl} i \textit{nr} respectivament. Si \textit{nl} i \textit{nr} formen un interval correcte dins el vector, es busquen noves lletres de la sopa i es fa el mateix procés de cerca dins el subvector [\textit{nl},\textit{nr}].\newline\par
 El principal avantatge d'aquest tipus de cerca és que, per cada lletra nova que llegim, no caldrà cercar dins de tot el vector ordenat: podrem partir d'un subvector que ja sabem que conté totes les paraules amb prefix igual a les lletres que hem llegit anteriorment i des d'aquell punt, buscar l'interval que contingui les paraules el prefix de les quals són iguals a l'anterior, afegint-hi l'última lletra que hem llegit de la sopa.\newline\par
+Podem dir que aquest  algorisme és correcte partint dels casos base que, tal com hem vist ho són: Quan una paraula no es troba al diccionari el segment del vector [\textit{l},\textit{r}] no serà vàlid, i per tant es deixarà de buscar. En canvi sempre que arribem a una solució, la trobarem a la primera posició del segment (\textit{l}) quan el valor d'\textit{iterador} és igual a la mida de la paraula. Si trobem una paraula començarem la següent cerca partint del subvector [\textit{l+1},\textit{r}], ja que sabem que la paraula a la posició \textit{l} ja ha estat trobada, i que de moment no tornarà a ser solució de la sopa perquè les següents paraules que buscarem són de mida superior.\par
+Pel que fa la resta de l'algorisme, podem justificar l'adequació a la seva tasca perquè per cada nova posició llegida a la sopa i mentre hi hagi paraules al diccionari que compleixin el prefix llegit, continuem buscant paraules en les vuit direccions. A més excloem de la cerca aquelles posicions que ja s'han visitat en aquella paraula i que ja formen part del prefix.\newline
+
 Per acabar d'entendre bé l'algorisme, mirarem com funcionen les cerques de la primera i l'última ocurrència.
 
 \paragraph{\textit{firstOcurrence}} Com el lector ja haurà pogut deduir, es farà servir la cerca dicotòmica per dissenyar aquests algorismes. Cal entendre però, que una cerca dicotòmica normal busca només si l'element donat existeix al vector. En aquest cas però, volem cercar la primera ocurrència de l'element —un prefix— dins la sopa.
@@ -372,6 +380,14 @@ int SortedVector::lastOcurrence(int l, int r, const char& c,
         return lastOcurrence(l,m-1,c,iterador);   
 }
 \end{lstlisting}
+
+Sabem que els algorismes de cerca dicotòmica de la primera i última ocurrència són correctes perquè la cerca dicotòmica general ho és, i perquè els casos especials que ens fan trobar la primera i última ocurrència sempre criden a una funció que segueix la cerca dins el subvector que conté la primera i última ocurrència respectivament. Aquestes crides sempre ens duran a un dels casos base iguals que els de la cerca dicotòmica general.\newline\par
+És fàcil veure que el cost de les cerques dicotòmiques \textit{firstOcurrence} i \textit{lastOcurrence} és $\mathcal{O}(\log{}n)$, sent \textit{n} la mida del vector ordenat. Sabem que és així perquè es tracta d'una recurrència divisora que divideix l'espai de cerca per la meitat a cadascuna de les crides recursives, mentre que la part no recursiva té cost constant.\newline
+Pel que fa l'algorisme buscar paraula, no sabem quantes vegades l'haurem d'executar, ja que depèn de la sopa. De totes maneres sabem que la cerca acabarà sempre quan ja no hi hagi cap paraula del diccionari que compleixi la condició prefix. Per tant podem dir que cada cerca no s'executarà més de \textit{s} vegades, sent \textit{s} la mida de la paraula amb més caràcters del diccionari. Pel que fa la part no recursiva, tenim les dues crides a les cerques dicotòmiques i la inserció al mapa, totes amb cost logarítmic.\par
+A partir d'això, i recordant que recorrem totes les posicions de la sopa al principi, al procediment \textit{resoldre} de la classe \textit{SuperSopa}, podem concloure que el cost de resoldre la sopa de lletres es calcula així:
+\[ Cost = \Theta(m)\mathcal{O}(s)\mathcal{O}(\log{n}) =  \mathcal{O}(ms\log{n})\]
+Sent \textit{m} el nombre de caràcters a una fila de la sopa de lletres.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \clearpage
 \section{\textit{Trie}}
@@ -384,19 +400,23 @@ Per acabar d'entendre el concepte de \textit{ternary search tree}, mirem un exem
     dicc = {nata, nas, nau}
 \end{lstlisting}
 
-Comencem per la primera paraula "nata", com l'arbre es troba buit, col·locarem el primer caràcter a l'arrel, el següent com a fill central, el següent com a fill central del anterior i així fins tenir-los tots col·locats.
+Comencem per la primera paraula "nata", com l'arbre es troba buit, col·locarem el primer caràcter a l'arrel, el següent com a fill central, el següent com a fill central del anterior i així fins tenir-los tots col·locats. Ens queda un arbre com el de la figura 2.
 \begin{center}
     \begin{forest}
         [n [a [t [a]]]]
     \end{forest}
 \end{center}
+\begin{center}
+    \small Figura 2: arbre ternari amb paraula "nata".\par
+\end{center}
+
 Seguim amb la següent paraula "nas". Com l'arbre no està buit i segueix un determinat ordre, haurem de col·locar la paraula on li correspon. Per això, compararem el primer caràcter amb l'arrel. Tenim que tots dos caràcters són iguals, per tant, saltarem al fill central. Farem el mateix procediment, però enlloc d'observar el primer caràcter de "nas", observarem el segon. Tornem a obtenir el mateix resultat (a == a), per tant, saltem al fill central.
 \newline\par
 Ara estem en el node 't', farem el mateix procediment: observem el tercer caràcter de "nas", i ens troben en que són diferents. Concretament, 't' < 's', per tant, passarem al fill esquerre. Com aquest està buit, escriurem allà el caràcter 's' acabant així d'afegir la paraula.
 \newline\par
 Anem ara amb la última paraula "nau". Si ens fixem, seguirà el mateix procediment que la paraula anterior, excepte que al arribar al node 't' ens trobem en que 'u' < 't'. Per tant, anirem cap al fill dret i escriurem allà l'últim caràcter.
-\newline\par
-De manera que obtindríem un arbre com el de la figura.
+%\newline\par
+De manera que obtindríem un arbre com el de la figura 3.
 
 \begin{center}
     \begin{forest}
@@ -404,6 +424,9 @@ De manera que obtindríem un arbre com el de la figura.
             [a [t [s] [a] [u]] ]
         ]
     \end{forest}
+\end{center}
+\begin{center}
+    \small Figura 3: arbre ternari amb totes les paraules de \textit{dicc}.\par
 \end{center}
 
 En conclusió, aquest tipus d'estructura segueix un ordre amb l'objectiu de facilitar la cerca de paraules. Aquest ordre és (1) el fill esquerre ha de ser més petit que el pare (2) el fill dret ha de ser més gran que el pare i (3) el fill central ha de ser la continuació del pare.
@@ -472,8 +495,8 @@ Quan tractem amb funcions recursives hem de tenir clar quins casos ens podem tro
     \end{enumerate}
 \end{itemize}
 
-De manera que la funció per afegir una paraula al diccionari queda de la següent manera:
-
+De manera que la funció per afegir una paraula a l'arbre queda de la següent manera:
+\clearpage
 \begin{lstlisting}[language=C++]
 
     void afegirRec(node_trie* &n, const string& p, int i) {
@@ -506,7 +529,7 @@ De manera que la funció per afegir una paraula al diccionari queda de la següe
     }
 
 \end{lstlisting}
-\clearpage
+
 \paragraph{Correctesa.} La justificació informal d'aquesta funció recursiva és la següent.
 \begin{itemize}
     \item \textbf{Cas base.} \par
@@ -522,57 +545,461 @@ De manera que la funció per afegir una paraula al diccionari queda de la següe
 \paragraph{Cost.} Afegir una paraula de longitud \textit{k} en un \textit{ternary search tree} té un cost promig de \begin{math}
     \textit{O}(\log{n + k})
 \end{math}.
-Això depèn de si l'arbre es troba del tot equilibrat. És a dir, que té un nombre de nodes semblant al subarbre dret respecte al subarbre esquerra. Si no és així, el cas pitjor ens trobem amb un cost de \begin{math}
+Això depèn de si l'arbre es troba del tot equilibrat. És a dir, que té un nombre de nodes semblant al subarbre dret respecte al subarbre esquerra i el subarbre central. Si no és així, el cas pitjor ens trobem amb un cost de \begin{math}
     \textit{O}(n + k)
 \end{math}
 
 \subsubsection{Funcionalitat \textit{simplificar}}
-r
+Aquesta funció esta pensada per cridar-la després de tenir l'arbre inicialitzat amb totes les paraules. Consisteix en agrupar tots aquells nodes que no presenten cap fill dret ni esquerre amb els seus fills centrals. És a dir, si tenim el arbre de la \textit{Figura 3} i cridem a la funció \textit{simplificar}, ens retorni el següent arbre.
+
+\begin{center}
+    \begin{forest}
+        [na
+            [t [s] [a] [u]]
+        ]
+    \end{forest}
+\end{center}
+\begin{center}
+    \small Figura 4: arbre ternari amb totes les paraules de \textit{dicc} simplificat.\par
+\end{center}
+
+Em de tenir en compte, tal com hem dissenyat la nostra funció \textit{afegir}, que un cop el nostre arbre sigui simplificat, si volem afegir alguna paraula més, pot donar-se el cas que el resultat sigui erroni. Això és perquè a l'afegir no tenim en compte que un node pugui tenir més d'un caràcter. 
+\newline\par
+Igualment, afegir una paraula després de simplificar l'arbre podria implicar refer els canvis fets per simplificar. Per exemple, si a l'arbre de la \textit{figura 4} hi volem afegir la paraula nen, hauriem de tornar a separar el node \textit{"na"}. És per això que hem decidit que la funció \textit{simplificar} hauria de utilitzar-se després d'afegir totes les paraules.
+\newline\par
+Tornem a treballar amb punters, per tant tindrem un mètode public que cridarà a un altre mètode privat.
+
+\begin{lstlisting}[language=C++]
+    void simplificaRec(node_trie* &n);
+
+    void simplificaArbre() {
+        simplificaRec(arrel);
+    }
+\end{lstlisting}
+
+A la funció recursiva li passarem el node per on volem començar a recorrer l'arbre. Com volem el volem simplificar tot, començarem per l'arrel (primer node).
+\newline\par
+Igual que amb el mètode anterior, estudiaurem els casos que acaben la recursivitat.
+
+\begin{itemize}
+    \item \textbf{Cas base.}
+    \begin{enumerate}
+        \item El node \textit{n} és \textit{null}\par
+        Quan ens trobem que un node és \textit{null}, vol dir que ja hem visitat tots els nodes d'aquell subarbre. Per tant, ja haurem ajuntat tots aquells que podem ajuntar.
+    \end{enumerate}
+    \item \textbf{Casos recursius.}
+    \begin{enumerate}
+        \item El node \textit{n} no presenta fills laterals, el seu fill central tampoc i \textit{n} no és final de paraula. \par
+        Si totes aquestes condicions es compleixen, ajuntarem la informació del node \textit{n} afegint la informació del node central. També, haurem de substituir els fills de \textit{n} per els fills de \textit{n->cnt}. Farem la crida recursiva sobre el mateix node després d'actualitzar-lo.
+        \item No es compleix la condició anterior.\par
+        Per tant, avançarem la recursivitat cap als seus tres fills: el dret, el central i l'esquerre.
+    \end{enumerate}
+\end{itemize}
+
+Per tant, tenim el següent codi.
+
+\begin{lstlisting}[language=C++]
+
+    void afegirRec(node_trie* &n) {
+    
+        if (n != nullptr) {
+        
+            node_trie* seg = n->cnt;
+            
+            if (n->dre == nullptr and n->esq == nullptr and 
+                seg != nullptr and seg->dre == nullptr and 
+                seg->esq == nullptr and not n->finalparaula) {
+            
+                    n->info += seg->info;
+                    n->finalparaula = seg->finalparaula;
+                    n->cnt = seg->cnt;
+                    simplificaRec(n);
+            }
+            simplificaRec(n->dre);
+            simplificaRec(n->cnt);
+            simplificaRec(n->esq);
+        }
+    }
+    
+\end{lstlisting}
+
+\paragraph{Correctesa.} La justificació d'aquesta funció és la següent.
+
+\begin{itemize}
+    \item \textbf{Cas base.}\par
+    Si ens trobem amb que \textit{n} és igual a \textit{null}, significa que hem arribat al final de l'arbre. Per tant, hem acabat.
+    \item \textbf{Cas recursiu.}\par
+    Si el node \textit{n} i el seu fill central no presenten fills laterals i \textit{n} no és el final de paraula, ajuntarem els dos nodes i farem la crida recursiva al mateix node \textit{n}, per si es pot tornar ajuntar amb el següent fill central.
+    Sinó, farem la crida per recorrer tots els subarbres de \textit{n}.
+    \item \textbf{Decreixament.}\par
+    A cada crida recursiva l'arbre es fa cada vegada més petit. Fins i tot al primer cas recursiu, ja que al ajuntar dos nodes també estem escorçant la seva mida.
+\end{itemize}
+
+\paragraph{Cost.} Com hem vist, per simplificar l'arbre necessitem recorrer tots els subarbres i veure quins nodes compleixen les condicions i poden ser agrupats. És per això, que el cost de la nostra funció serà lineal.
+
+\paragraph{Altra manera de simplificar} Una altra manera de simplificar l'arbre podria ser ajuntar tots aquells nodes en que \textit{n} no presenta fills centrals sense tenir en compte si \textit{n->cnt} en presenta o no. D'aquesta manera, l'arbre de la \textit{figura 3} quedaria de la següent manera.
+
+\begin{center}
+    \begin{forest}
+        [nat
+            [s] [a] [u]
+        ]
+    \end{forest}
+\end{center}
+\begin{center}
+    \small Figura 5: arbre \textit{figura 3} simplificat amb diferents condicions.\par
+\end{center}
+
+Nosaltres hem decidit simplificar el nostre arbre com a la \textit{figura 4} per poder fer les cerques amb més facilitat. Ja que en l'arbre de la \textit{figura 5} hauriem de comparar amb l'últim caracter de la paraula per saber cap a quin subarbre anar-hi. 
+\newline\par
+Com veurem al següent apartat, on expliquem com hem plantejat la funcionalitat \textit{comprova}, per buscar una paraula mirem tota la paraula que guarda el nostre node. Per tant, si volguessim utilitzar la implementació de la \textit{figura 5}, hauriem de modificar la funcionalitat \textit{comprovar} també.
+
 \subsubsection{Funcionalitat \textit{comprovar}}
-c
+
+Finalment, tenim la funció \textit{comprovar}. Aquesta rep una paraula com paràmetre i mira si existeix dintre del arbre. Es en aquesta funció on la variable \textit{finalparaula} té utilitat, ja que si trobem una paraula dins del nostre arbre, i coincideix en que l'ultim caràcter té com a cert aquest atribut, incrementarem la variable de \textit{totalTrobat}.
+\newline\par
+Com sempre, tenim un mètode públic que crida a una funció privada.
+
+\begin{lstlisting}[language=C++]
+    void existeixParaula(const string& par, node_trie* n, int i, 
+                                                        bool& r);
+    bool comprovar(const string& par) {
+        bool r = false;
+        existeixParaula(par, arrel, 0, r);
+        return r;
+        
+    }
+\end{lstlisting}
+
+A la funció privada \textit{existeixParaula} li passem el \textit{string} c (la paraula a buscar), el primer node de l'arbre, un index \textit{i} que ens indica el nombre de lletres trobades, i un \textit{bool} on hi guardarem el resultat.
+\newline\par
+Abans de veure el codi de \textit{comprova}, hem d'entendre una altra funció de la classe, anomenada \textit{inclouParaula}. Aquesta rep dos \textit{strings} com a parametres i mira si algun dels dos inclou l'altra. 
+\clearpage
+
+\begin{lstlisting}[language=C++]
+   bool inclouParaula(const string& a, const string b, int i, int& k);
+\end{lstlisting}
+
+Com veiem, rep les dues paraules \textit{a} i \textit{b} i dos enter \textit{i} i \textit{k}. El enter \textit{i} ens indica a partir de quin caracter hem de buscar a la paraula \textit{a}. En canvi, el enter \textit{k} té dues utilitats, primer l'utilitzem com index de la paraula \textit{b} i, a l'acabar, l'utilitzem com un booleà: si \textit{k} és 1 significa que la paraula \textit{a} conté la paraula \textit{b}, altrament si és 0.
+\newline\par
+Mirem els casos en que haurem de continuar la recursivitat i amb aquells que han d'aturar-la.
+
+\begin{itemize}
+    \item \textbf{Casos base.}\par
+    \begin{enumerate}
+        \item El node \textit{n} és \textit{null}. \par
+        Si arribem a un node buit, significa que no hem pogut trobar la paraula \textit{par}. El resultat serà \textit{false} i haurem acabat.
+        \item Si es compleix que \textit{i} és igual al nombre de lletres de la paraula \textit{par}.\par
+        En aquest cas, significa que hem sigut capaços de trobar totes les lletres que formen la paraula \textit{par}. Per tant, el resultat serà cert. A més, si l'ultim caràcter de \textit{par} és final de paraula, incrementarem el nombre de paraules trobades a la sopa.
+        \item La paraula \textit{n->info} inclou a la paraula \textit{par}.\par
+        Si es dona el cas que la paraula que es troba al node \textit{n} inclou la paraula \textit{par} voldrà dir que hem acabat. Ja que \textit{inclouParaula} mira totes les lletres després del index \textit{i}. És a dir, que tota la paraula o les lletres que falten per cercar és trobaran incloses en el node \textit{n}, per tant, existeix la paraula \textit{par} dins l'arbre. El resultat serà cert.
+    \end{enumerate}
+    \item \textbf{Casos recurisus.}
+    \begin{enumerate}
+        \item La paraula \textit{par} inclou a la paraula \textit{n->info}. \par
+        Aquest cas és bastant similar al tercer cas base, però en aquest cas haurem de seguir amb la recursivitat. Si \textit{par} inclou la paraula \textit{n->info}, significa que encara faltaran lletres per ser trobades. Per tant, farem la crida cap al fill central i incrementarem \textit{i} com tantes lletres conté la paraula del node \textit{n} (ja que són lletres trobades).
+        \item El caracter \textit{i} de \textit{par} és més gran que el primer caracter de \textit{n->info}.\par
+        El caracter \textit{i} de la paraula \textit{par} és més gran que el que trobem a \textit{n}, per tant, haurem de seguir la cerca pel subarbre esquerre sense incrementar el valor de \textit{i}, ja que no hem trobat cap paraula.
+        \item El caracter \textit{i} de \textit{par} és més petit que el primer caracter de \textit{n->info}.\par
+        Si el caracter \textit{i} de \textit{par} és menor al que guarda el node \textit{n}, haurem de fer la crida recursiva cap al subarbre dret sense incrementar el valor de \textit{i}.
+    \end{enumerate}
+\end{itemize}
+
+El codi de \textit{comprova} queda de la següent manera:
+
+\begin{lstlisting}[language=C++]
+    void existeixParaula(const string& par, node_trie* n, int i, 
+                                                        bool& r) {
+        int j = 0;
+        if (n == nullptr) {         // cas base 1
+            r = false;
+            return;
+        }
+        else if (i == par.size()) {               // cas base 2
+            if (n->finalparaula) ++totalTrobat;
+            r = true;
+            return;
+        }
+        else if (n->info[0] == par[i] and 
+                              inclouParaula(par, n->info, i, j)) {
+            if (j == 0) {
+                i += n->info.size();            // cas base 3
+                r = true;
+                if (n->finalparaula and i == par.size()) {
+                    ++totatTrobat;
+                }
+                return;
+            }
+            else {                              // cas rec 1
+                int salt = n->info.size();
+                existeixParaula(par, n->cnt, i+salt, r);
+            }
+        }
+        else if (n->info[0] < par[i]) {         // cas rec 2
+            existeixParaula(par, n->esq, i, r);
+        }
+        else if (n->info[0] > par[i]) {         // cas rec 3
+            existeixParaula(par, n->dre, i, r);
+        }
+    }
+\end{lstlisting}
+
+\paragraph{Correctesa.} La justificació informal de la funció \textit{comprova} és la següent.
+\begin{itemize}
+    \item \textbf{Cas base.}\par
+    Si ens trobem en que \textit{i} és igual al nombre de lletres que conté \textit{par} o bé, amb que el node \textit{n} és \textit{null} haurem acabat amb la recursivitat. En el primer cas haurem trobat la paraula \textit{par} i en el segon no.
+    \item \textbf{Cas recursiu.}\par
+    Si el node \textit{n} no és buit, podrem accedir als seus subarbres sense donar-se cap error. Per cada node visitat realitzarem comparacions i, segons el resultat d'aquestes, seguirem el camí per un fill o per altre.
+    \item \textbf{Decreixament.}\par
+    Per cada lletra trobada incrementem la \textit{i} una posició. Abans de fer la crida pel fill central actualitzem el valor de \textit{i}, per tant hi haurà menys lletres a buscar a l'arbre.\par
+    També, a cada crida recursiva l'arbre és fa cada vegada més petit.
+\end{itemize}
+
+\paragraph{Cost.} Cercar una paraula de longitud \textit{k} en un \textit{ternary search tree} té un cost promig de 
+\begin{math}
+    \textit{O}(\log{n + k})
+\end{math}.
+Això es pot veure condicionat segons l'equilibri de l'arbre. Per un arbre equilibrat entenem que té un nombre de nodes semblants a cadascun dels seus fills. Si es dona el cas que té més nodes concentrats en un subarbre pot presentar un cost de
+\begin{math}
+    \textit{O}(n + k)
+\end{math}.
 
 \clearpage
 \section{Filtre de Bloom}
 \subsection{Introducció}
 Un filtre de Bloom és una estructura de dades eficient en l'espai que permet comprovar si un element forma part d'un conjunt. No emmagatzema els elements en sí, només si en formen part, i no se'n poden eliminar elements.
-
-Està compost per un vector d'\textit{m} bits, posats a 0, i una sèrie de \textit{k} funcions de \textit{hash} que generin distribucions aleatòries uniformes.
-
+\newline\par
+Està compost per un vector d'\textit{m} bits, posats a 0, i una sèrie de \textit{k} funcions de \textit{hash} que generen distribucions aleatòries uniformes.
+\newline\par
 Per afegir-hi un element, es passa per les funcions de \textit{hash}, que retornen una sèrie d'índexs del vector. Els bits d'aquestes posicions del vector s'han d'activar (posar a 1).
-
+\newline\par
 Per comprovar si un element en forma part, també es passa per les funcions de \textit{hash}, es comproven els bits dels índexs obtinguts i, si tots estan activats, l'element forma part del conjunt.
-
-Com a desavantatge, no es poden produir falsos positius. Si, per casualitat, els bits d'un element han estat activats per altres elements, el resultat serà que aquest element forma part del conjunt, cosa que no és certa. En un filtre de Bloom simple, com el que hem implementat, no es poden detectar, tot i que es pot dissenyar perquè el percentatge en sigui molt reduït. 
+\newline\par
+Com a desavantatge, es poden produir falsos positius. Si, per casualitat, els bits d'un element han estat activats per altres elements, o dos elements comparteixen el mateix resultat a les funcions de \textit{hash}, el resultat serà que aquest element forma part del conjunt, cosa que no és certa. En un filtre de Bloom simple, com el que hem implementat, no es poden detectar, tot i que es pot dissenyar perquè el percentatge en sigui molt reduït. 
 
 \subsection{Característiques}
 El nombre de bits del vector i la quantitat de funcions de \textit{hash} necessàries es pot calcular amb dues senzilles fórmules matemàtiques.
-
+\newline\par
 Suposant que volem que funcioni correctament per un diccionari de 5000 elements (n = 5000) i tingui una ràtio de falsos positius de l'1\% (p = 0.01), tenim que:
 
-\[m = \frac{-n * \ln(p)}{\ln(2)}\]
+\[m = \frac{-n * \ln(p)}{\ln(2)} \thickapprox 47926\]
+
+\[k = \ln(s) * \frac{n}{m} = 6.64 \thickapprox 7\]
 
 Així doncs, tindríem un vector de 47926 bits i 7 funcions de \textit{hash} diferents.
 
 \subsection{Funcionament de la classe \textit{BloomFilterDictionary}}
 El filtre de Bloom està implementat dins de la classe \textit{BloomFilterDictionary}, al fitxer \textit{diccBloomFilter.cc}.
-
-La classe té dos atributs públics, un vector de booleans i la seva mida, un enter.
-
+\newline\par
+La classe té dos atributs privats, un vector de booleans i la seva mida, un enter.
+\newline\par
 Tenim 7 funcions de \textit{hash} privades, de les quals 4 estan basades en un polinomi (en varia el coeficient), i 3 estan basades en una funció \textit{hash} d'enllaçament de fitxers objecte força comuna en C++.
-
+\newline\par
 En algun cas, degut a l'\textit{overflow}, el resultat de les funcions és negatiu. Això provocaria un error, car els índexs dels vectors no poden ser negatius. Per solucionar-ho, l'hem passat per la funció de valor absolut.
 
-A més a més, disposem de dues funcions públiques per interactura amb el filtre de Bloom des de l'exterior de la classe: \textit{afegir} i \textit{comprovar}. 
+\begin{lstlisting}[language=C++, caption=Primer tipus de funció de hash]
+int BloomFilterDictionary::h1 (const string& s) {
+    long long int hash = 0;
 
+    for (int i = 0; i < s.size(); ++i) {
+        int valor = (int)s[i];
+        hash = 11*hash + valor;
+    }
+
+    return abs(hash % mida);
+}
+\end{lstlisting}
+
+\begin{lstlisting}[language=C++, caption=Segon tipus de funció de hash]
+int BloomFilterDictionary::h5 (const string& s) {
+    long long int hash = 0;
+
+    for (int i = 0; i < s.size(); ++i) {
+        int valor = (int)s[i];
+        hash = 16*hash + valor;
+
+        unsigned long int g = hash & 0xF0000000L;
+		if (g != 0) hash = pow(hash, g >> 24);
+		hash = hash & (~g);
+    }
+
+    return abs(hash % mida);
+}
+\end{lstlisting}
+
+A més a més, disposem de dues funcions públiques per interactuar amb el filtre de Bloom des de l'exterior de la classe: \textit{afegir} i \textit{comprovar}.
+\newline\par
+La primera afegeix un element al filtre i la segona en comprova la pertinença.
+\newline\par
 Finalment, disposem de dos constructors. El constructor per defecte crea un filtre per un diccionari d'unes 5000 paraules. L'altre constructor rep per paràmetre la quantitat d'elements a guardar-hi, i calcula la mida del vector necessària. 
+
+\subsection{Anàlisi de cost temporal i espacial}
+En aquest apartat fem un anàlisi teòric del cost espacial i temporal del filtre de Bloom.
+
+\subsubsection{Cost espacial}
+El principal avantatge del filtre de Bloom és l'estalvi espacial. Només necessita una matriu de booleans i, per tant, el seu cost és d'\textit{m} bits. 
+\newline\par
+De fet, un filtre amb una ràtio de falsos positius de l'1\% i un nombre òptim de funcions de \textit{hash} només necessita 9.6 bits per element, a diferència d'altres estructures de dades, que necessiten guardar l'element en sí i, en cas de ser gran, necessita un nombre més elevat de bits.
+
+\subsubsection{Cost temporal}
+
+Tant el cost d'afegir com el de comprovar són constants i no depenen del nombre d'elements que ja formen part del conjunt. Aquest cost serà el de la funció de \textit{hash} més extensa. Totes les funcions depenen de la quantitat de caràcters de l'\textit{string}. 
+\newline\par
+Per tant el cost temporal del filtre depèn de la mida de l'element que es vol afegir/comprovar.
+
 \subsection{Anàlisi del ràtio de falsos positius}
+Hem dissenyat un programa (\textit{\texttt{experiment\_falsos\_positius.cc}}) per testar que el filtre funciona correctament. Aquest experiment no s'ha de prendre com un apartat del tot rigorós, sinó més aviat orientatiu. 
+\newline\par
+Tenim tres fitxers que emmagatzemen la llista completa de paraules de tres llibres: Mare Balena (en català), Dracula (en anglès) i El Quijote (en castellà). Tots tres són de diferent mida i s'evaluen per separat. Per cada paraula del fitxer, s'afegeix al filtre i es comprova si totes les paraules del fitxer en formen part o no.
+\newline\par
+Tot i que, teòricament, els falsos negatius no són possibles en un filtre de Bloom, també els comptabilitzem. 
+\newline\par
+Els resultats que hem obtingut són:
+
+\begin{center}
+\begin{tabular}{||c c c c c c||} 
+ \hline
+ Nom & Mida & Falsos negatius & Falsos positius & Comprovacions & \% \\ [0.5ex] 
+ \hline\hline
+ Mare Balena & 5051 & 0 & 17391 & 25512601 & 0,068 \\ 
+ \hline
+ Dràcula & 9421 & 0 & 399676 & 88755241 & 0,450 \\
+ \hline
+ El Quijote & 22444 & 0 & 28500774 & 503733136 & 5,657 \\ 
+ \hline
+\end{tabular}
+\end{center}
+
+Gràcies a aquests resultats, que ens semblen prou desitjables pel nostre projecte, hem pogut comprovar que no es produeixen falsos negatius i que el ràtio de falsos positius és admissible. Per tant, podem fer servir aquesta implementació del filtre per resoldre la \textit{Supersopa}.
+Un anàlisi més precís sobre aquest tema es pot trobar a l'apartat de Resultats.
 
 \clearpage
 \section{Taula Hash}
+\subsection{Introducció}
+Una taula hash és una estructura de dades que mapeja claus amb valors. Utilitza una funció, normalment anomenada \textit{hash function}, que calcula un index per cada clau. A partir d'aquest index podem emmagatzemar el valor a la ubicació adecuada de la taula hash. Es diu que s'ha produit una colsio si dues claus diferents obtenen el mateix index. Per resoldre les colisions utilitzem el medode de \textit{double hashing}
+La tecnica de \textit{double hashing} consisteix en aplicar una segona funció hash a la clau per obtenir un segon index, aelshores sumem el primer index amb els segon multiplicat per \textit{i} i fem el mòdul d'aquest resultat amb la mida de la taula hash.
+
+ \begin{center} \textbf{(hash1(key) + i * hash2(key)) tableSize)}    \end{center}
+
+Podem anar incrementan el multiplicador del segon index  \textit{i} fins que no es produeixi una colisio i aixi sigui posible emmagatzemar el valor adecuadament.
+\newline\par
+Tot el benefici d'utilitzar una taula hash es deu al seu temps d'accés molt ràpid. Tot i que pot haver-hi alguna col·lisió, si triem una bona funció hash, aquesta possibilitat és gairebé nul·la.
+Així, de mitjana , la complexitat del temps és un temps d'accés constant O(1). 
+
+
 \subsection{Funcionament de la classe}
+La Taula de Hash amb \textit{double hashing} està implementada dins de la classe \textit{HashTableDictionary}, al fitxer \textit{diccDHashing.cc}.
+\newline\par
+La classe té quatre atributs privats, tres enters, la mida de la taula, el primer nombre primer mes petit que la mida i el numero de col·lisions. També te un iterador d'un array de strings.
+\newline\par
+Tenim 5 funcions privades, de les quals dues son funcions de hash.
+La primera consisteix en apartir de la clau, que es un string, sumar els seus caracter multiplicats per la seva posició i fem el modul amb el resultat i la mida de la taula. I la segona nomes l'utilitzem encas de colisio, utilitza el numero primer numero primer mes petit que la mida de la taula i fa el modul de la suma de caracters i aquest primer i li resta a aqeust mateix primer. 
+Les altres tres funcions son per calcular primers. \textit{esPrimer} retorna un booleà dient si el paràmetre es un numero primer, \textit{seguentPrimer} va incrementant un numero fins que troba el següent primer i \textit{abansPrimer} va decrementant el numero fins que troba l'ultim primer.
+
+\begin{lstlisting}[language=C++, caption=Primera funció de hash]
+
+int HashTableDictionary::hash1 (string key) {
+    int length = key.length();
+    int sum = 0;
+    for(int i = 1; i <= length; i++) {
+        sum += (i*(int)key[i]);
+    }
+    return (sum % tableSize);
+}
+
+
+\end{lstlisting}
+\begin{lstlisting}[language=C++, caption=Segona funció de hash(pel double hashing)]
+
+int HashTableDictionary::hash2 (string key) {
+    int length = key.length();
+    int sum = 0;
+    for(int i = 0; i < length; i++) {
+        sum += (int)key[i];
+    }
+    return (primerPetit - (sum % primerPetit));
+} 
+\end{lstlisting}
+
+A la part publica hem creat dues funcions, \textit{afegir} i \textit{comprovar}, que ens permeten relacionar la clases amb la resta.
+\newline\par
+La funció \textit{afegir} te com a parametre la paraula que volem afegir a la taula de hash, li apliquem la primera funció hash i si no hi ha colisió afegim la paraula a la taula a la posició que indica l'index. Si hi ha colisió utilitzem \textit{double hashing}, que ja l'hem explicat abans, fins que trobem una posició per poder emmagatzemar la paraula. Durant el proces de \textit{double hashing} contem el numero de colisions produides i ens guardem el seu valor maxim, que ens sera molt util a la funció de \textit{comprovar}.
+\newline\par
+La funció \textit{comprovar} te com a parametre la paraula que volem comprovar si existeix a la taula de hash, aleshores comencem aplicant-li la primera funció hash i amb l'index que ens torna anem a la ubicació exacta de la taula, comprovem si el valor que hi ha emmagatzemat a aquella ubicació es el mateix que el que ens pasen com a parametre, si ho és la funció retorna que ho ha trobat. 
+Si no ho és, apliquem \textit{double hashing} fins que el valor emmagatzemat sigui el mateix que el parametre o \textit{i} sigui el nombre maxim de colisions, que hem calculat anteriorment. Si apliquem \textit{double hashing} tantes vegades com el nombre maxim de colisions i segueix sense coincidir el valor emmagatzemat amb el parametre, aleshore retornem que no la hem trobat, es a dir, la paraula no existeix.
+
+\begin{lstlisting}[language=C++, caption= Funció per afegir un valor a la taula de hash]
+
+void HashTableDictionary::afegir (string key) { 
+    int index = hash1(key);
+    // si hi ha colisio
+    if (hashTable[index] != "nnnn") {
+        // index2 del segon hash
+        int index2 = hash2(key);
+        int i = 1;
+        bool found = false;
+        while (!found) {
+            // doble hash
+            int newIndex = (index + i * index2) % tableSize;
+            if (hashTable[newIndex] == "nnnn") {
+                hashTable[newIndex] = key;
+                if(i > maxcolision) maxcolision = i;
+                found = true;
+            }
+            i++;
+         }
+    }
+    else hashTable[index] = key;
+}
+
+\end{lstlisting}
+\begin{lstlisting}[language=C++, caption=Funció per comprovar si un valor existeix dins la taula de hash]
+
+bool HashTableDictionary::comprovar (string s) {
+    int index = hash1(s);
+    if (hashTable[index] != s) {
+        int index2 = hash2(s);
+        int i = 1;
+        while (i <= maxcolision) {
+            int newIndex = (index + i * index2) % tableSize;
+            if (hashTable[newIndex] == s) return true;
+            i++;
+        }
+        return false;
+    }
+    return true;
+}
+
+\end{lstlisting}
+
+Per ultim, disposem de dues constructores. La constructora per defecte crea una taula de hash per un diccionari d’unes 100 paraules, que només s'utilitza quan es crea la sopa i l’altre constructora rep per paràmetre la quantitat d’elements a guardar-hi, i calcula la mida necessària de la taula.
+
+\subsection{Cost}
+\subsection{Nombres Primers com a mida de la taula}
+Generalment, les funcions hash calculen un valor enter apartir de la clau. Per assegurar que aquest valor enter es troba dins de la longitud de la taula de hash, el més comú és calcular el mòdul de l'enter i la longitud de la taula.
+
+\begin{lstlisting}[language=C++, caption=Funció de hash exemple]
+
+int HashTableDictionary::hash1 (string key) {
+    tableSize = 15;
+    int length = key.length();
+    int sum = 0;
+    for(int i = 1; i <= length; i++) {
+        sum += (i*(int)key[i]);
+    }
+    return (sum % tableSize);
+}
+
+\end{lstlisting}
+En aquest exemple, on hem definit la longitud per defecte a 15, els enters que són múltiples de 3 o múltiples de 5, però no múltiples de 15, es dividiran en índexs de 3 i 5, respectivament. Per exemple, les claus que produeixen enters de 0, 15, 30, ... se'ls assignarà índex 0, les claus que produeixen enters de 3, 18, 33, ... se'ls assignarà índex 3, i les claus que produeixen enters de 5, 20, 35, ... se'ls assignarà l'índex 5. 
+\newline\par
+En altres paraules, cada enter que comparteixi un factor comú amb la longitud serà resumit en un índex que és un múltiple d'aquest factor.
+\newline\par
+Una taula de hash amb una longitud de nombre primer produirà la distribució més àmplia dels enters als índexs. En el exemple podem veure que surten patrons per a cada factor de la longitud, 15. Així que ens beneficia triar una longitud que té el menor nombre de factors. Els nombres primers només són divisibles per 1 i per si mateixos, per tant, si definim la longitud de la taula de hash a un nombre primer gran, es reduirà molt el nombre de col·lisions.
 
 \clearpage
 \section{Classe \textit{SuperSopa}}
+
 
 \clearpage
 \section{Experimentació}
@@ -580,10 +1007,56 @@ explicar com hem dissenyat els experiments (generar.cc i experiment\_vector.cc .
 
 \clearpage
 \section{Resultats}
+Al \textit{sorted vector} hem pogut comprovar que el temps dedicat a trobar les paraules es manté pels tres diccionaris diferents, tal com es pot obsevar a la \textit{Figure \ref{fig:sv1.png}}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.6]{sv1.png}
+    \caption{Relació entre les paraules trobades a cada sopa i el temps dedicat a resoldre-la al mètode \textit{Sorted Vector}.}
+    \label{fig:sv1.png}
+\end{figure}
+Això sí, el nombre de paraules trobades varia segons la quantitat de paraules del diccionari usat. Aquest resultat té sentit perquè si el diccionari té més paraules hi haurà més probabilitat que una combinació de paraules aleatòria de la sopa sigui dins el diccionari.\newline
+
+També hem fet comparacions entre els quatre mètodes d'emmagatzemar el diccionari, el resultat dels quals es pot veure a la \textit{Figure \ref{fig:compb}}. Veiem una clara diferència de la tendència que prenen el filtre Bloom i el doble hash respecte el vector ordenat i el \textit{Trie}. Aquest esquema es repeteix també als altres dos diccionaris, tal i com es pot veure a les .
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.6]{comparaciobalena.png}
+    \caption{Comparació dels quatre mètodes entre el temps per trobar un determinat nombre de paraules al diccionari \textit{mare-balena-vocabulary-3.txt}}
+    \label{fig:compb}
+\end{figure}
+
+
+
 \subsection{Filtre de Bloom: Falsos positius}
+A part d'analitzar el temps d'execució de la resolució de la \textit{Supersopa} amb el filtre de Bloom, també n'hem analitzat la quantitat de falsos positius, característica important d'aquesta estructura de dades.
+\newline\par
+Per cada sopa resolta, n'hem comparat la quantitat de paraules trobades amb el mètode del vector ordenat i amb el mètode del filtre de Bloom. Els resultats es poden observar al gràfic següent:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.6]{falsos positius vs mida}
+    \caption{Relació entre els falsos positius i la mida de la sopa, segons el diccionari emprat}
+    \label{fig:my_label}
+\end{figure}
+
+Com es pot observar el gràfic, el nombre de falsos positius és directament proporcional a la mida de la sopa. Té sentit pel fet que, com més gran la sopa, més possibles paraules conté i, per tant, més comprovacions s'han de fer.
+\newline\par
+També se'n pot extreure que depèn del diccionari emprat. Com més paraules conté el conjunt de paraules correctes, més possible és que, de casualitat, dues paraules comparteixin bits al filtre, o que un conjunt de paraules activin els bits necessaris perquè una altra es presenti com a positiva.
+\newline\par
+Com a resultat sorprenent, el diccionari Dràcula produeix més falsos positius que el Quijote, tot i contenir menys de la meitat de paraules. Això pot ser degut a la composició dels dos diccionaris. 
 
 \clearpage
 \section{Conclusions}
+Sorprenentment, el vector ordenat ha donat els resultats més ràpids de l'experiment. La principal conclusió que en traiem és que aquest mètode és eficient, però què un factor clau de la rapidesa ha sigut l'adequació de l'algorisme creat a l'estructura del problema.
+\newline\par
+Sovint només pensem en una simple cerca dicotòmica per resoldre aquest tipus de problemes amb un vector. Aquesta vegada anar més enllà i buscar una manera d'implementar-la amb modificacions ha donat bons resultats.
+\newline\par
+Pel que fa l'espai, resoldre la sopa amb el vector ordenat també ha donat resultats positius, ja que no hem necessitat cap estructura de dades auxiliar per executar els algorismes amb èxit.
+\newline\par
+L'única estructura de dades creada ha sigut un \textit{map}, del qual podríem prescindir perfectament ja que la seva única funció és saber quines eren les paraules solució de la sopa, i l'enunciat no demana saber-ho.
+\newline\par
+Com a conclusió final del vector ordenat, creiem que aquesta estructura d'emmagatzemar el diccionari és molt bàsica i no està pensada per resoldre problemes d'aquest tipus però si s'implementa un algorisme que l'adapti a les condicions del problema podrem obtenir resultats molt eficients.\newline
+
+El filtre de Bloom és molt eficient en espai i temps. Malgrat això, té la particularitat de produir falsos positius. En aplicacions on la precisió és menys important, com podria ser comprovar si el nom d'usuari existeix en una xarxa social, és intranscendent. Malauradament, en aplicacions cabdals, com podrien ser de mèdiques, militars, governamentals... pot ser molt greu. 
 
 \clearpage
 \section{Bibliografia}
@@ -606,7 +1079,22 @@ explicar com hem dissenyat els experiments (generar.cc i experiment\_vector.cc .
     \item Roura, Salvador (s. f.). \textit{Eficiència d'algorismes.} [Document]. \url{https://www.cs.upc.edu/eda/data/uploads/eficiencia.pdf}
 
     \item Rodrígez, Enric (s. f.). \textit{Correctesa i Anàlisi del Cost de l'Algorisme d'Euclides.} [Document]. \url{https://www.cs.upc.edu/eda/data/uploads/gcd.cat.pdf}
-    
+
+    \item Implementing a simple, high-performance Bloom filter in C++ \url{https://daankolthof.com/2019/05/06/implementing-a-simple-high-performance-bloom-filter-in-c/}
+
+    \item Hash function \url{https://en.wikipedia.org/wiki/Hash_function}
+
+    \item Bloom Filter \url{https://en.wikipedia.org/wiki/Bloom_filter}
+
+    \itme Bloom Filters - Introduction and Implementation \url{https://www.geeksforgeeks.org/bloom-filters-introduction-and-python-implementation/}
+
+    \item How many hash functions does my Bloom filter need? \url{https://stackoverflow.com/questions/658439/how-many-hash-functions-does-my-bloom-filter-need}
+
+    \item University of California San Diego \textit{Lecture 16 - Hashing} \url{https://cseweb.ucsd.edu/~kube/cls/100/Lectures/lec16/lec16.html}
+
+    \item Bloom Filter \url{https://brilliant.org/wiki/bloom-filter/}
+
+    \item Wikipedia contributors. (2022, 5 junio).\textit{ Cerca binària}. Viquipèdia, l’enciclopèdia lliure. Recuperado 21 de octubre de 2022, de \url{https://ca.wikipedia.org/wiki/Cerca_bin%C3%A0ria }   
 \end{enumerate}
 
 Us deixo aquest enllaç per fer la bibliografia, \url{https://www.scribbr.es/citar/generador/apa/}.
