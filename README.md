@@ -1,9 +1,9 @@
 # Super Sopa #
 Aquest és el projecte de l'assignatura d'algorismia impartida a la Facultat d'Informàtica de Barcelona el Quatrimestre de Tardor del curs 2022-2023. Els integrants del grup som:
-* Aina Gomez
-* Paula Muñoz
-* Jordi Palomera
-* Neus Mayol
+* [Aina Gomez](https://github.com/moonchildx)
+* [Paula Muñoz](https://github.com/pginer22)
+* [Jordi Palomera](https://github.com/jordipalomeraa)
+* [Neus Mayol](https://github.com/nmayol)
 
 ## Instruccions per executar els programes ##
 1. Descarregar el contingut del repositori.
